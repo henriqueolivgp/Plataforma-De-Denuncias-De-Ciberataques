@@ -32,7 +32,8 @@ const router = require('./routes/index.js');
 app.use('/api', router);
 
 //Fazer ligação à Base de Dados
-const database = require('./data/context/database');
+const database = require('./data/context/db_conection');
+const { clear } = require('console');
 
 try {
 	database.sync({ force: false, alter: true });
