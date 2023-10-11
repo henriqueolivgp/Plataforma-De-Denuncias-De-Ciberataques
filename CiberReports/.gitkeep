@@ -1,6 +1,6 @@
 client
 services
-@types
+/@types/
 components
 routes
 screen
