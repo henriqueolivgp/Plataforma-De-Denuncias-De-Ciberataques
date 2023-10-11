@@ -1,2 +1,12 @@
 client
 services
+@types
+components
+routes
+screen
+theme
+controllers
+data
+middleware
+routers
+utils
