@@ -1,14 +1,18 @@
-import '../theme/App.css'
+import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
+
+import {Outlet} from 'react-router-dom';
 
 function App() {
 
+
   return (
     <>
-      <div>
-        <h1>Estou pronto a ser configurado</h1>
-      </div>
+      <Navbar/>
+			<Outlet />
+			<Footer/>
     </>
   )
 }
 
-export default App
+export default App;
