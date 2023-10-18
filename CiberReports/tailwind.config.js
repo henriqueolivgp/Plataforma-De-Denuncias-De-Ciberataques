@@ -32,6 +32,7 @@ export default {
 
     },
     colors: {
+      'bluelite': '#139CFFFF'
 
     },
     fontFamily: {
