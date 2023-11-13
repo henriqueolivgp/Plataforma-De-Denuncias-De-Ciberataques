@@ -32,9 +32,8 @@ In the GitHub edit, drag the video that it already puts on github itself.
 
 ## 🎨 Layout
 
-Layout developed by [Henryolivgp](https://www.instagram.com/henryolivgp/)
-
-
+Layout developed by **Henrique Oliveira** and **Pedro Ferreira**<br>
+└──> [Layout]()
 
 ## 👏 Learning and more Implementations
 
