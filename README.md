@@ -179,10 +179,10 @@ This project is under the MIT license. See the [LICENSE](https://choosealicense.
 <p align="center">
   <img width="200px" alt="Henrique Oliveira" title="Author Henrique Oliveira" src="https://github.com/henriqueolivgp/MyReademe/blob/main/assets/henriqueoliv_gp.svg" />
 
-  <h3 align="center">Henrique Oliveira</h3>
+  <h3 align="center">Henrique Oliveira and Pedro Ferreira</h3>
   
   <p align="center">  
-    Made with love and hate 😅, get in touch!
+    We made this project with love and hate 😅, come to see!!
   </p>
 </p>  
   
