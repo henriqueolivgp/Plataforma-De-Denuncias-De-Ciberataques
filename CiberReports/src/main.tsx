@@ -7,6 +7,7 @@ import ErrorPage from './client/screens/ErrorPage.tsx'
 // importar/configurar o react-router-dom
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 import App from './client/routes/App.tsx'
+import Register from './client/screens/Register.tsx'
 
 // criação da const function
 const router = createBrowserRouter([
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
 			{
 				path: "/",
 				element: <Home />,
+			},
+			{
+				path: "/register",
+				element: <Register />,
 			}
 		]
 	}
