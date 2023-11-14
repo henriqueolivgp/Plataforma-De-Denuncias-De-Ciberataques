@@ -42,10 +42,10 @@ Describe what you learned and implemented in the project.
 ## 💡 Technologies Used
 
 - [x] [Vite](https://vitejs.dev/)
-- [x] [Expo](https://docs.expo.dev/)
 - [x] [React](https://reactjs.org/) ```version: "18.2.0"```
-- [x] [React Native](https://reactnative.dev/) ```version: "0.71.3"```
 - [x] [TypeScript](https://www.typescriptlang.org/)
+- [x] [Node.js](https://nodejs.org/en/)
+- [x] [TailwindCSS](https://tailwindcss.com/docs/installation)
 - [x] [Flowbite Components]([https://styled-components.com/](https://flowbite.com/docs/getting-started/introduction/))
 - [x] Inform others used in the project
 
@@ -128,42 +128,6 @@ Start the server
 
 ```bash
   npm run start
-```
-
-### Mobile
-
-Clone the project
-
-```bash
-  git clone https://link-para-o-projeto
-```
-
-Enter the project directory
-
-```bash
-  cd my-project
-```
-
-Install with dependencies
-
-```bash
-  npm install
-```
-
-Start the server
-
-```bash
-  npx expo start
-```
-
-- IOS:
-```bash
-  npx pod-install && npx react-native run-ios
-```
-
-- Android:
-```bash
-  npx react-native run-android
 ```
 
 ## 📝 Routes
