@@ -1,0 +1,41 @@
+Utilizadores:
+	user_id  PK
+	full_name
+	username
+	email
+	password
+	banner
+	role
+ 	num_denuncias FK
+	foto/avatar (pelo que li podes colocar na BD ou usar uma variaveis como ponteiro para a localização do ficheiro02232mk)
+
+denuncias_user:
+	denuncias_user_id PK
+	user_id FK
+	total_denuncias
+	categoria_Ataque FK
+	qnt_Cat_ataque
+
+mensagens:
+	mensage_id PK
+	user_id  FK
+	conteudo
+	data_envio	
+	
+
+submissao:
+ 	submisao_id PK
+	denuncia_id FK
+	Status_submisao
+		
+
+denuncias:
+	denuncia_id PK
+	user_id FK
+        categoria_Ataque
+	data_denuncia
+	status
+	
+
+
+
