@@ -16,7 +16,7 @@ function Register() {
               <div className="flex justify-center items-center h-screen">
                 <div className=" xl:w-[580px;] xl:h-[640px] bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                   <form className="space-y-6" action="#">
-                    <h1 className="text-xl text-center font-bold font-Epilogue text-gray-900 dark:text-white">Create an account</h1>
+                    <h1 className="text-xl text-center font-bold font-Epilogue text-gray-900 dark:text-white">Login</h1>
                     <div className="flex flex-col items-center">
                       <div className="flex flex-col">
                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
