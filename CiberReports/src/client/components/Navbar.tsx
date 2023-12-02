@@ -12,7 +12,7 @@ export default function Navbar() {
     const id_userDropdown = setTimeout(() => {
       setIsOpen(false);
       setIsLinksOpen(false);
-    }, 1000);
+    }, 3000);
 
     // Armazenar o identificador do timeout na variável de estado
     setTimeoutId(id_userDropdown);
