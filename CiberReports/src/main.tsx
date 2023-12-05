@@ -10,6 +10,7 @@ import App from './client/routes/App.tsx'
 import Register from './client/screens/Register.tsx'
 import Login from './client/screens/Login.tsx'
 
+
 // criação da const function
 const router = createBrowserRouter([
 	{
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
+	<ToastContainer/>
     <RouterProvider router={router} />
   </React.StrictMode>,
 )
