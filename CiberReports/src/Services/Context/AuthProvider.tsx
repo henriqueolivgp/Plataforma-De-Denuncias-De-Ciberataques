@@ -4,7 +4,7 @@ import { User } from "@supabase/supabase-js";
 
 const AuthContext = createContext({});
 
-
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);
 
 const login = (email: string, password: string) =>
