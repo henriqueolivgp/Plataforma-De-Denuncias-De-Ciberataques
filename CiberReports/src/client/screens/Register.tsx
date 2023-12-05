@@ -6,8 +6,6 @@ import { useRef, useState, FormEvent } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
-
-
 interface SignUpProps {
   email: string;
   password: string;
@@ -42,10 +40,12 @@ function Register() {
       !confirmPasswordRef.current?.value
     ) {
       setErrorMsg("Please fill all the fields");
+      toast.error(errorMsg);
       return;
     }
     if (passwordRef.current!.value !== confirmPasswordRef.current!.value) {
       setErrorMsg("Passwords don't match");
+      toast.error(errorMsg);
       return;
     }
     try {
@@ -56,19 +56,14 @@ function Register() {
         password: passwordRef.current!.value,
       });
       setMsg("Registration Successful. Check your email to confirm your account");
+        toast.success(msg);
     } catch (error) {
       setErrorMsg("Error in Creating Account");
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
     }
   };
-
-  {errorMsg && (
-    toast.error(errorMsg, {
-      autoClose: 60000,
-    })
-  )}
-
 
   return (
     <>
@@ -96,7 +91,7 @@ function Register() {
                   </div>
                 </div>
 
-
+                
 
                 <div className="flex items-start"></div>
                 <div className="flex justify-center">

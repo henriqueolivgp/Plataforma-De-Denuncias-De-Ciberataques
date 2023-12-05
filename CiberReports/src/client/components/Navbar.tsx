@@ -4,31 +4,41 @@ import { Link } from 'react-router-dom';
 export default function Navbar() {
 
   {/*Function UserDropdown */}
-  const [isOpen, setIsOpen] = useState(false);
-  const [timeoutId, setTimeoutId] = useState<number | null>(null);
+// ...
+const [isOpen, setIsOpen] = useState(false);
+const [timeoutId, setTimeoutId] = useState(Number);
 
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-    const id_userDropdown = setTimeout(() => {
-      setIsOpen(false);
-      setIsLinksOpen(false);
-    }, 3000);
+const handleClick = () => {
+  setIsOpen(!isOpen);
 
-    // Armazenar o identificador do timeout na variável de estado
-    setTimeoutId(id_userDropdown);
+   // Limpar o timeout existente antes de definir um novo
+   if (timeoutId !== null) {
+    clearTimeout(timeoutId);
+  }
+
+  const id = setTimeout(() => {
+    setIsOpen(false);
+    setIsLinksOpen(false);
+  }, 3000);
+
+  // Armazenar o identificador do timeout na variável de estado
+  setTimeoutId(id);
+};
+
+// Limpar o timeout se o componente for desmontado antes que o timeout expire
+useEffect(() => {
+  return () => {
+    // Verificar se há um timeout ativo antes de tentar limpar
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId);
+    }
   };
+}, [timeoutId]);
+// ...
 
-  // Limpar o timeout se o componente for desmontado antes que o timeout expire
-  useEffect(() => {
-    return () => {
-      // Verificar se há um timeout ativo antes de tentar limpar
-      if (timeoutId !== null) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, [timeoutId]);
 
   {/*Function DropdownLinks*/}
+  const [timeoutId2, setTimeoutId2] = useState<number | null>(0);
   const [isLinksOpen, setIsLinksOpen] = useState(false);
 
   const handleLinksToggle = () => {
@@ -40,17 +50,17 @@ export default function Navbar() {
     }, 1000);
 
 
-    setTimeoutId(id_LinksDropdown);
+    setTimeoutId2(id_LinksDropdown);
   };
     // Limpar o timeout se o componente for desmontado antes que o timeout expire
     useEffect(() => {
       return () => {
         // Verificar se há um timeout ativo antes de tentar limpar
-        if (timeoutId !== null) {
-          clearTimeout(timeoutId);
+        if (timeoutId2 !== null) {
+          clearTimeout(timeoutId2);
         }
       };
-    }, [timeoutId]);
+    }, [timeoutId2]);
 
 
   return (
