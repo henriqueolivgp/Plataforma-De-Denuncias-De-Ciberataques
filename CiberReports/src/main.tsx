@@ -9,6 +9,8 @@ import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 import App from './client/routes/App.tsx'
 import Register from './client/screens/Register.tsx'
 import Login from './client/screens/Login.tsx'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer} from 'react-toastify';
 
 
 // criação da const function
