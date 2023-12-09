@@ -1,6 +1,6 @@
 import { Banner } from "flowbite-react";
 import { Link } from 'react-router-dom';
-import { supabase } from '../../Services/supabase/client';
+import { supabase } from '../../Services/supabase/SupabaseClient';
 import { useRef, useState, FormEvent } from "react";
 import { toast } from "react-toastify";
 

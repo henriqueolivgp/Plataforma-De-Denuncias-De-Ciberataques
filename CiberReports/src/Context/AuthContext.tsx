@@ -1,63 +1,92 @@
-import { createContext, useEffect, useState, ReactNode } from "react";
-import { supabase } from "../Services/supabase/client";
-import { UserData } from "../data/UserData"
+import { ReactNode, useEffect, useState } from "react";
+import { createContext } from "react";
+import { SupaBaseClient } from '../Services/supabase/SupaBaseClient';
+import { User, Session } from "@supabase/supabase-js";
 
-type AuthContextDataProps = {
-    user: UserData,
-    isLoadingUser: boolean,
-    auth: boolean,
-    signIn: (email: string, password: string) => Promise<void>,
-    singOut: () => Promise<void>
+type ChildrenContext = {
+  children: ReactNode,
+  children2: ReactNode
 }
 
-export const AuthContext = createContext<AuthContextDataProps>(
-    {} as AuthContextDataProps
-)
+export const AuthContext = createContext<{
+  session: Session | null | undefined;
+  user: User | null | undefined;
+  signOut: () => void;
+  signIn: (email: string, password: string) => Promise<void>; // Adjust the return type if needed
+  passwordReset: (email: string) => Promise<void>;
+}>({
+  session: null,
+  user: null,
+  signOut: () => { },
+  signIn: async (email: string, password: string) => Promise<void>, // Provide a placeholder implementation or leave it empty
+  passwordReset: async (email) => { }, // Provide a placeholder implementation or leave it empty
+});
 
-const login = (email: string, password: string) =>
-    supabase.auth.signInWithPassword({ email, password });
 
-const signOut = () => supabase.auth.signOut();
+export const AuthProvider = async ({ children }: ChildrenContext) => {
+  const [user, setUser] = useState<User>()
+  const [session, setSession] = useState<Session | null>();
+  const [loading, setLoading] = useState(true);
 
-type AuthContextProviderProps = {
-    children: ReactNode
-}
+  useEffect(() => {
+    const setData = async () => {
+      const { data: { session }, error } = await SupaBaseClient.auth.getSession();
+      if (error) throw error;
+      setSession(session)
+      setUser(session?.user)
+      setLoading(false);
+    };
 
-const passwordReset = (email: string) =>
-    supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: "http://localhost:5173/update-password"
+    const { data: listener } = SupaBaseClient.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setUser(session?.user)
+      setLoading(false)
     });
 
-const AuthProvider = ({ children }: AuthContextProviderProps) => {
-    const [auth, setAuth] = useState(false);
-    const [user, setUser] = useState<UserData | null>(null);
+    setData();
 
-    useEffect(() => {
-        const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
-            if (event === "PASSWORD_RECOVERY") {
-                setAuth(false);
-            } else if (event === "SIGNED_IN") {
-                // Verificar se 'session' e 'session.user' não são nulos antes de acessá-los
-                if (session && session.user) {
-                    setUser(session.user);
-                    setAuth(true);
-                }
-            } else if (event === "SIGNED_OUT") {
-                setAuth(false);
-                setUser(null);
-            }
-        });
-        return () => {
-            data?.subscription.unsubscribe();
-        };
-    }, []);
+    return () => {
+      listener?.subscription.unsubscribe();
+    };
+  }, []);
+
+  const SignOut = {
+    session,
+    user,
+    signOut: () => SupaBaseClient.auth.signOut(),
+  };
+
+  const signIn = async (email: string, password: string) => {
+    try {
+      const { user: userData, error } = await SupaBaseClient.auth.signIn({ email, password });
+
+      if (error) {
+        console.error('Erro no login:', error.message);
+        // Handle the error as needed
+      } else {
+        console.log('Usuário logado com sucesso:', userData);
+        // Update the state or perform other actions after successful login
+      }
+    } catch (error) {
+      console.error('Erro no login:', error.message);
+      // Handle the error as needed
+    }
+  };
+
+  const passwordReset = (email: string) =>
+    SupaBaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: "http://localhost:5173/update-password"
+    });
 
 
-    return (
-        <AuthContext.Provider value={{ auth, user, login, signOut, passwordReset }}>
-            {children}
-        </AuthContext.Provider>
-    );
+
+
+  // use a provider to pass down the value
+  return (
+    <AuthContext.Provider value={{ user, signIn, SignOut, passwordReset }}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

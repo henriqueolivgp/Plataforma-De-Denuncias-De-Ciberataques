@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import Home from './client/screens/Home.tsx'
 import './client/theme/index.css'
@@ -38,8 +37,5 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-	<ToastContainer/>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+	<><ToastContainer /><RouterProvider router={router} /></>
 )
