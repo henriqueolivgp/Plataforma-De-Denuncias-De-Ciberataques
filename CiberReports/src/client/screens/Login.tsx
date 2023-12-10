@@ -11,7 +11,7 @@ function Login() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { signIn } = useAuth();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ function Login() {
       const {
         data: { user, session },
         error
-      } = await login(emailRef.current.value, passwordRef.current.value);
+      } = await signIn(emailRef.current.value, passwordRef.current.value);
       if (error) toast.error(error.message);
       if (user && session) navigate("/");
     } catch (error) {
