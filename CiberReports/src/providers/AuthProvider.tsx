@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 
 
-export const AuthProvider = async ({ children }: ChildrenContext) => {
+export function AuthProvider ({ children }: ChildrenContext){
     const [user, setUser] = useState<User>()
     const [session, setSession] = useState<Session | null>();
     const [loading, setLoading] = useState(true);
@@ -33,7 +33,7 @@ export const AuthProvider = async ({ children }: ChildrenContext) => {
         };
     }, []);
 
-    const SignOut = async ()  => {
+    const signOut = async ()  => {
         try {
             const { error } = await SupaBaseClient.auth.signOut()
 
@@ -41,6 +41,8 @@ export const AuthProvider = async ({ children }: ChildrenContext) => {
                 toast.error('Erro no login!!');
             } else {
                 toast.success('Usuário logado com sucesso!');
+                setSession(undefined)
+                setUser(undefined);
             }
         } catch (error) {
             toast.error('Erro no login!!!');
@@ -49,12 +51,15 @@ export const AuthProvider = async ({ children }: ChildrenContext) => {
 
     const signIn = async (email: string, password: string) => {
         try {
-            const { error } = await SupaBaseClient.auth.signInWithPassword({ email, password });
-
+            
+            const { data, error } = await SupaBaseClient.auth.signInWithPassword({ email, password });
+            
             if (error) {
                 toast.error('Erro no login!!');
             } else {
                 toast.success('Usuário logado com sucesso!');
+                setSession(data.session)
+                setUser(data.session.user)
             }
         } catch (error) {
             toast.error('Erro no login!!!');
@@ -68,10 +73,10 @@ export const AuthProvider = async ({ children }: ChildrenContext) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, signIn, SignOut, passwordReset }}>
-            {!loading && children}
+        // passar todos os tipos declarados anteriormente
+        <AuthContext.Provider value={{ session, user, loading, signIn, signOut, passwordReset }}>
+            {children}
         </AuthContext.Provider>
     );
-};
+}
 
-export default AuthProvider;

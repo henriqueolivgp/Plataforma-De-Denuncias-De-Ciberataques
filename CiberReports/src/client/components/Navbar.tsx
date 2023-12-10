@@ -6,7 +6,7 @@ export default function Navbar() {
   {/*Function UserDropdown */}
 // ...
 const [isOpen, setIsOpen] = useState(false);
-const [timeoutId, setTimeoutId] = useState(Number);
+const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null >();
 
 const handleClick = () => {
   setIsOpen(!isOpen);
@@ -38,7 +38,7 @@ useEffect(() => {
 
 
   {/*Function DropdownLinks*/}
-  const [timeoutId2, setTimeoutId2] = useState<number | null>(0);
+  const [timeoutId2, setTimeoutId2] = useState<NodeJS.Timeout | null>();
   const [isLinksOpen, setIsLinksOpen] = useState(false);
 
   const handleLinksToggle = () => {
@@ -69,7 +69,7 @@ useEffect(() => {
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="container-xxl flex flex-wrap items-center p-5">
         <a href="#" className="flex items-center">
-          <img src="/src/assets/logo/TechquizBlack.png" className="h-6 " alt="Techquiz-logo" />
+          <img src="#" className="h-6 " alt="CR-logo" />
         </a>
         <div className="flex items-center md:order-2 mx-auto mr-3">
           <div className="relative hidden md:block mr-4">
@@ -82,7 +82,7 @@ useEffect(() => {
           <div className="relative">
             <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded={isOpen} data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom" onClick={handleClick}>
               <span className="sr-only">Open user menu</span>
-              <img className="w-8 h-8 rounded-full" src="/src/assets/user.png" alt="user photo" />
+              <img className="w-8 h-8 rounded-full" src="#" alt="user photo" />
             </button>
             <div
               className={`absolute top-50% -right-4 ${isOpen ? "" : "hidden"} z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`}
@@ -108,7 +108,6 @@ useEffect(() => {
               </ul>
             </div>
           </div>
-
           <button data-collapse-toggle="mobile-menu-2" type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded={isLinksOpen} onClick={handleLinksToggle}>
             <span className="sr-only">Open main menu</span>
             <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>

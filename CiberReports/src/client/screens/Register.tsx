@@ -17,6 +17,7 @@ function Register() {
 
   const register = async ({ email, password }: SignUpProps) => {
     try {
+      // erro
       const { data, error } = await SupaBaseClient.auth.signUp({ email, password });
       if (!error && data) {
         return data; // or whatever data you want to return
@@ -24,7 +25,9 @@ function Register() {
         throw new Error(error?.message || 'Unknown error');
       }
     } catch (error) {
+      console.log(error);
       throw new Error("Error in Creating Account");
+      
     }
   };
 
@@ -46,6 +49,7 @@ function Register() {
     }
     try {
       setLoading(true);
+      // erro
       await register({
         email: emailRef.current!.value,
         password: passwordRef.current!.value,

@@ -1,5 +1,8 @@
 
+
 function UpdatePassword() {
+
+
 
   return (
     <>
@@ -7,6 +10,8 @@ function UpdatePassword() {
         <div className="content mx-auto">
           <h1>Update Profile page</h1>
           
+          <button>Estou aqui</button>
+
         </div>
       </div>
       
