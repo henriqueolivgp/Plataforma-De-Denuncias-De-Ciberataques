@@ -1,6 +1,6 @@
 import { Banner } from "flowbite-react";
 import { Link } from 'react-router-dom';
-import { supabase } from '../../Services/supabase/client';
+import { SupaBaseClient } from '../../Services/supabase/SupaBaseClient';
 import { useRef, useState, FormEvent } from "react";
 import { toast } from "react-toastify";
 
@@ -17,14 +17,17 @@ function Register() {
 
   const register = async ({ email, password }: SignUpProps) => {
     try {
-      const { data, error } = await supabase.auth.signUp({ email, password });
+      // erro
+      const { data, error } = await SupaBaseClient.auth.signUp({ email, password });
       if (!error && data) {
         return data; // or whatever data you want to return
       } else {
         throw new Error(error?.message || 'Unknown error');
       }
     } catch (error) {
+      console.log(error);
       throw new Error("Error in Creating Account");
+      
     }
   };
 
@@ -46,6 +49,7 @@ function Register() {
     }
     try {
       setLoading(true);
+      // erro
       await register({
         email: emailRef.current!.value,
         password: passwordRef.current!.value,

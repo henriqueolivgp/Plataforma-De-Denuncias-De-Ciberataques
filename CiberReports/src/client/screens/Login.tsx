@@ -2,7 +2,7 @@ import { Banner } from "flowbite-react";
 import { toast } from "react-toastify";
 import { useRef, useState, FormEvent} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/AuthProvider";
+import { useAuth } from "../../hooks/useAuth";
 
 
 function Login() {
@@ -11,7 +11,7 @@ function Login() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { signIn, user, session } = useAuth();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -21,13 +21,10 @@ function Login() {
         toast.error("Please fill in the fields");
         return;
       }
-      const {
-        data: { user, session },
-        error
-      } = await login(emailRef.current.value, passwordRef.current.value);
-      if (error) toast.error(error.message);
+      await signIn(emailRef.current.value, passwordRef.current.value);
       if (user && session) navigate("/");
     } catch (error) {
+      console.log(error);
       toast.error("Email or Password Incorrect");
     }
     setLoading(false);
