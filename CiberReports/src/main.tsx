@@ -10,6 +10,7 @@ import Register from './client/screens/Register.tsx'
 import Login from './client/screens/Login.tsx'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer} from 'react-toastify';
+import Profile from './client/screens/Profile.tsx'
 
 
 // criação da const function
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
 			{
 				path: "/login",
 				element: <Login />,
+			},
+			{
+				path: "/profile",
+				element: <Profile />
 			}
 		]
 	}
