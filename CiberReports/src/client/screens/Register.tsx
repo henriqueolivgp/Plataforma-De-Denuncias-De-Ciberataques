@@ -1,6 +1,6 @@
 import { Banner } from "flowbite-react";
 import { Link } from 'react-router-dom';
-import { supabase } from '../../Services/supabase/SupabaseClient';
+import { SupaBaseClient } from '../../Services/supabase/SupaBaseClient';
 import { useRef, useState, FormEvent } from "react";
 import { toast } from "react-toastify";
 
@@ -17,7 +17,7 @@ function Register() {
 
   const register = async ({ email, password }: SignUpProps) => {
     try {
-      const { data, error } = await supabase.auth.signUp({ email, password });
+      const { data, error } = await SupaBaseClient.auth.signUp({ email, password });
       if (!error && data) {
         return data; // or whatever data you want to return
       } else {

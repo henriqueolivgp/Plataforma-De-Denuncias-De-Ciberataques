@@ -58,7 +58,7 @@ export const AuthProvider = async ({ children }: ChildrenContext) => {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { user: userData, error } = await SupaBaseClient.auth.signIn({ email, password });
+      const { user: userData, error } = await SupaBaseClient.auth.signInWithPassword({ email, password });
 
       if (error) {
         console.error('Erro no login:', error.message);
@@ -68,7 +68,7 @@ export const AuthProvider = async ({ children }: ChildrenContext) => {
         // Update the state or perform other actions after successful login
       }
     } catch (error) {
-      console.error('Erro no login:', error.message);
+      console.error('Erro no login:');
       // Handle the error as needed
     }
   };
@@ -87,6 +87,6 @@ export const AuthProvider = async ({ children }: ChildrenContext) => {
       {!loading && children}
     </AuthContext.Provider>
   );
-};
+};g
 
 export default AuthProvider;
