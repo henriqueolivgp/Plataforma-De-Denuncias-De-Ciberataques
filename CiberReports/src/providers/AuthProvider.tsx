@@ -1,5 +1,5 @@
 import { SupaBaseClient } from '../Services/supabase/SupaBaseClient';
-import ChildrenContext, { AuthContext } from "../Context/AuthContext";
+import ChildrenContext, { AuthContext } from "../context/AuthContext";
 import { useEffect, useState } from 'react';
 import type { User, Session } from "@supabase/supabase-js";
 import { toast } from 'react-toastify';
