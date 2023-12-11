@@ -7,11 +7,17 @@ function Profile() {
       <Banner />
       <div className="container mx-auto ">
         <div className="content mx-auto">
-          <div className="w-screen p-6 mb-4 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-10 dark:bg-gray-800 dark:border-gray-700">
-            <h5 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
-              Banner do utilizador
-            </h5>
-          </div>
+          <section className="banner bg-violet-100 h-48 relative z-10">
+            <div className="Text-Button flex flex-col relative z-10 xl:flex-row">
+              <div className="w-full absolute overflow-hidden h-48 xl:relative">
+                <img
+                  className="w-screen xxl:blur-none xl:blur-none lg:blur-sm md:blur-sm sm:blur-sm xs:blur-sm h-full object-cover"
+                  src="https://t4.ftcdn.net/jpg/05/52/98/77/360_F_552987749_4Y5SJa4KRL2UIzVrk5vznfbQtDeJZtqe.jpg"
+                  alt="banner"
+                />
+              </div>
+            </div>
+          </section>
 
           <div
             id="dropdown"
@@ -25,6 +31,14 @@ function Profile() {
                 <a
                   href="#"
                   className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  style={{
+                    backgroundImage:
+                      "url('https://static-00.iconduck.com/assets.00/profile-icon-512x512-w0uaq4yr.png')",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "20px 20px",
+                    backgroundPosition: "left center",
+                    paddingLeft: "30px",
+                  }}
                 >
                   Profile
                 </a>
@@ -33,6 +47,14 @@ function Profile() {
                 <a
                   href="#"
                   className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  style={{
+                    backgroundImage:
+                      "url('https://cdn-icons-png.flaticon.com/512/795/795653.png')",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "20px 20px",
+                    backgroundPosition: "left center",
+                    paddingLeft: "30px",
+                  }}
                 >
                   Roadmap
                 </a>
@@ -41,6 +63,14 @@ function Profile() {
                 <a
                   href="#"
                   className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  style={{
+                    backgroundImage:
+                      "url('https://cdn-icons-png.flaticon.com/512/90/90417.png')",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "20px 20px",
+                    backgroundPosition: "left center",
+                    paddingLeft: "30px",
+                  }}
                 >
                   Reports
                 </a>
@@ -49,6 +79,14 @@ function Profile() {
                 <a
                   href="#"
                   className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  style={{
+                    backgroundImage:
+                      "url('https://icons.veryicon.com/png/o/miscellaneous/jinfeng-information-technology/chat-118.png')",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "20px 20px",
+                    backgroundPosition: "left center",
+                    paddingLeft: "30px",
+                  }}
                 >
                   Chat
                 </a>
@@ -57,6 +95,14 @@ function Profile() {
                 <a
                   href="#"
                   className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  style={{
+                    backgroundImage:
+                      "url('https://cdn.icon-icons.com/icons2/2761/PNG/512/settings_icon_176440.png')",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "20px 20px",
+                    backgroundPosition: "left center",
+                    paddingLeft: "30px",
+                  }}
                 >
                   Settings
                 </a>
@@ -65,7 +111,7 @@ function Profile() {
           </div>
         </div>
       </div>
-
+      
     </>
   );
 }
