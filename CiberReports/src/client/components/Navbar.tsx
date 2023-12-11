@@ -53,6 +53,7 @@ export default function Navbar() {
 
     setTimeoutId2(id_LinksDropdown);
   };
+  
   // Limpar o timeout se o componente for desmontado antes que o timeout expire
   useEffect(() => {
     return () => {
@@ -63,6 +64,7 @@ export default function Navbar() {
     };
   }, [timeoutId2]);
 
+  // Funcao responsavel por fazer o logOut
   const { signOut, session } = useAuth();
 
   const handleLogOut = async (e: { preventDefault: () => void; }) => {
