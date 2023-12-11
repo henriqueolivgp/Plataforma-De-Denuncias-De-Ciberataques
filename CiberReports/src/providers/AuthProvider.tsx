@@ -47,6 +47,22 @@ export function AuthProvider ({ children }: ChildrenContext){
         }
     };
 
+    const signUp = async ( email: string, password: string ) => {
+        try {
+          // erro
+          const { data, error } = await SupaBaseClient.auth.signUp({ email, password });
+          if (!error && data) {
+            setSession(data.session);
+            setUser(data.session?.user)
+          } else {
+            throw new Error(error?.message || 'Unknown error');
+          }
+        } catch (error) {
+          throw toast.error("Error in Creating Account");
+          
+        }
+      };
+
     const signIn = async (email: string, password: string) => {
         try {
             
@@ -55,12 +71,12 @@ export function AuthProvider ({ children }: ChildrenContext){
             if (error) {
                 toast.error('Erro no login!!');
             } else {
-                toast.success('Usuário logado com sucesso!');
+                console.log('Usuário logado com sucesso!');
                 setSession(data.session)
                 setUser(data.session.user)
             }
         } catch (error) {
-            toast.error('Erro no login!!!');
+            console.log('Erro no login!!!');
         }
     };
 
@@ -72,7 +88,7 @@ export function AuthProvider ({ children }: ChildrenContext){
 
     return (
         // passar todos os tipos declarados anteriormente
-        <AuthContext.Provider value={{ session, user, loading, signIn, signOut, passwordReset }}>
+        <AuthContext.Provider value={{ session, user, loading, signUp, signIn, signOut, passwordReset }}>
             {children}
         </AuthContext.Provider>
     );

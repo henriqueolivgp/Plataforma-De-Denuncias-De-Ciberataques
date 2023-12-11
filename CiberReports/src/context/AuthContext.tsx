@@ -12,6 +12,7 @@ export type AuthDataContext = {
   user: User | null | undefined;
   loading: boolean,
   signOut: () => void;
+  signUp: (email: string, password: string) => Promise<void> ;
   signIn: (email: string, password: string) => Promise<void>; // Adjust the return type if needed
   passwordReset: (email: string) => Promise<void>;
 }
