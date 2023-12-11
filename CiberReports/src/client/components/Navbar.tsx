@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useAuth } from "../../hooks/useAuth";
-import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
+import { toast } from "react-toastify";
 
 export default function Navbar() {
 
@@ -67,13 +67,15 @@ useEffect(() => {
 
 
     //
-    const { signOut, auth } = useAuth();
+    const { signOut, session } = useAuth();
         
-    const handleLogOut = async (e) => {
+    const handleLogOut = async (e: { preventDefault: () => void; }) => {
       e.preventDefault();
       try {
         const { error } = await signOut();
-        console.log(error);
+          if(error){
+            toast.error('ups ocurreu um erro')
+          }
       } catch (error) {
         console.log(error);
       }
@@ -119,21 +121,20 @@ useEffect(() => {
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
                 </li>
                 <li>
-                {!auth && (
-                  <link as={Link} to={"/signin"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">SignIn</link>
+                {!session && (
+                  <Link to={"/signin"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">SignIn</Link>
             )}
-            {!auth && (
-                  <link as={Link} to={"/signup"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">SignUp</link>
+            {!session && (
+                  <Link to={"/signup"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">SignUp</Link>
             )}
-            {auth && (
-                  <link as={Link} to={"/"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Home</link>
+            {session && (
+                  <Link to={"/"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Home</Link>
 
             )}
-            {auth && (
-                  <link as={Button} onClick={handleLogOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Login</link>
+            {session && (
+                  <Link onClick={handleLogOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Login</Link>
 
             )}
-                  <a onClick={handleLogOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">LogOut</a>
                 </li>
               </ul>
             </div>
