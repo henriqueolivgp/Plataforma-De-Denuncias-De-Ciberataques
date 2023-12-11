@@ -4,8 +4,6 @@ import { useEffect, useState } from 'react';
 import type { User, Session } from "@supabase/supabase-js";
 import { toast } from 'react-toastify';
 
-
-
 export function AuthProvider ({ children }: ChildrenContext){
     const [user, setUser] = useState<User>()
     const [session, setSession] = useState<Session | null>();
