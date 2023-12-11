@@ -1,46 +1,44 @@
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useAuth } from "../../hooks/useAuth";
-import { Button } from "flowbite-react";
-import { toast } from "react-toastify";
 
 export default function Navbar() {
 
-  {/*Function UserDropdown */}
-// ...
-const [isOpen, setIsOpen] = useState(false);
-const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null >();
+  {/*Function UserDropdown */ }
+  // ...
+  const [isOpen, setIsOpen] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>();
 
-const handleClick = () => {
-  setIsOpen(!isOpen);
+  const handleClick = () => {
+    setIsOpen(!isOpen);
 
-   // Limpar o timeout existente antes de definir um novo
-   if (timeoutId !== null) {
-    clearTimeout(timeoutId);
-  }
-
-  const id = setTimeout(() => {
-    setIsOpen(false);
-    setIsLinksOpen(false);
-  }, 3000);
-
-  // Armazenar o identificador do timeout na variável de estado
-  setTimeoutId(id);
-};
-
-// Limpar o timeout se o componente for desmontado antes que o timeout expire
-useEffect(() => {
-  return () => {
-    // Verificar se há um timeout ativo antes de tentar limpar
+    // Limpar o timeout existente antes de definir um novo
     if (timeoutId !== null) {
       clearTimeout(timeoutId);
     }
+
+    const id = setTimeout(() => {
+      setIsOpen(false);
+      setIsLinksOpen(false);
+    }, 3000);
+
+    // Armazenar o identificador do timeout na variável de estado
+    setTimeoutId(id);
   };
-}, [timeoutId]);
-// ...
+
+  // Limpar o timeout se o componente for desmontado antes que o timeout expire
+  useEffect(() => {
+    return () => {
+      // Verificar se há um timeout ativo antes de tentar limpar
+      if (timeoutId !== null) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [timeoutId]);
+  // ...
 
 
-  {/*Function DropdownLinks*/}
+  {/*Function DropdownLinks*/ }
   const [timeoutId2, setTimeoutId2] = useState<NodeJS.Timeout | null>();
   const [isLinksOpen, setIsLinksOpen] = useState(false);
 
@@ -55,31 +53,26 @@ useEffect(() => {
 
     setTimeoutId2(id_LinksDropdown);
   };
-    // Limpar o timeout se o componente for desmontado antes que o timeout expire
-    useEffect(() => {
-      return () => {
-        // Verificar se há um timeout ativo antes de tentar limpar
-        if (timeoutId2 !== null) {
-          clearTimeout(timeoutId2);
-        }
-      };
-    }, [timeoutId2]);
-
-
-    //
-    const { signOut, session } = useAuth();
-        
-    const handleLogOut = async (e: { preventDefault: () => void; }) => {
-      e.preventDefault();
-      try {
-        const { error } = await signOut();
-          if(error){
-            toast.error('ups ocurreu um erro')
-          }
-      } catch (error) {
-        console.log(error);
+  // Limpar o timeout se o componente for desmontado antes que o timeout expire
+  useEffect(() => {
+    return () => {
+      // Verificar se há um timeout ativo antes de tentar limpar
+      if (timeoutId2 !== null) {
+        clearTimeout(timeoutId2);
       }
     };
+  }, [timeoutId2]);
+
+  const { signOut, session } = useAuth();
+
+  const handleLogOut = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    try {
+      signOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
 
@@ -121,20 +114,20 @@ useEffect(() => {
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
                 </li>
                 <li>
-                {!session && (
-                  <Link to={"/signin"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">SignIn</Link>
-            )}
-            {!session && (
-                  <Link to={"/signup"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">SignUp</Link>
-            )}
-            {session && (
-                  <Link to={"/"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Home</Link>
+                  {!session && (
+                    <Link to={"/signin"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">SignIn</Link>
+                  )}
+                  {!session && (
+                    <Link to={"/signup"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">SignUp</Link>
+                  )}
+                  {session && (
+                    <Link to={"/"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Home</Link>
 
-            )}
-            {session && (
-                  <Link onClick={handleLogOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Login</Link>
+                  )}
+                  {session && (
+                    <Link to="#" onClick={handleLogOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">LogOut</Link>
 
-            )}
+                  )}
                 </li>
               </ul>
             </div>
@@ -151,13 +144,13 @@ useEffect(() => {
         <div className={`ml-20 items-center justify-between ${isLinksOpen ? "" : "hidden"} w-full md:flex md:w-auto md:order-1" id="mobile-menu-2`}>
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
-              <Link to="../screens/Home.tsx" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</Link>
+              <Link to={'/'} className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</Link>
             </li>
             <li>
-              <Link to="../screens/Support.tsx" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">suport</Link>
+              <Link to={'/support'} className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Support</Link>
             </li>
             <li>
-              <Link to="../screens/AboutUs.tsx" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About US</Link>
+              <Link to={"/about-us"} className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About US</Link>
             </li>
           </ul>
         </div>

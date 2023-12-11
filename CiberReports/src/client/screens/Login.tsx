@@ -23,6 +23,7 @@ function Login() {
       }
       await signIn(emailRef.current.value, passwordRef.current.value);
       if (user && session) navigate("/");
+      navigate("/");
     } catch (error) {
       console.log(error);
       toast.error("Email or Password Incorrect");

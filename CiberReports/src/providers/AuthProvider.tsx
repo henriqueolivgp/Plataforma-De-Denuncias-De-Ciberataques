@@ -77,7 +77,7 @@ export function AuthProvider ({ children }: ChildrenContext){
             if (error) {
                 toast.error('Erro no login!!');
             } else {
-                console.log('Utilizador fez login com sucesso!');
+                toast.success('Utilizador fez login com sucesso!');
                 setSession(data.session)
                 setUser(data.session.user)
             }
