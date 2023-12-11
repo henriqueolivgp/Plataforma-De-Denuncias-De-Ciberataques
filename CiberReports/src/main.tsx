@@ -1,20 +1,22 @@
-import ReactDOM from 'react-dom/client'
-import Home from './client/screens/Home.tsx'
-import './client/theme/index.css'
-import ErrorPage from './client/screens/ErrorPage.tsx'
+// React libarys and imports
 import React from 'react'
-
-// importar/configurar o react-router-dom
+import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+// All css style
+import './client/theme/index.css'
+// All pages imports
 import App from './client/routes/App.tsx'
-import Register from './client/screens/Register.tsx'
+import Home from './client/screens/Home.tsx'
 import Login from './client/screens/Login.tsx'
+import Profile from './client/screens/Profile.tsx'
+import Register from './client/screens/Register.tsx'
+import ErrorPage from './client/screens/ErrorPage.tsx'
+import UpdatePassword from './client/screens/UpdatePassword.tsx'
+// Authentication File
+import { AuthProvider } from './providers/AuthProvider.tsx'
+// React-Toastify imports
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import Profile from './client/screens/Profile.tsx'
-
-import { AuthProvider } from './providers/AuthProvider.tsx'
-import UpdatePassword from './client/screens/UpdatePassword.tsx'
 
 // criação da const function
 const router = createBrowserRouter([
