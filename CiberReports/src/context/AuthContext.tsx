@@ -10,11 +10,12 @@ export default ChildrenContext;
 export type AuthDataContext = {
   session: Session | null | undefined;
   user: User | null | undefined;
-  loading: boolean,
+  loading: boolean;
   signOut: () => void;
   signUp: (email: string, password: string) => Promise<void> ;
   signIn: (email: string, password: string) => Promise<void>; // Adjust the return type if needed
   passwordReset: (email: string) => Promise<void>;
+  passwordUpdate: (newpassword: string) => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthDataContext>(

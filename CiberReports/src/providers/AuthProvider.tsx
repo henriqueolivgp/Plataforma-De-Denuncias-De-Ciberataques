@@ -36,14 +36,20 @@ export function AuthProvider ({ children }: ChildrenContext){
             const { error } = await SupaBaseClient.auth.signOut()
 
             if (error) {
+                
                 toast.error('Erro no login!!');
+
             } else {
-                toast.success('Usuário logado com sucesso!');
+
+                toast.success('LogOut Sucefull');
                 setSession(undefined)
                 setUser(undefined);
+
             }
         } catch (error) {
+
             toast.error('Erro no login!!!');
+
         }
     };
 
@@ -71,7 +77,7 @@ export function AuthProvider ({ children }: ChildrenContext){
             if (error) {
                 toast.error('Erro no login!!');
             } else {
-                console.log('Usuário logado com sucesso!');
+                console.log('Utilizador fez login com sucesso!');
                 setSession(data.session)
                 setUser(data.session.user)
             }
@@ -81,14 +87,46 @@ export function AuthProvider ({ children }: ChildrenContext){
     };
 
     const passwordReset = async (email: string): Promise<void> => {
-        await SupaBaseClient.auth.resetPasswordForEmail(email, {
-            redirectTo: "http://localhost:5173/update-password"
-        });
+
+        try {
+            
+            const { error } = await SupaBaseClient.auth.resetPasswordForEmail(email, {
+                redirectTo: 'http://example.com/account/update-password',
+              })
+            
+            if (error) {
+                toast.error('Erro no login!!');
+            } else {
+                console.log('Usuário logado com sucesso!');
+            }
+        } catch (error) {
+            console.log('Erro no login!!!');
+        }
     };
+
+    const passwordUpdate = async ( new_password: string ) => {
+        try{
+
+            const {data, error} = await SupaBaseClient.auth.updateUser({ password: new_password })
+
+            if (error) {
+                toast.error('Erro no login!!');
+            } else {
+                setUser(data.user)
+                console.log('Usuário logado com sucesso!');
+            }
+
+        }catch(error){
+
+            console.log(error)
+
+        }
+        
+    }
 
     return (
         // passar todos os tipos declarados anteriormente
-        <AuthContext.Provider value={{ session, user, loading, signUp, signIn, signOut, passwordReset }}>
+        <AuthContext.Provider value={{ session, user, loading, signUp, signIn, signOut, passwordReset, passwordUpdate }}>
             {children}
         </AuthContext.Provider>
     );

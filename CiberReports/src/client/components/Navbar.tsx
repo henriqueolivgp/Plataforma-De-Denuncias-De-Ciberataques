@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import { useAuth } from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
+import { Button } from "flowbite-react";
 
 export default function Navbar() {
 
@@ -63,8 +66,20 @@ useEffect(() => {
     }, [timeoutId2]);
 
 
-  return (
+    //
+    const { signOut, auth } = useAuth();
+        
+    const handleLogOut = async (e) => {
+      e.preventDefault();
+      try {
+        const { error } = await signOut();
+        console.log(error);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
+  return (
 
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="container-xxl flex flex-wrap items-center p-5">
@@ -82,7 +97,8 @@ useEffect(() => {
           <div className="relative">
             <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded={isOpen} data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom" onClick={handleClick}>
               <span className="sr-only">Open user menu</span>
-              <img className="w-8 h-8 rounded-full" src="#" alt="user photo" />
+              <span className="logado top-0 left-6 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+              <img className="w-8 h-8 rounded-full" src="user.png" alt="user photo" />
             </button>
             <div
               className={`absolute top-50% -right-4 ${isOpen ? "" : "hidden"} z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`}
@@ -103,7 +119,21 @@ useEffect(() => {
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
                 </li>
                 <li>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                {!auth && (
+                  <link as={Link} to={"/signin"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">SignIn</link>
+            )}
+            {!auth && (
+                  <link as={Link} to={"/signup"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">SignUp</link>
+            )}
+            {auth && (
+                  <link as={Link} to={"/"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Home</link>
+
+            )}
+            {auth && (
+                  <link as={Button} onClick={handleLogOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Login</link>
+
+            )}
+                  <a onClick={handleLogOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">LogOut</a>
                 </li>
               </ul>
             </div>
