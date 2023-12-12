@@ -1,5 +1,5 @@
 import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
+import NavbarV2 from '../components/NavbarV2';
 
 import {Outlet} from 'react-router-dom';
 
@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <Navbar/>
+      <NavbarV2/>
 			<Outlet />
 			<Footer/>
     </>
