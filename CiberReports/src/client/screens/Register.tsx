@@ -66,7 +66,7 @@ function Register() {
                 <button disabled={loading} type="submit" className="w-80 text-white bg-orange-400 hover:bg-orange-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create your account</button>
               </div>
               <div className="text-sm text-center font-medium text-gray-500 dark:text-gray-300">
-                Already have an account?<Link to="/login" className="text-blue-700 hover:underline dark:text-blue-500"><span className="text-darkAqua">Login</span></Link>
+                Already have an account?<Link to="/signin" className="text-blue-700 hover:underline dark:text-blue-500"><span className="text-darkAqua"> Login</span></Link>
               </div>
               <div>
                 <div className="flex justify-center space-x-10 columns-2 w-full">
