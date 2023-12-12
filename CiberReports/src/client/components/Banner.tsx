@@ -19,7 +19,7 @@ function Banner() {
                     {/* xl:w-full xxl:relative xl:relative  md:absolute sm:absolute md:inset-0 md:z-0 sm:inset-0 sm:z-0 xs:inset-0 xs:z-0*/}
                     <img
                         className="w-full xxl:blur-none xl:blur-none lg:blur-sm md:blur-sm sm:blur-sm xs:blur-sm h-full object-cover"
-                        src="/src/assets/banner.jpg"
+                        src=""
                         alt="banner"
                     />
                 </div>

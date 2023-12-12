@@ -45,11 +45,11 @@ export default function NavbarV2() {
 
   return (
 
-    <nav className="border-gray-200 bg-transparent dark:bg-gray-800 dark:border-gray-700">
+    <nav className="bg-transparent dark:bg-gray-800 dark:border-gray-700">
       <div className=" flex flex-wrap items-center p-4">
         <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse ">
           <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">CiberReports</span>
         </a>
         <div className="relative hidden md:block ml-full ml-4">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -118,15 +118,24 @@ export default function NavbarV2() {
                     <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">emai@email.com</span>
                   </div>
                   <ul className="py-2" aria-labelledby="user-menu-button">
-                    <li>
-                      <img src=''/>
-                      <Link to='/profile' className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Profile</Link>
+                    <li className='dark:hover:bg-gray-600'>
+                      <div className="flex items-center ">
+                        <svg className=" ml-2 w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z" />
+                        </svg>
+                        <Link to='/profile' className=" px-4 py-2 text-md text-gray-700 hover:bg-gray-100  dark:text-gray-200 dark:hover:text-white">Profile</Link>
+                      </div>
                     </li>
                     <li>
-                      <Link to='/repports' className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">reports</Link>
+                      <div className="flex items-center">
+                        <svg className=" ml-2 w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 19">
+                          <path d="M15 1.943v12.114a1 1 0 0 1-1.581.814L8 11V5l5.419-3.871A1 1 0 0 1 15 1.943ZM7 4H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2V4ZM4 17v-5h1v5H4ZM16 5.183v5.634a2.984 2.984 0 0 0 0-5.634Z" />
+                        </svg>
+                        <Link to='/repports' className=" px-4 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Reports</Link>
+                      </div>
                     </li>
                     <li>
-                      <Link to='chat' className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Chat</Link>
+                      <Link to='/chat' className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Chat</Link>
                     </li>
                     <li>
                       <Link to='/settings' className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</Link>
