@@ -1,7 +1,7 @@
 import { Banner } from "flowbite-react";
 
 function Profile() {
-  
+
   return (
     <>
       <Banner />
@@ -18,6 +18,60 @@ function Profile() {
               </div>
             </div>
           </section>
+
+          <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="flex justify-end px-4 pt-4"></div>
+            <div className="flex items-center justify-center pb-10">
+              <img
+                className="w-24 h-24 mb-3 rounded-full shadow-lg"
+                src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRcU4HWqFMT19Qzp3oD07Qsx9SC5WVXoVvlZ4mAP4IEcN08sg5C"
+                alt="User image"
+              />
+              <div className="ml-4">
+                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+                  Nome utilizador
+                </h5>
+              </div>
+            </div>
+            <div className="mt-4 px-4"></div>
+            <div className="flex flex-wrap justify-around items-center p-4">
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                <span>Total de</span> <span className="ml-1">Denúncias</span>
+                <br />
+                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+                  237
+                </h5>
+              </div>
+              <div className="text-sm text-gray-500 dark:text-gray-400 ml-4">
+                <span>Mensagens</span>
+                <br />
+                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+                  23
+                </h5>
+              </div>
+              <div className="text-sm text-gray-500 dark:text-gray-400 ml-4">
+                <span>Telefonemas</span>
+                <br />
+                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+                  0
+                </h5>
+              </div>
+              <div className="text-sm text-gray-500 dark:text-gray-400 ml-4">
+                <span>Vírus</span>
+                <br />
+                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+                  45
+                </h5>
+              </div>
+              <div className="text-sm text-gray-500 dark:text-gray-400 ml-4">
+                <span>Invasões</span>
+                <br />
+                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+                  0
+                </h5>
+              </div>
+            </div>
+          </div>
 
           <div
             id="dropdown"
@@ -111,7 +165,7 @@ function Profile() {
           </div>
         </div>
       </div>
-      
+
     </>
   );
 }
