@@ -1,17 +1,18 @@
-import { Banner } from "flowbite-react";
-
+import Banner from "../components/Banner";
 function Home() {
 
   return (
     <>
-      <Banner/>
+      <section className="">
+        <Banner />
+      </section>
       <div className="container mx-auto ">
         <div className="content mx-auto">
           <h1>HomePage</h1>
-          
+
         </div>
       </div>
-      
+
     </>
   )
 }
