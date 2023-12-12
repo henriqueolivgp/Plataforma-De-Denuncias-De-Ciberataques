@@ -1,4 +1,3 @@
-import { Banner } from "flowbite-react";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
@@ -21,7 +20,6 @@ function Profile() {
 
   return (
     <>
-      <Banner />
       <div className="container mx-auto ">
         <div className="content mx-auto">
           <section className="banner bg-violet-100 h-48 w-full">
