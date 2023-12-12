@@ -1,35 +1,14 @@
-import { Banner } from "flowbite-react";
 import { Link } from 'react-router-dom';
-import { SupaBaseClient } from '../../Services/supabase/SupaBaseClient';
 import { useRef, useState, FormEvent } from "react";
 import { toast } from "react-toastify";
-
-interface SignUpProps {
-  email: string;
-  password: string;
-}
+import { useAuth } from "../../hooks/useAuth";
 
 function Register() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
-
-  const register = async ({ email, password }: SignUpProps) => {
-    try {
-      // erro
-      const { data, error } = await SupaBaseClient.auth.signUp({ email, password });
-      if (!error && data) {
-        return data; // or whatever data you want to return
-      } else {
-        throw new Error(error?.message || 'Unknown error');
-      }
-    } catch (error) {
-      console.log(error);
-      throw new Error("Error in Creating Account");
-      
-    }
-  };
+  const { signUp } = useAuth();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -49,11 +28,7 @@ function Register() {
     }
     try {
       setLoading(true);
-      // erro
-      await register({
-        email: emailRef.current!.value,
-        password: passwordRef.current!.value,
-      });
+      await signUp(emailRef.current!.value,passwordRef.current!.value);
       toast.success("Registration Successful. Check your email to confirm your account");
       //toast.success(msg);
     } catch (error) {
@@ -66,7 +41,6 @@ function Register() {
 
   return (
     <>
-      <Banner />
       {/* Same as */}
       <div className="container mx-auto">
         <div className="content mx-auto">

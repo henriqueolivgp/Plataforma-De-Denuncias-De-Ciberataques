@@ -1,4 +1,3 @@
-import { Banner } from "flowbite-react";
 import { toast } from "react-toastify";
 import { useRef, useState, FormEvent} from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,6 +22,7 @@ function Login() {
       }
       await signIn(emailRef.current.value, passwordRef.current.value);
       if (user && session) navigate("/");
+      navigate("/");
     } catch (error) {
       console.log(error);
       toast.error("Email or Password Incorrect");
@@ -32,7 +32,6 @@ function Login() {
 
   return (
     <>
-      <Banner />
       <div className="container mx-auto ">
         <div className="content mx-auto">
 

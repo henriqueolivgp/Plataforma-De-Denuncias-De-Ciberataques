@@ -1,13 +1,13 @@
 import { Banner } from "flowbite-react";
 
-function Home() {
+function Repports() {
 
   return (
     <>
       <Banner/>
       <div className="container mx-auto ">
         <div className="content mx-auto">
-          <h1>HomePage</h1>
+          <h1>RepportsPage</h1>
           
         </div>
       </div>
@@ -16,4 +16,4 @@ function Home() {
   )
 }
 
-export default Home;
+export default Repports;

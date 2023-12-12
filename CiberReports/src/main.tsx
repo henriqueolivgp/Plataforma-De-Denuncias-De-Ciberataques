@@ -8,6 +8,7 @@ import './client/theme/index.css'
 import App from './client/routes/App.tsx'
 import Home from './client/screens/Home.tsx'
 import Login from './client/screens/Login.tsx'
+import AboutUs from './client/screens/AboutUs.tsx';
 import Profile from './client/screens/Profile.tsx'
 import Register from './client/screens/Register.tsx'
 import ErrorPage from './client/screens/ErrorPage.tsx'
@@ -17,6 +18,8 @@ import { AuthProvider } from './providers/AuthProvider.tsx'
 // React-Toastify imports
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import Support from './client/screens/Support.tsx';
+import Repports from './client/screens/Repports.tsx';
 
 // criação da const function
 const router = createBrowserRouter([
@@ -31,11 +34,11 @@ const router = createBrowserRouter([
 				element: <Home />,
 			},
 			{
-				path: "/register",
+				path: "/signup",
 				element: <Register />,
 			},
 			{
-				path: "/login",
+				path: "/signin",
 				element: <Login />,
 			},
 			{
@@ -45,6 +48,38 @@ const router = createBrowserRouter([
 			{
 				path: "/update-password",
 				element: <UpdatePassword />
+			},
+			{
+				path: "/about-us",
+				element: <AboutUs/>
+			},
+			{
+				path: "/support",
+				element: <Support/>
+			},
+			{
+				path: "/repports",
+				element: <Repports/>
+			},
+			{
+				path: "/explore",
+				element: <Repports/>
+			},
+			{
+				path: "/contact",
+				element: <Repports/>
+			},
+			{
+				path: "/chat",
+				element: <Repports/>
+			},
+			{
+				path: "/settings",
+				element: <Repports/>
+			},
+			{
+				path: "/edit-profile",
+				element: <Repports/>
 			}
 		]
 	}
