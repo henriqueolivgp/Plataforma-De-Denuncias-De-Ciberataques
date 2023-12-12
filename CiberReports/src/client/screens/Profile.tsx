@@ -8,14 +8,14 @@ function Profile() {
 
   // Se o usuário não estiver logado, redirecione-o para a página de login
   useEffect(() => {
-      if (!loading && !user) {
-          navigate('/signin'); // Substitua pela rota da sua página de login
-      }
+    if (!loading && !user) {
+      navigate('/signin'); // Substitua pela rota da sua página de login
+    }
   }, [loading, user, navigate]);
 
   // Renderize o conteúdo da sua página apenas se o usuário estiver logado
   if (loading || !user) {
-      return <p>Carregando...</p>;
+    return <p>Carregando...</p>;
   }
 
   return (
@@ -30,15 +30,16 @@ function Profile() {
                   src="https://t4.ftcdn.net/jpg/05/52/98/77/360_F_552987749_4Y5SJa4KRL2UIzVrk5vznfbQtDeJZtqe.jpg"
                   alt="banner"
                 />
+                <span className="">user Banner</span>
               </div>
             </div>
           </section>
-
-          <div className="w-full max-w-lg bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          
+          <div className="w-full bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="flex justify-end px-4 pt-4"></div>
             <div className="flex items-center">
               <img
-                className="w-24 h-24 mb-3 rounded-full shadow-lg"
+                className="w-24 h-24 mb-3 ml-4 rounded-full shadow-lg"
                 src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRcU4HWqFMT19Qzp3oD07Qsx9SC5WVXoVvlZ4mAP4IEcN08sg5C"
                 alt="User image"
               />
