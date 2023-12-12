@@ -2,7 +2,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
 
-function Chat() {
+function EditProfile() {
 
     const { user, loading } = useAuth();
     const navigate = useNavigate();
@@ -10,7 +10,7 @@ function Chat() {
     // Se o usuário não estiver logado, redirecione-o para a página de login
     useEffect(() => {
         if (!loading && !user) {
-            navigate('/signup'); // Substitua pela rota da sua página de login
+            navigate('/signin'); // Substitua pela rota da sua página de login
         }
     }, [loading, user, navigate]);
 
@@ -20,17 +20,10 @@ function Chat() {
     }
 
     return (
-        <>
-            <div className="container mx-auto ">
-                <div className="content mx-auto">
-                    <h1>HomePage</h1>
-                    <p>Bem-vindo, {user.email}!</p>
-
-                </div>
-            </div>
-
-        </>
+        <div>
+            <p>EditProfile Page</p>
+        </div>
     )
 }
 
-export default Chat;
+export default EditProfile;
