@@ -20,6 +20,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Support from './client/screens/Support.tsx';
 import Repports from './client/screens/Repports.tsx';
+import Chat from './client/screens/Chat.tsx';
+import Explore from './client/screens/Explore.tsx';
+import Contact from './client/screens/Contact.tsx';
+import Settings from './client/screens/Settings.tsx';
+import EditProfile from './client/screens/EditProfile.tsx';
 
 // criação da const function
 const router = createBrowserRouter([
@@ -63,23 +68,23 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/explore",
-				element: <Repports/>
+				element: <Explore/>
 			},
 			{
 				path: "/contact",
-				element: <Repports/>
+				element: <Contact/>
 			},
 			{
 				path: "/chat",
-				element: <Repports/>
+				element: <Chat/>
 			},
 			{
 				path: "/settings",
-				element: <Repports/>
+				element: <Settings/>
 			},
 			{
 				path: "/edit-profile",
-				element: <Repports/>
+				element: <EditProfile/>
 			}
 		]
 	}
