@@ -7,7 +7,7 @@ function Profile() {
       <Banner />
       <div className="container mx-auto ">
         <div className="content mx-auto">
-          <section className="banner bg-violet-100 h-48 relative z-10">
+          <section className="banner bg-violet-100 h-48 w-full">
             <div className="Text-Button flex flex-col relative z-10 xl:flex-row">
               <div className="w-full absolute overflow-hidden h-48 xl:relative">
                 <img

@@ -19,6 +19,7 @@ import { AuthProvider } from './providers/AuthProvider.tsx'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Support from './client/screens/Support.tsx';
+import Repports from './client/screens/Repports.tsx';
 
 // criação da const function
 const router = createBrowserRouter([
@@ -55,6 +56,30 @@ const router = createBrowserRouter([
 			{
 				path: "/support",
 				element: <Support/>
+			},
+			{
+				path: "/repports",
+				element: <Repports/>
+			},
+			{
+				path: "/explore",
+				element: <Repports/>
+			},
+			{
+				path: "/contact",
+				element: <Repports/>
+			},
+			{
+				path: "/chat",
+				element: <Repports/>
+			},
+			{
+				path: "/settings",
+				element: <Repports/>
+			},
+			{
+				path: "/edit-profile",
+				element: <Repports/>
 			}
 		]
 	}

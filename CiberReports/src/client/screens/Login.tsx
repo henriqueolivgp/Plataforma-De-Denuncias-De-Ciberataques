@@ -1,4 +1,3 @@
-import { Banner } from "flowbite-react";
 import { toast } from "react-toastify";
 import { useRef, useState, FormEvent} from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -33,7 +32,6 @@ function Login() {
 
   return (
     <>
-      <Banner />
       <div className="container mx-auto ">
         <div className="content mx-auto">
 
