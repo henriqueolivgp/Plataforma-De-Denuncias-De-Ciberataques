@@ -12,7 +12,6 @@ import AboutUs from './client/screens/AboutUs.tsx';
 import Profile from './client/screens/Profile.tsx'
 import Register from './client/screens/Register.tsx'
 import ErrorPage from './client/screens/ErrorPage.tsx'
-import UpdatePassword from './client/screens/UpdatePassword.tsx'
 // Authentication File
 import { AuthProvider } from './providers/AuthProvider.tsx'
 // React-Toastify imports
@@ -25,6 +24,7 @@ import Explore from './client/screens/Explore.tsx';
 import Contact from './client/screens/Contact.tsx';
 import Settings from './client/screens/Settings.tsx';
 import EditProfile from './client/screens/EditProfile.tsx';
+import Status from './client/screens/Status.tsx';
 
 // criação da const function
 const router = createBrowserRouter([
@@ -61,18 +61,15 @@ const router = createBrowserRouter([
 					},
 					{
 						path: "/profile/settings",
-						element: <Settings />,
-						// elementos e caminhos filhos para a rota "/profile/settings"
-						children: [
-							{
-								path: "/profile/settings/update-password",
-								element: <UpdatePassword />
-							},
-						],
+						element: <Settings />
 					},
 					{
 						path: "/profile/repports",
 						element: <Repports />
+					},
+					{
+						path: "/profile/status",
+						element: <Status />
 					},
 				],
 			},
