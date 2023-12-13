@@ -47,10 +47,11 @@ export default function NavbarV2() {
 
     <nav className="bg-transparent dark:bg-gray-800 dark:border-gray-700">
       <div className=" flex flex-wrap items-center p-4">
-        <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse ">
+        <Link to='/'><a href="#" className="flex items-center space-x-3 rtl:space-x-reverse ">
           <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">CiberReports</span>
         </a>
+        </Link>
         <div className="relative hidden md:block ml-full ml-4">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
