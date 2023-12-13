@@ -6,6 +6,7 @@ export default function NavbarV2() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -108,7 +109,7 @@ export default function NavbarV2() {
                 <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded={isOpen} data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom" onClick={handleClick}>
                   <span className="sr-only">Open user menu</span>
                   <span className="logado top-0 left-6 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
-                  <img className="w-8 h-8 rounded-full" src="user.png" alt="user photo" />
+                  <img className="w-8 h-8 rounded-full" src="../../../public/user.png" alt="user photo" />
                 </button>
                 <div
                   className={`absolute top-50% -right-4 ${isOpen ? "" : "hidden"} z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`}
@@ -116,7 +117,7 @@ export default function NavbarV2() {
                 >
                   <div className="px-4 py-3">
                     <span className="block text-sm text-gray-900 dark:text-white">Name LastName</span>
-                    <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">emai@email.com</span>
+                    <span className="block text-sm  text-gray-500 truncate dark:text-gray-400 w-36">{user?.email}</span>
                   </div>
                   <ul className="py-2" aria-labelledby="user-menu-button">
                     <li>
@@ -152,7 +153,8 @@ export default function NavbarV2() {
                           <path d="M1 5h1.424a3.228 3.228 0 0 0 6.152 0H19a1 1 0 1 0 0-2H8.576a3.228 3.228 0 0 0-6.152 0H1a1 1 0 1 0 0 2Zm18 4h-1.424a3.228 3.228 0 0 0-6.152 0H1a1 1 0 1 0 0 2h10.424a3.228 3.228 0 0 0 6.152 0H19a1 1 0 0 0 0-2Zm0 6H8.576a3.228 3.228 0 0 0-6.152 0H1a1 1 0 0 0 0 2h1.424a3.228 3.228 0 0 0 6.152 0H19a1 1 0 0 0 0-2Z" />
                         </svg>
                         <span className="flex-1 ms-3 whitespace-nowrap">Settings</span>
-                      </Link>                    </li>
+                      </Link>
+                    </li>
                     <li>
                       {!session && (
                         <Link to={"/signin"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">SignIn</Link>

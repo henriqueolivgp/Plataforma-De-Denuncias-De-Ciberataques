@@ -23,8 +23,8 @@ function Chat() {
         <>
             <div className="container mx-auto ">
                 <div className="content mx-auto">
-                    <h1>HomePage</h1>
-                    <p>Bem-vindo, {user.email}!</p>
+
+                    <h1>Chat</h1>
 
                 </div>
             </div>
