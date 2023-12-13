@@ -10,7 +10,7 @@ function Chat() {
     // Se o usuário não estiver logado, redirecione-o para a página de login
     useEffect(() => {
         if (!loading && !user) {
-            navigate('/signup'); // Substitua pela rota da sua página de login
+            navigate('/signin'); // Substitua pela rota da sua página de login
         }
     }, [loading, user, navigate]);
 
