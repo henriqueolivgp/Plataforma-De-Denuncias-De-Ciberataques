@@ -48,46 +48,53 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/profile",
-				element: <Profile />
+				element: <Profile />,
+				// elementos e caminhos filhos para a rota "/profile"
+				children: [
+					{
+						path: "/profile/edit-profile",
+						element: <EditProfile />
+					},
+					{
+						path: "/profile/chat",
+						element: <Chat />
+					},
+					{
+						path: "/profile/settings",
+						element: <Settings />,
+						// elementos e caminhos filhos para a rota "/profile/settings"
+						children: [
+							{
+								path: "/profile/settings/update-password",
+								element: <UpdatePassword />
+							},
+						],
+					},
+					{
+						path: "/profile/repports",
+						element: <Repports />
+					},
+				],
 			},
-			{
-				path: "/update-password",
-				element: <UpdatePassword />
-			},
+
 			{
 				path: "/about-us",
-				element: <AboutUs/>
+				element: <AboutUs />
 			},
 			{
 				path: "/support",
-				element: <Support/>
-			},
-			{
-				path: "/repports",
-				element: <Repports/>
+				element: <Support />
 			},
 			{
 				path: "/explore",
-				element: <Explore/>
+				element: <Explore />
 			},
 			{
 				path: "/contact",
-				element: <Contact/>
+				element: <Contact />
 			},
-			{
-				path: "/chat",
-				element: <Chat/>
-			},
-			{
-				path: "/settings",
-				element: <Settings/>
-			},
-			{
-				path: "/edit-profile",
-				element: <EditProfile/>
-			}
-		]
-	}
+		],
+	},
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
