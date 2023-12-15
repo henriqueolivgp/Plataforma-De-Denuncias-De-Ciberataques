@@ -1,17 +1,33 @@
 import { useAuth } from "../../hooks/useAuth";
 import { Link, useNavigate, Outlet } from 'react-router-dom';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import { SupaBaseClient } from "../../Services/supabase/SupaBaseClient";
 
 function Profile() {
   const { user, loading, signOut } = useAuth();
+  const [profiles, setProfiles] = useState<profile[]>([]);
   const navigate = useNavigate();
+
+  const GetAllProfile = async () => {
+    const { data } = await SupaBaseClient
+      .from('profiles')
+      .select('*')
+      .order('inserted_at', { ascending: false });
+    setProfiles(data || []);
+  };
 
   // Se o usuário não estiver logado, redirecione-o para a página de login
   useEffect(() => {
-    if (!loading && !user) {
-      navigate('/signin'); // Substitua pela rota da sua página de login
-    }
+    const fetchData = async () => {
+      if (!loading && !user) {
+        navigate('/signin'); // Substitua pela rota da sua página de login
+      }
+      await GetAllProfile();
+
+    };
+
+    fetchData();
   }, [loading, user, navigate]);
 
   // Renderize o conteúdo da sua página apenas se o usuário estiver logado
@@ -19,8 +35,15 @@ function Profile() {
     return <p>Carregando...</p>;
   }
 
-  // Funcao responsavel por fazer o logOut
+  interface profile {
+    id: number;
+    banner: string;
+    all_name: string;
+    avatar: string;
+  }
 
+
+  // Funcao responsavel por fazer o logOut
   const handleLogOut = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
@@ -33,17 +56,17 @@ function Profile() {
 
   let DateJoined: string | undefined;
 
-if (user.email_confirmed_at) {
-  const dateObject = new Date(user.email_confirmed_at);
-  DateJoined = format(dateObject, 'dd-MM-yyyy');
-}
+  if (user.email_confirmed_at) {
+    const dateObject = new Date(user.email_confirmed_at);
+    DateJoined = format(dateObject, 'dd-MM-yyyy');
+  }
 
-let LastLogin: string | undefined;
+  let LastLogin: string | undefined;
 
-if (user.last_sign_in_at) {
-  const dateObject = new Date(user.last_sign_in_at);
-  LastLogin = format(dateObject, 'dd-MM-yyyy');
-}
+  if (user.last_sign_in_at) {
+    const dateObject = new Date(user.last_sign_in_at);
+    LastLogin = format(dateObject, 'dd-MM-yyyy');
+  }
 
   return (
     <>
@@ -52,14 +75,14 @@ if (user.last_sign_in_at) {
           <section className="banner bg-violet-100 h-48 w-full">
             <div className="Text-Button flex flex-col relative z-10 xl:flex-row">
               <div className="w-full absolute overflow-hidden h-48 xl:relative flex items-center content-center">
-                <img
-                  className="w-screen xxl:blur-none xl:blur-none lg:blur-sm md:blur-sm sm:blur-sm xs:blur-sm h-full object-cover"
-                  src="https://t4.ftcdn.net/jpg/05/52/98/77/360_F_552987749_4Y5SJa4KRL2UIzVrk5vznfbQtDeJZtqe.jpg"
-                  alt="banner"
-                />
-                <span className="absolute text-white text-5xl font-bold flex items-center justify-center w-full h-full">
-                  User Banner
-                </span>
+                {profiles.map((profile) => (
+                  <img
+                    key={profile.id} // Certifique-se de ter uma chave única para cada imagem
+                    className="w-screen h-full object-cover"
+                    src={profile.banner} // Use a URL da imagem do perfil a partir do seu objeto de perfil
+                    alt="banner"
+                  />
+                ))}
               </div>
             </div>
           </section>
@@ -67,15 +90,24 @@ if (user.last_sign_in_at) {
           <div className="w-full bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="flex justify-end px-4 pt-4"></div>
             <div className="flex items-center">
-              <img
-                className="w-24 h-24 mb-3 ml-4 rounded-full shadow-lg"
-                src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRcU4HWqFMT19Qzp3oD07Qsx9SC5WVXoVvlZ4mAP4IEcN08sg5C"
-                alt="User image"
-              />
+              {profiles.map((profile) => (
+                <img
+                  className="w-24 h-24 mb-3 ml-4 rounded-full shadow-lg" key={profile.id}
+                  src={profile.avatar}
+                  alt="User image"
+                />
+              ))}
+
               <div className="ml-4">
-                <h5 className="mb-1 text-3xl font-medium text-gray-900 dark:text-white">
-                  Nome utilizador
-                </h5>
+                <div className="ml-4">
+                  {profiles.map((profile) => (
+                    <h5 className="mb-1 text-3xl font-medium text-gray-900 dark:text-white" key={profile.id}>
+                      {profile.all_name}
+                    </h5>
+                  ))
+                  }
+                </div>
+
                 <p className=" text-sm">Date Joined :{DateJoined}</p>
                 <p className=" text-sm">Las Login: {LastLogin}</p>
               </div>
