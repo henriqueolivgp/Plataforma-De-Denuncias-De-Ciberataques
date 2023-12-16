@@ -130,8 +130,8 @@ export default function NavbarV2() {
                 </div>
                 <ul className="py-2" aria-labelledby="user-menu-button">
                   <div className='lg:hidden md:hidden'>
-                    <NavLiMobile to='/' name='Home' svg='home' onClick={() => setIsOpen(false)}  />
-                    <NavLiMobile to='/explore' name='Explore' svg='explore' onClick={() => setIsOpen(false)}  />
+                    <NavLiMobile to='/' name='Home' svg='home' onClick={() => setIsOpen(false)} />
+                    <NavLiMobile to='/explore' name='Explore' svg='explore' onClick={() => setIsOpen(false)} />
                     <NavLiMobile to='/about-us' name='About-Us' svg='about' onClick={() => setIsOpen(false)} />
                     <NavLiMobile to='/contact' name='Contact' svg='contact' onClick={() => setIsOpen(false)} />
                   </div>
