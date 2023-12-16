@@ -5,6 +5,7 @@ function Home() {
 
   return (
     <>
+    <img src="/World.jpg" alt="imagem de fundo" className=" absolute top-0 z-[-1] object-cover"/>
       <div className="container mx-auto ">
         <div className="content mx-auto">
           {!session && <p>Sem login</p>}
