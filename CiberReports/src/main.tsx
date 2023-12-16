@@ -25,6 +25,9 @@ import Contact from './client/screens/Contact.tsx';
 import Settings from './client/screens/Settings.tsx';
 import EditProfile from './client/screens/EditProfile.tsx';
 import Status from './client/screens/Status.tsx';
+import { ImgsProvider } from './providers/ImgsProvider.tsx';
+
+import { PrivateRoutes } from './client/routes/PrivateRoutes.tsx';
 
 // criação da const function
 const router = createBrowserRouter([
@@ -48,7 +51,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/profile",
-				element: <Profile />,
+				element: <PrivateRoutes element={<Profile />} notHaveAccessNavigateTo='/signin'/> ,
 				// elementos e caminhos filhos para a rota "/profile"
 				children: [
 					{
@@ -97,8 +100,10 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
 		<AuthProvider>
-			<ToastContainer />
-			<RouterProvider router={router} />
+			<ImgsProvider>
+				<ToastContainer />
+				<RouterProvider router={router} />
+			</ImgsProvider>
 		</AuthProvider>
 	</React.StrictMode>,
 )

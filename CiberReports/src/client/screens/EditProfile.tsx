@@ -2,7 +2,6 @@ import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, FormEvent, useState, useCallback } from "react";
 import { SupaBaseClient } from '../../Services/supabase/SupaBaseClient'
-import { v4 as uuidv4 } from 'uuid';
 import { toast } from "react-toastify";
 
 interface profile {
@@ -18,6 +17,9 @@ interface Img {
 function EditProfile() {
     const [profiles, setProfiles] = useState<profile[]>([]);
     const [all_name, setAll_name] = useState<string>('');
+    //imagens
+    const [bannerImages, setBannerImages] = useState<Img[]>([]);
+    const [avatarImages, setAvatarImages] = useState<Img[]>([]);
     const [images, setImages] = useState<Img[]>([]);
     const [loading, setLoading] = useState(false);
     const { user } = useAuth();
@@ -47,22 +49,31 @@ function EditProfile() {
             });
 
         if (data !== null) {
+            // Separe as imagens em banner e avatar com base no nome do arquivo
+            const bannerImages = data.filter(image => image.name.startsWith("banner"));
+            const avatarImages = data.filter(image => image.name.startsWith("avatar"));
+
             setImages(data);
+            setBannerImages(bannerImages);
+            setAvatarImages(avatarImages);
+            console.log(avatarImages)
         } else {
             toast.error("Error loading images");
             console.log(error);
         }
     }, [user]);
 
+      // Se o usuário não estiver logado, redirecione-o para a página de login
+  useEffect(() => {
+    const fetchData = async () => {
 
-    // Se o usuário não estiver logado, redirecione-o para a página de login
-    useEffect(() => {
-        if (user) {
-            getImages();
-            GetAllProfile();
-        }
+      await GetAllProfile();
+      await getImages();
+    };
 
-    }, [getImages, loading, navigate, user]);
+    fetchData();
+  }, [getImages, user, navigate]);
+
 
     // Renderize o conteúdo da sua página apenas se o usuário estiver logado
     if (loading || !user) {
@@ -87,16 +98,44 @@ function EditProfile() {
 
     async function uploadImage(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0];
-
-        if (file && user) { // Verifique se user não é nulo ou indefinido
+    
+        if (file && user) {
             try {
+                // Defina um nome para o arquivo com base na condição (por exemplo, a ordem)
+                const fileName = images.length === 0 ? "banner" : "banner";
+    
                 const { data, error } = await SupaBaseClient
                     .storage
                     .from('Imgs')
-                    .upload(`${user.id}/${uuidv4()}`, file);
-
+                    .upload(`${user.id}/${fileName}`, file);
+    
                 if (data) {
                     getImages();
+                    // Se for a primeira imagem, faça algo específico (por exemplo, definir como banner)
+                    if (images.length === 0) {
+                        console.log('Imagem enviada como banner.');
+                    }
+                } else {
+                    console.error(error);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+            try {
+                // Defina um nome para o arquivo com base na condição (por exemplo, a ordem)
+                const fileName = images.length === 0 ? "avatar" : "avatar";
+    
+                const { data, error } = await SupaBaseClient
+                    .storage
+                    .from('Imgs')
+                    .upload(`${user.id}/${fileName}`, file);
+    
+                if (data) {
+                    getImages();
+                    // Se for a primeira imagem, faça algo específico (por exemplo, definir como banner)
+                    if (images.length === 0) {
+                        console.log('Imagem enviada como banner.');
+                    }
                 } else {
                     console.error(error);
                 }
@@ -105,6 +144,9 @@ function EditProfile() {
             }
         }
     }
+    
+    
+    
 
     return (
 
@@ -149,7 +191,19 @@ function EditProfile() {
                 <button type="submit" className=" mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
             </form>
             <div>
-                {images.map((image) => {
+                <h2>Banner Images:</h2>
+                {bannerImages.map((image) => {
+                    const imageURL = `${CDNURL}${user.id}/${image.name}`;
+                    console.log(imageURL);
+
+                    return (
+                        <div key={imageURL}>
+                            <img className="w-24 h-24 mb-3 ml-4 rounded-full shadow-lg" src={imageURL} />
+                        </div>
+                    );
+                })}
+                <h2>Avatar Images:</h2>
+                {avatarImages.map((image) => {
                     const imageURL = `${CDNURL}${user.id}/${image.name}`;
                     console.log(imageURL);
 
