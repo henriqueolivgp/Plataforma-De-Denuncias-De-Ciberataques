@@ -137,7 +137,7 @@ function Profile() {
                   <div key={imageURL}>
                     <img
                       className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
-                      src={imageURL ? imageURL : "/user.png"}  // Corrigido aqui
+                      src={imageURL}  // Corrigido aqui
                       alt="User Avatar"  // Adicionado um atributo alt
                     />
                   </div>
