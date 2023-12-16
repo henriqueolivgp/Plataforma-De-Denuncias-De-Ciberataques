@@ -20,7 +20,7 @@ export type ImgsDataContext = {
     images: ImgType[];
     getImages: () => Promise<{ bannerImages: ImgType[]; avatarImages: ImgType[]; images: ImgType[]; } | undefined>
     uploadImage: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
-   
+
   }
 
 export const ImgsContext = createContext<ImgsDataContext>(

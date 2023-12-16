@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { SupaBaseClient } from "../../Services/supabase/SupaBaseClient";
 // Imagens
 import { useImgs } from "../../hooks/useImgs";
+// loading
 import { Loading } from "../components/Loading";
 import { ProfileLi } from "../components/ProfileComponents/ProfileLi";
 
@@ -16,6 +17,8 @@ function Profile() {
   const [isLoading, setisLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
+
+
 
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -129,11 +132,14 @@ function Profile() {
             <div className="flex items-center">
               {avatarImages && avatarImages.map((image) => {
                 const imageURL = `${CDNURL}${user.id}/${image.name}`;
-                console.log(imageURL);
 
                 return (
                   <div key={imageURL}>
-                    <img className="w-24 h-24 mb-3 ml-4 rounded-full shadow-lg" src={imageURL} />
+                    <img
+                      className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
+                      src={imageURL ? imageURL : "/user.png"}  // Corrigido aqui
+                      alt="User Avatar"  // Adicionado um atributo alt
+                    />
                   </div>
                 );
               })}
@@ -203,12 +209,12 @@ function Profile() {
               <aside id="default-sidebar" className={` ${isOpen ? " " : "hidden"} xl:block lg:block llg:hidden w-64 h-auto transition-transform sm:-translate-x-0 lg:translate-x-0  `} aria-label="Sidebar">
                 <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                   <ul className="space-y-2 font-medium">
-                    <ProfileLi to="/profile" name="Profile" activeTo={location.pathname} activeLocal={location.pathname} svg={'profile'}/>
-                    <ProfileLi to="/profile/edit-profile" name="Edit-Profile" activeTo={location.pathname} activeLocal={location.pathname} svg={'editprofile'}/>
-                    <ProfileLi to="/profile/repports" name="Repports" activeTo={location.pathname} activeLocal={location.pathname} svg={'repports'}/>
-                    <ProfileLi to="/profile/chat" name="Chat" activeTo={location.pathname} activeLocal={location.pathname} svg={'chat'}/>
-                    <ProfileLi to="/profile/settings" name="Settings" activeTo={location.pathname} activeLocal={location.pathname} svg={'settings'}/>
-                    <ProfileLi to="#" name="logout" activeTo={location.pathname} activeLocal={location.pathname} svg={'logout'} onClick={handleLogOut}/>
+                    <ProfileLi to="/profile" name="Profile" activeTo={location.pathname} activeLocal={location.pathname} svg={'profile'} />
+                    <ProfileLi to="/profile/edit-profile" name="Edit-Profile" activeTo={location.pathname} activeLocal={location.pathname} svg={'editprofile'} />
+                    <ProfileLi to="/profile/repports" name="Repports" activeTo={location.pathname} activeLocal={location.pathname} svg={'repports'} />
+                    <ProfileLi to="/profile/chat" name="Chat" activeTo={location.pathname} activeLocal={location.pathname} svg={'chat'} />
+                    <ProfileLi to="/profile/settings" name="Settings" activeTo={location.pathname} activeLocal={location.pathname} svg={'settings'} />
+                    <ProfileLi to="#" name="logout" activeTo={location.pathname} activeLocal={location.pathname} svg={'logout'} onClick={handleLogOut} />
                   </ul>
                 </div>
               </aside>
@@ -231,3 +237,4 @@ function Profile() {
 }
 
 export default Profile;
+

@@ -47,6 +47,7 @@ export function ImgsProvider({ children }: ChildrenContext) {
     }, [user]);
 
     const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log("Função uploadImage chamada");
         const file = e.target.files?.[0];
 
         if (file && user) {
