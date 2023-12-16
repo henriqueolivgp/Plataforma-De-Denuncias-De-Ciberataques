@@ -125,8 +125,8 @@ export default function NavbarV2() {
                 id="user-dropdown"
               >
                 <div className="px-4 py-3">
-                  <span className="block text-sm text-gray-900 dark:text-white">Name LastName</span>
-                  <span className="block text-sm  text-gray-500 truncate dark:text-gray-400 w-36">{user?.email ? 'email@email.com' : 'email@email.com'}</span>
+                  <span className="block text-sm text-gray-900 dark:text-white"></span>
+                  <span className="block text-sm  text-gray-500 truncate dark:text-gray-400 w-36">{user?.email}</span>
                 </div>
                 <ul className="py-2" aria-labelledby="user-menu-button">
                   <div className='lg:hidden md:hidden'>
