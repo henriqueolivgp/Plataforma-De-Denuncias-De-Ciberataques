@@ -3,10 +3,16 @@ import { Link, useNavigate, Outlet } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { SupaBaseClient } from "../../Services/supabase/SupaBaseClient";
+// Imagens
+import { useImgs } from "../../hooks/useImgs";
+import { Loading } from "../components/Loading";
 
 function Profile() {
-  const { user, loading, signOut } = useAuth();
+  const CDNURL = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Imgs/";
+  const { bannerImages, avatarImages, getImages } = useImgs();
+  const { user, signOut } = useAuth();
   const [profiles, setProfiles] = useState<profile[]>([]);
+  const [isLoading, setisLoading] = useState(true);
   const navigate = useNavigate();
 
   const GetAllProfile = async () => {
@@ -17,31 +23,33 @@ function Profile() {
     setProfiles(data || []);
   };
 
-  // Se o usuário não estiver logado, redirecione-o para a página de login
+
+  // ...
+
   useEffect(() => {
     const fetchData = async () => {
-      if (!loading && !user) {
-        navigate('/signin'); // Substitua pela rota da sua página de login
-      }
+      setisLoading(true)
       await GetAllProfile();
-
+      await getImages();
+      setisLoading(false)
     };
 
     fetchData();
-  }, [loading, user, navigate]);
+  }, [ user, navigate, getImages]);
+
+  if(isLoading){
+    return <Loading/>
+  }
 
   // Renderize o conteúdo da sua página apenas se o usuário estiver logado
-  if (loading || !user) {
+  if ( !user) {
     return <p>Carregando...</p>;
   }
 
   interface profile {
     id: number;
-    banner: string;
     all_name: string;
-    avatar: string;
   }
-
 
   // Funcao responsavel por fazer o logOut
   const handleLogOut = async (e: { preventDefault: () => void; }) => {
@@ -71,18 +79,20 @@ function Profile() {
   return (
     <>
       <div className="container mx-auto flex">
-        <div className="content mx-auto">
+        <div className="flex flex-col content mx-auto ">
           <section className="banner bg-violet-100 h-48 w-full">
             <div className="Text-Button flex flex-col relative z-10 xl:flex-row">
               <div className="w-full absolute overflow-hidden h-48 xl:relative flex items-center content-center">
-                {profiles.map((profile) => (
-                  <img
-                    key={profile.id} // Certifique-se de ter uma chave única para cada imagem
-                    className="w-screen h-full object-cover"
-                    src={profile.banner} // Use a URL da imagem do perfil a partir do seu objeto de perfil
-                    alt="banner"
-                  />
-                ))}
+                { bannerImages && bannerImages.map((image) => {
+                  const imageURL = `${CDNURL}${user.id}/${image.name}`;
+                  console.log(imageURL);
+
+                  return (
+                    <div key={imageURL}>
+                      <img className="w-screen h-full object-cover" src={imageURL} />
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </section>
@@ -90,13 +100,16 @@ function Profile() {
           <div className="w-full bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="flex justify-end px-4 pt-4"></div>
             <div className="flex items-center">
-              {profiles.map((profile) => (
-                <img
-                  className="w-24 h-24 mb-3 ml-4 rounded-full shadow-lg" key={profile.id}
-                  src={profile.avatar}
-                  alt="User image"
-                />
-              ))}
+              {avatarImages && avatarImages.map((image) => {
+                const imageURL = `${CDNURL}${user.id}/${image.name}`;
+                console.log(imageURL);
+
+                return (
+                  <div key={imageURL}>
+                    <img className="w-24 h-24 mb-3 ml-4 rounded-full shadow-lg" src={imageURL} />
+                  </div>
+                );
+              })}
 
               <div className="ml-4">
                 <div className="ml-4">
@@ -158,7 +171,7 @@ function Profile() {
               <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
             </svg>
           </button>
-          <div className="flex">
+          <div className="flex flex-1 ">
             <aside id="default-sidebar" className="w-64 h-auto transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
               <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                 <ul className="space-y-2 font-medium">
