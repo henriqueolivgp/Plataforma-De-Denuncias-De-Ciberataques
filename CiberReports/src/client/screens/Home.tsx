@@ -28,8 +28,15 @@ function Home() {
             {!session && (
               <div className="max-w-lg p-6 bg-transparent">
                 <a href="#">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-blue-700 dark:text-white text-justify">
-                  Denuncie, Proteja, Previna: Juntos Contra Ciberataques!
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-bluelite dark:text-white text-justify">
+                    Denuncie<span className="text-white text-justify">,</span>{" "}
+                    Proteja<span className="text-white text-justify">,</span>{" "}
+                    Previna
+                    <span className="text-white text-justify">
+                      : Juntos Contra
+                    </span>{" "}
+                    Ciberataques
+                    <span className="text-white text-justify">!</span>
                   </h5>
                 </a>
                 <p className="mb-3 font-normal text-white dark:text-gray-400 text-justify">
@@ -40,7 +47,7 @@ function Home() {
                 </p>
                 <a
                   href="/explore"
-                  className="inline-flex items-center px-3 py-2 mr-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="inline-flex items-center px-3 py-2 mr-2 text-sm font-medium text-center text-white bg-bluelite rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Explorar
                   <svg
@@ -61,7 +68,7 @@ function Home() {
                 </a>
                 <a
                   href="/signup"
-                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-blue-700 bg-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-bluelite bg-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-bluelite dark:focus:ring-blue-800"
                 >
                   Criar conta
                   <svg
@@ -85,8 +92,13 @@ function Home() {
             {session && (
               <div className="max-w-lg p-6 bg-transparent">
                 <a href="#">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-blue-700 dark:text-white text-justify">
-                    Denuncie aqui os seus problemas de Cibersegurança
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-bluelite dark:text-white text-justify">
+                    Denuncie{" "}
+                    <span className="text-white text-justify">
+                      aqui os seus problemas
+                    </span>{" "}
+                    de Cibersegurança
+                    <span className="text-white text-justify">!</span>
                   </h5>
                 </a>
                 <p className="mb-3 font-normal text-white dark:text-gray-400 text-justify">
@@ -97,7 +109,7 @@ function Home() {
                 </p>
                 <a
                   href="/explore"
-                  className="inline-flex items-center px-3 py-2 mr-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="inline-flex items-center px-3 py-2 mr-2 text-sm font-medium text-center text-white bg-bluelite rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Explorar
                   <svg
@@ -119,7 +131,7 @@ function Home() {
                 <a
                   href="#"
                   onClick={handleLogOut}
-                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-blue-700 bg-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-bluelite bg-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-lite dark:focus:ring-blue-800"
                 >
                   Logout
                   <svg
@@ -144,7 +156,7 @@ function Home() {
         </div>
       </div>
 
-
+      
     </>
   );
 }
