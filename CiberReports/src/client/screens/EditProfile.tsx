@@ -9,8 +9,7 @@ import { useImgs } from "../../hooks/useImgs";
 
 interface profile {
     id: number;
-    first_name: boolean;
-    last_name: string;
+    all_name: string;
 }
 
 function EditProfile() {
