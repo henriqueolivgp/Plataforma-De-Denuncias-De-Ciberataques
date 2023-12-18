@@ -10,7 +10,7 @@ import { Loading } from "../components/Loading";
 import { ProfileLi } from "../components/ProfileComponents/ProfileLi";
 
 function Profile() {
-  const CDNURL = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Imgs/";
+  const CDNURL = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
   const { bannerImages, avatarImages, getImages } = useImgs();
   const { user, signOut } = useAuth();
   const [profiles, setProfiles] = useState<profile[]>([]);
@@ -104,7 +104,12 @@ function Profile() {
     LastLogin = format(dateObject, 'dd-MM-yyyy');
   }
 
-
+  if(avatarImages == null){
+    console.log('tem imagem')
+    console.log(avatarImages)
+  }else{
+    console.log('nao tem imagem')
+  }
 
   return (
     <>
@@ -131,17 +136,25 @@ function Profile() {
             <div className="flex justify-end px-4 pt-4"></div>
             <div className="flex items-center">
               {avatarImages && avatarImages.map((image) => {
+                console.log(user.id)
                 const imageURL = `${CDNURL}${user.id}/${image.name}`;
+                console.log(imageURL + 'aqui')
+                if(image != null){
+                  return (
+                    <div key={imageURL}>
+                      <img
+                        className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
+                        src={imageURL}  // Corrigido aqui
+                        alt="User Avatar"  // Adicionado um atributo alt
+                      />
+                    </div>
+                  );
+                } else {
+                  console.log('sem imagem')
+                }
+               
 
-                return (
-                  <div key={imageURL}>
-                    <img
-                      className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
-                      src={imageURL}  // Corrigido aqui
-                      alt="User Avatar"  // Adicionado um atributo alt
-                    />
-                  </div>
-                );
+               
               })}
 
               <div className="ml-4">
@@ -197,7 +210,7 @@ function Profile() {
               </div>
             </div>
           </div>
-
+          
           <div ref={menuRef}>
             <button data-drawer-target="default-sidebar" onClick={handleClick} aria-expanded={isOpen} data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" className="sm:block lg:hidden inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
               <span className="sr-only">Open sidebar</span>
@@ -211,7 +224,7 @@ function Profile() {
                   <ul className="space-y-2 font-medium">
                     <ProfileLi to="/profile" name="Profile" activeTo={location.pathname} activeLocal={location.pathname} svg={'profile'} />
                     <ProfileLi to="/profile/edit-profile" name="Edit-Profile" activeTo={location.pathname} activeLocal={location.pathname} svg={'editprofile'} />
-                    <ProfileLi to="/profile/repports" name="Repports" activeTo={location.pathname} activeLocal={location.pathname} svg={'repports'} />
+                    <ProfileLi to="/profile/reports" name="Repports" activeTo={location.pathname} activeLocal={location.pathname} svg={'reports'} />
                     <ProfileLi to="/profile/chat" name="Chat" activeTo={location.pathname} activeLocal={location.pathname} svg={'chat'} />
                     <ProfileLi to="/profile/settings" name="Settings" activeTo={location.pathname} activeLocal={location.pathname} svg={'settings'} />
                     <ProfileLi to="#" name="logout" activeTo={location.pathname} activeLocal={location.pathname} svg={'logout'} onClick={handleLogOut} />

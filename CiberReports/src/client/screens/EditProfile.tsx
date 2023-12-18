@@ -33,7 +33,7 @@ function EditProfile() {
     };
 
 
-      // Se o usuário não estiver logado, redirecione-o para a página de login
+// Se o utilizador não estiver logado, redirecione-o para a página de login
   useEffect(() => {
     const fetchData = async () => {
 

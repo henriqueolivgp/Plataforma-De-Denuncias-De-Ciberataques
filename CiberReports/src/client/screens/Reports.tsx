@@ -1,6 +1,6 @@
 
 
-function Repports() {
+function Reports() {
 
   return (
     <>
@@ -15,4 +15,4 @@ function Repports() {
   )
 }
 
-export default Repports;
+export default Reports;

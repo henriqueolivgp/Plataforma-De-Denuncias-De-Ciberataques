@@ -18,7 +18,7 @@ import { AuthProvider } from "./providers/AuthProvider.tsx";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Support from "./client/screens/Support.tsx";
-import Repports from "./client/screens/Repports.tsx";
+import Reports from "./client/screens/Reports.tsx";
 import Chat from "./client/screens/Chat.tsx";
 import Explore from "./client/screens/Explore.tsx";
 import Contact from "./client/screens/Contact.tsx";
@@ -29,6 +29,7 @@ import { ImgsProvider } from "./providers/ImgsProvider.tsx";
 
 import { PrivateRoutes } from "./client/routes/PrivateRoutes.tsx";
 import { ProfileProvider } from "./providers/ProfileProvider.tsx";
+import RegisterProfile from "./client/screens/RegisterProfile.tsx";
 
 // criação da const function
 const router = createBrowserRouter([
@@ -47,8 +48,13 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
+        path: "/register-profile",
+        element: <RegisterProfile />
+      },
+      {
         path: "/signin",
         element: <Login />,
+
       },
       {
         path: "/profile",
@@ -73,8 +79,8 @@ const router = createBrowserRouter([
             element: <Settings />,
           },
           {
-            path: "/profile/repports",
-            element: <Repports />,
+            path: "/profile/reports",
+            element: <Reports />,
           },
           {
             path: "/profile/status",

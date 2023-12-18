@@ -28,7 +28,7 @@ function Register() {
     }
     try {
       setLoading(true);
-      await signUp(emailRef.current!.value,passwordRef.current!.value);
+      await signUp(emailRef.current!.value, passwordRef.current!.value);
       toast.success("Registration Successful. Check your email to confirm your account");
       //toast.success(msg);
     } catch (error) {
@@ -42,6 +42,11 @@ function Register() {
   return (
     <>
       {/* Same as */}
+      <img
+        src="/Image 283.jpg"
+        alt="imagem de fundo"
+        className=" absolute top-0 z-[-1] object-cover"
+      />  
       <div className="container mx-auto">
         <div className="content mx-auto">
 
