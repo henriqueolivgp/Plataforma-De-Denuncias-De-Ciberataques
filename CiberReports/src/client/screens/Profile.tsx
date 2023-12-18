@@ -10,7 +10,7 @@ import { Loading } from "../components/Loading";
 import { ProfileLi } from "../components/ProfileComponents/ProfileLi";
 
 function Profile() {
-  const CDNURL = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Imgs/";
+  const CDNURL = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
   const { bannerImages, avatarImages, getImages } = useImgs();
   const { user, signOut } = useAuth();
   const [profiles, setProfiles] = useState<profile[]>([]);
@@ -104,7 +104,12 @@ function Profile() {
     LastLogin = format(dateObject, 'dd-MM-yyyy');
   }
 
-
+  if(avatarImages == null){
+    console.log('tem imagem')
+    console.log(avatarImages)
+  }else{
+    console.log('nao tem imagem')
+  }
 
   return (
     <>
@@ -131,17 +136,25 @@ function Profile() {
             <div className="flex justify-end px-4 pt-4"></div>
             <div className="flex items-center">
               {avatarImages && avatarImages.map((image) => {
+                console.log(user.id)
                 const imageURL = `${CDNURL}${user.id}/${image.name}`;
+                console.log(imageURL + 'aqui')
+                if(image != null){
+                  return (
+                    <div key={imageURL}>
+                      <img
+                        className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
+                        src={imageURL}  // Corrigido aqui
+                        alt="User Avatar"  // Adicionado um atributo alt
+                      />
+                    </div>
+                  );
+                } else {
+                  console.log('sem imagem')
+                }
+               
 
-                return (
-                  <div key={imageURL}>
-                    <img
-                      className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
-                      src={imageURL}  // Corrigido aqui
-                      alt="User Avatar"  // Adicionado um atributo alt
-                    />
-                  </div>
-                );
+               
               })}
 
               <div className="ml-4">
