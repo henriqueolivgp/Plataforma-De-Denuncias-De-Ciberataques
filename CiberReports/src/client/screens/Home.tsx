@@ -24,7 +24,7 @@ function Home() {
       />
       <div className=" bg-black opacity-70">
         <div className="container mx-auto opacity-none ">
-          <div className="content mr-auto mt-20">
+          <div className="content flex flex-1 items-center ml-10">
             {!session && (
               <div className="max-w-lg p-6 bg-transparent">
                 <a href="#">

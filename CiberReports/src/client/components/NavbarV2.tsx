@@ -3,9 +3,11 @@ import { useAuth } from "../../hooks/useAuth";
 import { useState, useEffect, useRef } from "react";
 import { NavLi } from './NavbarComponents/NavLi';
 import { NavLiMobile } from './NavbarComponents/NavLiMobile'
+import { useProfile } from '../../hooks/useProfile';
 
 export default function NavbarV2() {
 
+  useProfile();
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
