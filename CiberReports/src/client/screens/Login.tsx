@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { useRef, useState, FormEvent} from "react";
+import { useRef, useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -32,6 +32,11 @@ function Login() {
 
   return (
     <>
+      <img
+        src="/Image 283.jpg"
+        alt="imagem de fundo"
+        className=" absolute top-0 z-[-1] object-cover"
+      />
       <div className="container mx-auto ">
         <div className="content mx-auto">
 
@@ -54,7 +59,7 @@ function Login() {
                       </div>
 
                     </div>
-                    
+
                     <div className="flex justify-center">
                       <button disabled={loading} type="submit" className="w-80 text-white bg-button-blue hover:bg-footer-bg focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
                     </div>

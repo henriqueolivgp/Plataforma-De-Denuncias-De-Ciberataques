@@ -29,6 +29,7 @@ import { ImgsProvider } from "./providers/ImgsProvider.tsx";
 
 import { PrivateRoutes } from "./client/routes/PrivateRoutes.tsx";
 import { ProfileProvider } from "./providers/ProfileProvider.tsx";
+import RegisterProfile from "./client/screens/RegisterProfile.tsx";
 
 // criação da const function
 const router = createBrowserRouter([
@@ -47,8 +48,13 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
+        path: "/register-profile",
+        element: <RegisterProfile />
+      },
+      {
         path: "/signin",
         element: <Login />,
+
       },
       {
         path: "/profile",
