@@ -5,7 +5,7 @@ interface ProfileLiProps extends LinkProps {
     name: string
     activeTo: string
     activeLocal: string
-    svg: 'profile' | 'editprofile' | 'repports' | 'chat' | 'settings' | 'logout'
+    svg: 'profile' | 'editprofile' | 'reports' | 'chat' | 'settings' | 'logout'
 }
 
 export function ProfileLi({ to, name, activeTo, activeLocal, svg, ...rest }: ProfileLiProps) {
@@ -26,7 +26,7 @@ export function ProfileLi({ to, name, activeTo, activeLocal, svg, ...rest }: Pro
                     </svg>
 
                 )}
-                {svg === 'repports' && (
+                {svg === 'reports' && (
                     <svg className={`flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white ${isActiveSvg ? ' text-gray-900' : 'text-gray-500'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 19">
                         <path d="M15 1.943v12.114a1 1 0 0 1-1.581.814L8 11V5l5.419-3.871A1 1 0 0 1 15 1.943ZM7 4H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2V4ZM4 17v-5h1v5H4ZM16 5.183v5.634a2.984 2.984 0 0 0 0-5.634Z" />
                     </svg>

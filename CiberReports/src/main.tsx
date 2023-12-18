@@ -18,7 +18,7 @@ import { AuthProvider } from "./providers/AuthProvider.tsx";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Support from "./client/screens/Support.tsx";
-import Repports from "./client/screens/Repports.tsx";
+import Reports from "./client/screens/Reports.tsx";
 import Chat from "./client/screens/Chat.tsx";
 import Explore from "./client/screens/Explore.tsx";
 import Contact from "./client/screens/Contact.tsx";
@@ -73,8 +73,8 @@ const router = createBrowserRouter([
             element: <Settings />,
           },
           {
-            path: "/profile/repports",
-            element: <Repports />,
+            path: "/profile/reports",
+            element: <Reports />,
           },
           {
             path: "/profile/status",
