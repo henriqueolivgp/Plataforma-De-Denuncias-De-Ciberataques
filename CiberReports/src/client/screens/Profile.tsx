@@ -237,7 +237,7 @@ function Profile() {
                   <ul className="space-y-2 font-medium">
                     <ProfileLi to="/profile" name="Profile" activeTo={location.pathname} activeLocal={location.pathname} svg={'profile'} />
                     <ProfileLi to="/profile/edit-profile" name="Edit-Profile" activeTo={location.pathname} activeLocal={location.pathname} svg={'editprofile'} />
-                    <ProfileLi to="/profile/reports" name="Repports" activeTo={location.pathname} activeLocal={location.pathname} svg={'reports'} />
+                    <ProfileLi to="/profile/reports" name="Reports" activeTo={location.pathname} activeLocal={location.pathname} svg={'reports'} />
                     <ProfileLi to="/profile/chat" name="Chat" activeTo={location.pathname} activeLocal={location.pathname} svg={'chat'} />
                     <ProfileLi to="/profile/settings" name="Settings" activeTo={location.pathname} activeLocal={location.pathname} svg={'settings'} />
                     <ProfileLi to="#" name="logout" activeTo={location.pathname} activeLocal={location.pathname} svg={'logout'} onClick={handleLogOut} />

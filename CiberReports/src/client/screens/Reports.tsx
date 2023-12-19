@@ -6,7 +6,7 @@ function Reports() {
     <>
       <div className="container mx-auto ">
         <div className="content mx-auto">
-          <h1>RepportsPage</h1>
+          <h1>Reports Page</h1>
           
         </div>
       </div>
