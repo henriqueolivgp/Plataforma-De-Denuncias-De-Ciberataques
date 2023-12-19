@@ -7,7 +7,7 @@ import { useProfile } from '../../hooks/useProfile';
 import { useImgs } from "../../hooks/useImgs";
 import { Loading } from "../components/Loading";
 import { Logo } from './NavbarComponents/Logo';
-
+import userVerified from '../assets/UserVerified.png'
 
 export default function NavbarV2() {
 
@@ -134,7 +134,7 @@ export default function NavbarV2() {
               {/* menu logado mobile */}
               <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded={isOpen} data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom" onClick={handleClick}>
                 <span className="sr-only">Open user menu</span>
-                <span className="logado top-0 left-6 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                <span className="bottom-0 absolute  w-3.5 h-3.5 border-white dark:border-gray-800 rounded-full"><img src={userVerified} alt="userVerified" /></span>
                 {avatarImage.length <= 0 ? (
                   <>
                     <img
