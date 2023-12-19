@@ -139,18 +139,28 @@ export default function NavbarV2() {
               <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded={isOpen} data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom" onClick={handleClick}>
                 <span className="sr-only">Open user menu</span>
                 <span className="logado top-0 left-6 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
-                {avatarImage.map((image) => {
-                  const imageURL = `${URLAvatar}${user?.id}/${image.name}`;
-                  return (
-                    <div key={imageURL}>
-                      <img
-                        className="w-8 h-8 rounded-full"
-                        src={imageURL}  // Corrigido aqui
-                        alt="User Avatar"  // Adicionado um atributo alt
-                      />
-                    </div>
-                  );
-                })}
+                {avatarImage.length <= 0 ? (
+                  <>
+                    <img
+                      className="w-8 h-8 rounded-full"
+                      src="/user.png"  // Corrigido aqui
+                      alt="User Avatar"  // Adicionado um atributo alt
+                    />
+                  </>
+                ) : (
+                  avatarImage.map((image) => {
+                    const imageURL = `${URLAvatar}${user?.id}/${image.name}`;
+                    return (
+                      <div key={imageURL}>
+                        <img
+                          className="w-8 h-8 rounded-full"
+                          src={imageURL}  // Corrigido aqui
+                          alt="User Avatar"  // Adicionado um atributo alt
+                        />
+                      </div>
+                    );
+                  })
+                )}
                 {/* <img className="w-8 h-8 rounded-full" src="/user.png" alt="user photo" /> */}
               </button>
               <div

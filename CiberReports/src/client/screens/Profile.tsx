@@ -105,7 +105,7 @@ function Profile() {
   }
 
   // Após a verificação de bannerImage !== null, adicione um console.log para verificar o conteúdo de bannerImage
-  if (bannerImage !== null) {
+  if (avatarImage !== null) {
     console.log('tem imagem' + avatarImage);
 
   } else {
@@ -120,15 +120,25 @@ function Profile() {
           <section className="banner bg-violet-100 h-48 w-full">
             <div className="Text-Button flex flex-col relative z-10 xl:flex-row">
               <div className="w-full absolute overflow-hidden h-48 xl:relative flex items-center content-center">
-
-                {bannerImage.map((image) => {
-                  const imageURL = `${URLBanner}${user.id}/${image.name}`;
-                  return (
+                {bannerImage.length <= 0 ? (
+                  <>
+                    <img
+                      className="w-screen h-full object-cover"
+                      src="https://t4.ftcdn.net/jpg/05/52/98/77/360_F_552987749_4Y5SJa4KRL2UIzVrk5vznfbQtDeJZtqe.jpg"
+                      alt="banner" /><span className="absolute text-white text-5xl font-bold flex items-center justify-center w-full h-full">
+                      User Banner
+                    </span>
+                  </>
+                ) : (
+                  bannerImage.map((image) => {
+                    const imageURL = `${URLBanner}${user.id}/${image.name}`;
+                    return (
                       <div key={imageURL}>
-                        <img className="w-screen h-full object-cover" src={imageURL} />
+                        <img className="w-screen h-full object-cover" src={imageURL} alt={`User Banner ${image.name}`} />
                       </div>
-                  );
-                })}
+                    );
+                  })
+                )}
               </div>
             </div>
           </section>
@@ -136,19 +146,28 @@ function Profile() {
           <div className="w-full bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="flex justify-end px-4 pt-4"></div>
             <div className="flex items-center">
-              {avatarImage.map((image) => {
-                const imageURL = `${URLAvatar}${user.id}/${image.name}`;
-                return (
-                  <div key={imageURL}>
+            {avatarImage.length <= 0 ? (
+                  <>
                     <img
                       className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
-                      src={imageURL}  // Corrigido aqui
+                      src="/user.png"  // Corrigido aqui
                       alt="User Avatar"  // Adicionado um atributo alt
                     />
-                  </div>
-                );
-              })}
-
+                  </>
+                ) : (
+                  avatarImage.map((image) => {
+                    const imageURL = `${URLAvatar}${user.id}/${image.name}`;
+                    return (
+                      <div key={imageURL}>
+                      <img
+                        className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
+                        src={imageURL}  // Corrigido aqui
+                        alt="User Avatar"  // Adicionado um atributo alt
+                      />
+                    </div>
+                    );
+                  })
+                )}
               <div className="ml-4">
                 <div className="">
                   {profiles.map((profile) => (
@@ -158,7 +177,9 @@ function Profile() {
                   ))
                   }
                 </div>
-
+                <h5 className="mb-1 text-3xl font-medium text-gray-900 dark:text-white">
+                  Nome utilizador
+                </h5>
                 <p className=" text-sm">Date Joined :{DateJoined}</p>
                 <p className=" text-sm">Las Login: {LastLogin}</p>
               </div>
