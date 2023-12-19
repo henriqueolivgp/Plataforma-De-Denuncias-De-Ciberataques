@@ -7,6 +7,7 @@ import { SupaBaseClient } from "../../Services/supabase/SupaBaseClient";
 import { useImgs } from "../../hooks/useImgs";
 // loading
 import { Loading } from "../components/Loading";
+import Sidebar from "../components/ProfileComponents/Sidebar";
 
 
 function Profile() {
@@ -108,28 +109,28 @@ function Profile() {
           <div className="w-full bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="flex justify-end px-4 pt-4"></div>
             <div className="flex items-center">
-            {avatarImage.length <= 0 ? (
-                  <>
-                    <img
-                      className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
-                      src="/user.png"  // Corrigido aqui
-                      alt="User Avatar"  // Adicionado um atributo alt
-                    />
-                  </>
-                ) : (
-                  avatarImage.map((image) => {
-                    const imageURL = `${URLAvatar}${user.id}/${image.name}`;
-                    return (
-                      <div key={imageURL}>
+              {avatarImage.length <= 0 ? (
+                <>
+                  <img
+                    className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
+                    src="/user.png"  // Corrigido aqui
+                    alt="User Avatar"  // Adicionado um atributo alt
+                  />
+                </>
+              ) : (
+                avatarImage.map((image) => {
+                  const imageURL = `${URLAvatar}${user.id}/${image.name}`;
+                  return (
+                    <div key={imageURL}>
                       <img
                         className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
                         src={imageURL}  // Corrigido aqui
                         alt="User Avatar"  // Adicionado um atributo alt
                       />
                     </div>
-                    );
-                  })
-                )}
+                  );
+                })
+              )}
               <div className="ml-4">
                 <div className="">
                   {profiles.map((profile) => (
@@ -147,7 +148,7 @@ function Profile() {
               </div>
             </div>
             <div className="px-4"></div>
-            <div className="flex flex-wrap justify-around items-center p-4">
+            <div className="flex flex-1 p-4">
               <div className="text-sm text-gray-500 dark:text-gray-400">
                 <span>Total de Denúncias</span>
                 <br />
@@ -155,37 +156,9 @@ function Profile() {
                   237
                 </h5>
               </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 ml-4">
-                <span>Mensagens</span>
-                <br />
-                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-                  23
-                </h5>
-              </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 ml-4">
-                <span>Telefonemas</span>
-                <br />
-                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-                  0
-                </h5>
-              </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 ml-4">
-                <span>Vírus</span>
-                <br />
-                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-                  45
-                </h5>
-              </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 ml-4">
-                <span>Invasões</span>
-                <br />
-                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-                  0
-                </h5>
-              </div>
             </div>
           </div>
-
+          <Sidebar />
         </div>
       </div>
 

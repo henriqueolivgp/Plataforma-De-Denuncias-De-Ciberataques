@@ -123,7 +123,6 @@ export default function NavbarV2() {
               <NavLi to='/' name='Home' activeTo={location.pathname} />
               <NavLi to='/explore' name='Explore' activeTo={location.pathname} />
               <NavLi to='/about-us' name='About-Us' activeTo={location.pathname} />
-              <NavLi to='/contact' name='Contact' activeTo={location.pathname} />
               {!session && (
                 <NavLi to='/signin' name='Sign-in' activeTo={location.pathname} />
               )}
@@ -176,7 +175,6 @@ export default function NavbarV2() {
                     <NavLiMobile to='/' name='Home' svg='home' onClick={() => setIsOpen(false)} />
                     <NavLiMobile to='/explore' name='Explore' svg='explore' onClick={() => setIsOpen(false)} />
                     <NavLiMobile to='/about-us' name='About-Us' svg='about' onClick={() => setIsOpen(false)} />
-                    <NavLiMobile to='/contact' name='Contact' svg='contact' onClick={() => setIsOpen(false)} />
                   </div>
 
                   <li>
