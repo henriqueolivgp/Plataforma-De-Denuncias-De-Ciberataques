@@ -178,7 +178,7 @@ function Profile() {
                   }
                 </div>
                 <h5 className="mb-1 text-3xl font-medium text-gray-900 dark:text-white">
-                  Nome utilizador
+                  User Name
                 </h5>
                 <p className=" text-sm">Date Joined :{DateJoined}</p>
                 <p className=" text-sm">Las Login: {LastLogin}</p>
