@@ -6,7 +6,8 @@ import { NavLiMobile } from './NavbarComponents/NavLiMobile'
 import { useProfile } from '../../hooks/useProfile';
 import { useImgs } from "../../hooks/useImgs";
 import { Loading } from "../components/Loading";
-
+import { Logo } from './NavbarComponents/Logo';
+import userVerified from '../assets/UserVerified.png'
 
 export default function NavbarV2() {
 
@@ -74,11 +75,7 @@ export default function NavbarV2() {
     <nav className="bg-transparent dark:bg-gray-800 dark:border-gray-700 ">
       <div className=" flex flex-wrap items-center p-4 justify-between flex-1 ">
         <div className='flex items-center'>
-          <Link to='/'><a href="#" className="flex items-center space-x-3 rtl:space-x-reverse ">
-            <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">CiberReports</span>
-          </a>
-          </Link>
+          <Logo to='/' name='Ciber Reports' activeTo={location.pathname} />
           <div className="relative hidden md:block ml-full ml-4">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -123,7 +120,6 @@ export default function NavbarV2() {
               <NavLi to='/' name='Home' activeTo={location.pathname} />
               <NavLi to='/explore' name='Explore' activeTo={location.pathname} />
               <NavLi to='/about-us' name='About-Us' activeTo={location.pathname} />
-              <NavLi to='/contact' name='Contact' activeTo={location.pathname} />
               {!session && (
                 <NavLi to='/signin' name='Sign-in' activeTo={location.pathname} />
               )}
@@ -138,7 +134,7 @@ export default function NavbarV2() {
               {/* menu logado mobile */}
               <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded={isOpen} data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom" onClick={handleClick}>
                 <span className="sr-only">Open user menu</span>
-                <span className="logado top-0 left-6 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                <span className="bottom-0 absolute  w-3.5 h-3.5 border-white dark:border-gray-800 rounded-full"><img src={userVerified} alt="userVerified" /></span>
                 {avatarImage.length <= 0 ? (
                   <>
                     <img
@@ -176,7 +172,6 @@ export default function NavbarV2() {
                     <NavLiMobile to='/' name='Home' svg='home' onClick={() => setIsOpen(false)} />
                     <NavLiMobile to='/explore' name='Explore' svg='explore' onClick={() => setIsOpen(false)} />
                     <NavLiMobile to='/about-us' name='About-Us' svg='about' onClick={() => setIsOpen(false)} />
-                    <NavLiMobile to='/contact' name='Contact' svg='contact' onClick={() => setIsOpen(false)} />
                   </div>
 
                   <li>

@@ -1,7 +1,11 @@
-function  Explore ()  {
+
+function Explore() {
     return (
-        <div>
-            <p>ERROR 404!</p>
+        <div className="container mx-auto ">
+            <div className="content mx-auto">
+                <h1>Explore page</h1>
+
+            </div>
         </div>
     )
 }
