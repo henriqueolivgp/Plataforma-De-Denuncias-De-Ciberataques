@@ -4,17 +4,24 @@ import { useState, useEffect, useRef } from "react";
 import { NavLi } from './NavbarComponents/NavLi';
 import { NavLiMobile } from './NavbarComponents/NavLiMobile'
 import { useProfile } from '../../hooks/useProfile';
+import { useImgs } from "../../hooks/useImgs";
+import { Loading } from "../components/Loading";
+
 
 export default function NavbarV2() {
 
   useProfile();
   const { user } = useAuth();
+  const { avatarImage, getAvatar } = useImgs();
+  const URLAvatar = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [isLoading, setisLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
-
+  // Funcao responsavel por fazer o logOut
+  const { signOut, session } = useAuth();
   const handleOutsideClick = (event: MouseEvent) => {
     const target = event.target as Node;
 
@@ -27,18 +34,30 @@ export default function NavbarV2() {
   useEffect(() => {
     document.addEventListener('click', handleOutsideClick);
 
+
     return () => {
       document.removeEventListener('click', handleOutsideClick);
     };
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      setisLoading(true)
+      await getAvatar();
+      setisLoading(false)
+    };
+
+    fetchData();
+  }, [user, navigate, getAvatar]);
+
+  if (isLoading) {
+    return <Loading />
+  }
+
+
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
-
-
-  // Funcao responsavel por fazer o logOut
-  const { signOut, session } = useAuth();
 
   const handleLogOut = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
@@ -120,7 +139,19 @@ export default function NavbarV2() {
               <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded={isOpen} data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom" onClick={handleClick}>
                 <span className="sr-only">Open user menu</span>
                 <span className="logado top-0 left-6 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
-                <img className="w-8 h-8 rounded-full" src="/user.png" alt="user photo" />
+                {avatarImage.map((image) => {
+                  const imageURL = `${URLAvatar}${user?.id}/${image.name}`;
+                  return (
+                    <div key={imageURL}>
+                      <img
+                        className="w-8 h-8 rounded-full"
+                        src={imageURL}  // Corrigido aqui
+                        alt="User Avatar"  // Adicionado um atributo alt
+                      />
+                    </div>
+                  );
+                })}
+                {/* <img className="w-8 h-8 rounded-full" src="/user.png" alt="user photo" /> */}
               </button>
               <div
                 className={`absolute top-50% -right-4 ${isOpen ? "" : "hidden"} z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`}
