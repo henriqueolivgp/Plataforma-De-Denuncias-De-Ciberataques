@@ -4,6 +4,7 @@ import { ReactNode, createContext } from "react";
 console.log("passei pelo imgsContext");
 
 export interface ImgType {
+    id: string;
     name: string;
 }
 
@@ -15,11 +16,12 @@ interface  ChildrenContext {
 export type ImgsDataContext = {
     
     user: User | null | undefined;
-    bannerImages: ImgType[];
-    avatarImages: ImgType[];
-    images: ImgType[];
-    getImages: () => Promise<{ bannerImages: ImgType[]; avatarImages: ImgType[]; images: ImgType[]; } | undefined>
-    uploadImage: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+    bannerImage: ImgType[];
+    avatarImage: ImgType[];
+    getBanner: () => Promise<{ bannerImage: ImgType[] } | undefined>
+    getAvatar: () => Promise<{ avatarImage: ImgType[] } | undefined>
+    uploadBanner: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+    uploadAvatar: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
 
   }
 

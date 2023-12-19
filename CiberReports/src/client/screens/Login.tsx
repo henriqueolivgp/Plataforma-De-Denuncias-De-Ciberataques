@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import { useRef, useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import ImgBack from "../components/ImgBack";
 
 
 function Login() {
@@ -32,11 +33,7 @@ function Login() {
 
   return (
     <>
-      <img
-        src="/Image 283.jpg"
-        alt="imagem de fundo"
-        className=" absolute top-0 z-[-1] object-cover"
-      />
+      <ImgBack/>
       <div className="container mx-auto ">
         <div className="content mx-auto">
 
