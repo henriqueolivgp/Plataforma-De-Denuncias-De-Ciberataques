@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, FormEvent, useState } from "react";
 import { SupaBaseClient } from '../../Services/supabase/SupaBaseClient'
 import { ReafreshPage } from "../functions/ReafreshPage";
-import { useImgs } from "../../hooks/useImgs";
 
 
 
@@ -19,7 +18,6 @@ function EditProfile() {
     const { user } = useAuth();
     const navigate = useNavigate();
     const reafreshPage = ReafreshPage();
-    const { uploadImage } = useImgs();
 
     //https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Imgs/311b2884-a18d-4c68-8d9e-f4344e4cb5f4/539e2041-65cc-4cd3-9d14-ee61dd3ce9bc
 
@@ -87,7 +85,7 @@ function EditProfile() {
                             className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             id="file_input"
                             onChange={(e) => {
-                                uploadImage(e); // 👈 this will trigger when user selects the file.
+                                (e); // 👈 this will trigger when user selects the file.
                             }} />
                     </div>
                     <div>
@@ -97,7 +95,7 @@ function EditProfile() {
                             id="file_input"
                             type="file"
                             onChange={(e) => {
-                                uploadImage(e);
+                                (e);
                             }} />
 
                     </div>
