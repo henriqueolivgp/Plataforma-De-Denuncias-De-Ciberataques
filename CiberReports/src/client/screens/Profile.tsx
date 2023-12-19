@@ -10,8 +10,9 @@ import { Loading } from "../components/Loading";
 import { ProfileLi } from "../components/ProfileComponents/ProfileLi";
 
 function Profile() {
-  const CDNURL = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
-  const { bannerImages, avatarImages, getImages } = useImgs();
+  const URLBanner = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Banner/";
+  const URLAvatar = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
+  const { bannerImage, getBanner, avatarImage, getAvatar } = useImgs();
   const { user, signOut } = useAuth();
   const [profiles, setProfiles] = useState<profile[]>([]);
   const [isLoading, setisLoading] = useState(true);
@@ -44,8 +45,6 @@ function Profile() {
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
-
-  console.log(isOpen)
   const GetAllProfile = async () => {
     const { data } = await SupaBaseClient
       .from('profiles')
@@ -58,12 +57,13 @@ function Profile() {
     const fetchData = async () => {
       setisLoading(true)
       await GetAllProfile();
-      await getImages();
+      await getBanner();
+      await getAvatar();
       setisLoading(false)
     };
 
     fetchData();
-  }, [user, navigate, getImages]);
+  }, [user, navigate, getBanner, getAvatar]);
 
   if (isLoading) {
     return <Loading />
@@ -104,12 +104,14 @@ function Profile() {
     LastLogin = format(dateObject, 'dd-MM-yyyy');
   }
 
-  if(avatarImages == null){
-    console.log('tem imagem')
-    console.log(avatarImages)
-  }else{
-    console.log('nao tem imagem')
+  // Após a verificação de bannerImage !== null, adicione um console.log para verificar o conteúdo de bannerImage
+  if (bannerImage !== null) {
+    console.log('tem imagem' + avatarImage);
+
+  } else {
+    console.log('nao tem imagem');
   }
+
 
   return (
     <>
@@ -118,14 +120,13 @@ function Profile() {
           <section className="banner bg-violet-100 h-48 w-full">
             <div className="Text-Button flex flex-col relative z-10 xl:flex-row">
               <div className="w-full absolute overflow-hidden h-48 xl:relative flex items-center content-center">
-                {bannerImages && bannerImages.map((image) => {
-                  const imageURL = `${CDNURL}${user.id}/${image.name}`;
-                  console.log(imageURL);
 
+                {bannerImage.map((image) => {
+                  const imageURL = `${URLBanner}${user.id}/${image.name}`;
                   return (
-                    <div key={imageURL}>
-                      <img className="w-screen h-full object-cover" src={imageURL} />
-                    </div>
+                      <div key={imageURL}>
+                        <img className="w-screen h-full object-cover" src={imageURL} />
+                      </div>
                   );
                 })}
               </div>
@@ -135,26 +136,17 @@ function Profile() {
           <div className="w-full bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="flex justify-end px-4 pt-4"></div>
             <div className="flex items-center">
-              {avatarImages && avatarImages.map((image) => {
-                console.log(user.id)
-                const imageURL = `${CDNURL}${user.id}/${image.name}`;
-                console.log(imageURL + 'aqui')
-                if(image != null){
-                  return (
-                    <div key={imageURL}>
-                      <img
-                        className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
-                        src={imageURL}  // Corrigido aqui
-                        alt="User Avatar"  // Adicionado um atributo alt
-                      />
-                    </div>
-                  );
-                } else {
-                  console.log('sem imagem')
-                }
-               
-
-               
+              {avatarImage.map((image) => {
+                const imageURL = `${URLAvatar}${user.id}/${image.name}`;
+                return (
+                  <div key={imageURL}>
+                    <img
+                      className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
+                      src={imageURL}  // Corrigido aqui
+                      alt="User Avatar"  // Adicionado um atributo alt
+                    />
+                  </div>
+                );
               })}
 
               <div className="ml-4">
@@ -210,7 +202,7 @@ function Profile() {
               </div>
             </div>
           </div>
-          
+
           <div ref={menuRef}>
             <button data-drawer-target="default-sidebar" onClick={handleClick} aria-expanded={isOpen} data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" className="sm:block lg:hidden inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
               <span className="sr-only">Open sidebar</span>

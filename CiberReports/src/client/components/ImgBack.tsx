@@ -3,9 +3,11 @@ function ImgBack() {
 
   return (
     <>
-        <div className=" bg-cover">
-            <img src="../../../public/World.jpg" alt="img-fundo" />
-        </div>
+<img
+                src="/Image 283.jpg"
+                alt="imagem de fundo"
+                className=" absolute top-0 z-[-1] object-cover"
+            />
     </>
   )
 }
