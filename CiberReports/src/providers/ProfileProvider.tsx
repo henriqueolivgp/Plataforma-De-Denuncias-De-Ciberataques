@@ -31,18 +31,49 @@ export function ProfileProvider({ children }: ChildrenContext) {
       user_id: user?.id,
       all_name,
     };
+
     const result = await SupaBaseClient.from('profiles').insert(newProfile).select().single();
-    setProfile([result.data, ...profile]);
+    setProfile([result.data]);
     setAll_name('');
 
     console.log("Profile inserted successfully");
 
   };
 
-  
+  const updateProfile = async (e: FormEvent<HTMLFormElement>) => {
+
+    console.log('estou no updateprofile')
+
+    e.preventDefault();
+
+    const newProfile = {
+      user_id: user?.id,
+      all_name,
+    };
+
+    try {
+      // Assuming 'profiles' is the correct table name
+      const { data, error } = await SupaBaseClient.from('profiles')
+        .upsert({ id: profile[0].id, ...newProfile})
+        .select();
+      if (error) {
+        throw error;
+      }
+
+      // Set the profile state by accessing the data array
+      setProfile([data[0]]);
+      setAll_name('');
+
+      console.log("Profile updated successfully");
+    } catch (error) {
+      console.error("Error updating profile:");
+      console.log(error)
+    }
+  };
+
 
   return (
-    <ProfileContext.Provider value={{ profile, all_name, setAll_name, getAllProfiles, insertProfile }}>
+    <ProfileContext.Provider value={{ profile, all_name, setAll_name, getAllProfiles, insertProfile, updateProfile  }}>
       {children}
     </ProfileContext.Provider>
   );
