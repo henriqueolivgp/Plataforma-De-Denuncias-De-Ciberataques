@@ -40,11 +40,6 @@ export function ProfileProvider({ children }: ChildrenContext) {
   };
 
 
-
-
-
-
-
   return (
     <ProfileContext.Provider value={{ profile, all_name, setAll_name, getAllProfiles, insertProfile }}>
       {children}

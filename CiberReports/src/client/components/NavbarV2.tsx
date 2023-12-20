@@ -5,20 +5,22 @@ import { NavLi } from './NavbarComponents/NavLi';
 import { NavLiMobile } from './NavbarComponents/NavLiMobile'
 // import { useProfile } from '../../hooks/useProfile';
 import { useImgs } from "../../hooks/useImgs";
-// import { Loading } from "../components/Loading";
+import { Loading } from "../components/Loading";
 import { Logo } from './NavbarComponents/Logo';
 import userVerified from '../assets/UserVerified.png'
+import { useProfile } from '../../hooks/useProfile';
 
 export default function NavbarV2() {
 
   // const { profile } = useProfile();
   const { user } = useAuth();
+  const { getAllProfiles, profile } = useProfile();
   const { avatarImage, getAvatar } = useImgs();
   const URLAvatar = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
   const navigate = useNavigate();
   const location = useLocation();
 
-  // const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setisLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   // Funcao responsavel por fazer o logOut
@@ -43,14 +45,19 @@ export default function NavbarV2() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // setisLoading(true)
+      setisLoading(false)
       await getAvatar();
-      // setisLoading(false)
+      await getAllProfiles();
+      setisLoading(false)
     };
 
     fetchData();
-  }, [user, navigate, getAvatar]);
+  }, [user, navigate, getAvatar, getAllProfiles]);
 
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   const handleClick = () => {
     setIsOpen(!isOpen);
@@ -160,7 +167,7 @@ export default function NavbarV2() {
                 id="user-dropdown"
               >
                 <div className="px-4 py-3">
-                  {/* {profile.length <= 0 ? (
+                  {profile.length <= 0 ? (
                     <>
                       <div>
                         <span className="block text-sm text-gray-900 dark:text-white">User Name</span>
@@ -174,7 +181,7 @@ export default function NavbarV2() {
                         </div>
                       );
                     })
-                  )} */}
+                  )}
 
                   <span className="block text-sm  text-gray-500 truncate dark:text-gray-400 w-36">{user?.email}</span>
                 </div>
