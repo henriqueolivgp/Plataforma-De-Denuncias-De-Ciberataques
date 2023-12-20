@@ -14,7 +14,7 @@ function AboutUs() {
             <h1 className="text-2xl font-bold">About Us:</h1>
           </div>
           <div className=" bg-gray-200 p-8 rounded-lg text-justify">
-            <a href="#" className="text-lg">
+            <p className="text-lg">
               We are Pedro Ferreira and Henrique Oliveira, a dynamic web
               development team from ESTG, IPVC in Portugal. We both share
               enthusiasm for web development. This is our third collaborative
@@ -23,7 +23,7 @@ function AboutUs() {
               teamwork. Together, in Portugal, we are committed to pushing the
               boundaries of digital experiences, going beyond websites to create
               impactful online solutions.
-            </a>
+            </p>
           </div>
           <div>
             <h1 className="text-2xl font-bold flex justify-center mt-16">
