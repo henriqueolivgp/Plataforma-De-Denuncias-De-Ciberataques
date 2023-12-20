@@ -52,7 +52,8 @@ export default function NavbarV2() {
     };
 
     fetchData();
-  }, [user, navigate, getAvatar, getAllProfiles]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ ]);
 
 
   if (isLoading) {

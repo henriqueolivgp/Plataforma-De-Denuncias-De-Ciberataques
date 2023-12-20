@@ -19,7 +19,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
         .order("inserted_at", { ascending: false });
 
       // Certifique-se de que 'data' não é undefined antes de atribuir a 'setProfile'
-      setProfile(data || []);
+      setProfile(data||[]);
   
   };
 
@@ -39,6 +39,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
 
   };
 
+  
 
   return (
     <ProfileContext.Provider value={{ profile, all_name, setAll_name, getAllProfiles, insertProfile }}>
