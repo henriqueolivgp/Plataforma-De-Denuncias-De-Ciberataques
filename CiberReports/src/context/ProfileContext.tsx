@@ -1,7 +1,7 @@
-import { ReactNode, createContext } from "react";
+import { FormEvent, ReactNode, createContext } from "react";
 
 export interface profile {
-  id: number;
+  id: string;
   all_name: string;
 }
 
@@ -11,8 +11,12 @@ interface ChildrenContext {
 export default ChildrenContext;
 
 export type ProfileDataContext = {
-  profiles: profile[];
-  getallprofile: () => Promise<{ profiles: profile[] } | undefined>;
+  
+  profile: profile[];
+  all_name: string;
+  setAll_name: React.Dispatch<React.SetStateAction<string>>;
+  getAllProfiles: () => Promise<void>;
+  insertProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;
 };
 
 export const ProfileContext = createContext<ProfileDataContext>(

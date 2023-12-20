@@ -3,22 +3,22 @@ import { useAuth } from "../../hooks/useAuth";
 import { useState, useEffect, useRef } from "react";
 import { NavLi } from './NavbarComponents/NavLi';
 import { NavLiMobile } from './NavbarComponents/NavLiMobile'
-import { useProfile } from '../../hooks/useProfile';
+// import { useProfile } from '../../hooks/useProfile';
 import { useImgs } from "../../hooks/useImgs";
-import { Loading } from "../components/Loading";
+// import { Loading } from "../components/Loading";
 import { Logo } from './NavbarComponents/Logo';
 import userVerified from '../assets/UserVerified.png'
 
 export default function NavbarV2() {
 
-  useProfile();
+  // const { profile } = useProfile();
   const { user } = useAuth();
   const { avatarImage, getAvatar } = useImgs();
   const URLAvatar = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [isLoading, setisLoading] = useState(true);
+  // const [isLoading, setisLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   // Funcao responsavel por fazer o logOut
@@ -43,17 +43,13 @@ export default function NavbarV2() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setisLoading(true)
+      // setisLoading(true)
       await getAvatar();
-      setisLoading(false)
+      // setisLoading(false)
     };
 
     fetchData();
   }, [user, navigate, getAvatar]);
-
-  if (isLoading) {
-    return <Loading />
-  }
 
 
   const handleClick = () => {
@@ -96,7 +92,7 @@ export default function NavbarV2() {
             )}
           </div>
         </div>
-        <div className='flex flex-1 items-center'>
+        <div className='flex flex-1 items-center spa'>
           <div className=" md:w-auto ml-auto mr-5" id="navbar-solid-bg">
             <ul className="flex flex-col font-medium rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
               <li className="mr-96 block">
@@ -164,7 +160,22 @@ export default function NavbarV2() {
                 id="user-dropdown"
               >
                 <div className="px-4 py-3">
-                  <span className="block text-sm text-gray-900 dark:text-white"></span>
+                  {/* {profile.length <= 0 ? (
+                    <>
+                      <div>
+                        <span className="block text-sm text-gray-900 dark:text-white">User Name</span>
+                      </div>
+                    </>
+                  ) : (
+                    profile.map((profile) => {
+                      return (
+                        <div key={profile.id}>
+                          <span className="block text-sm text-gray-900 dark:text-white">{profile.all_name}</span>
+                        </div>
+                      );
+                    })
+                  )} */}
+
                   <span className="block text-sm  text-gray-500 truncate dark:text-gray-400 w-36">{user?.email}</span>
                 </div>
                 <ul className="py-2" aria-labelledby="user-menu-button">

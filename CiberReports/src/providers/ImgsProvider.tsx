@@ -24,7 +24,6 @@ export function ImgsProvider({ children }: ChildrenContext) {
 
             if (data) {
                 setBannerImage(data);
-                console.log('Received the image:', data);
 
                 return { bannerImage: data }; // Return the data as expected
             } else {
@@ -52,7 +51,6 @@ export function ImgsProvider({ children }: ChildrenContext) {
 
             if (data) {
                 setAvatarImage(data);
-                console.log('Received the image:', data);
 
                 return { avatarImage: data }; // Return the data as expected
             } else {

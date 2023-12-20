@@ -4,8 +4,6 @@ import { useEffect, FormEvent, useState } from "react";
 import { SupaBaseClient } from '../../Services/supabase/SupaBaseClient'
 import { ReafreshPage } from "../functions/ReafreshPage";
 
-
-
 interface profile {
     id: number;
     all_name: string;
@@ -19,9 +17,8 @@ function EditProfile() {
     const navigate = useNavigate();
     const reafreshPage = ReafreshPage();
 
+
     //https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Imgs/311b2884-a18d-4c68-8d9e-f4344e4cb5f4/539e2041-65cc-4cd3-9d14-ee61dd3ce9bc
-
-
     const GetAllProfile = async () => {
         const { data } = await SupaBaseClient
             .from('profiles')
@@ -30,17 +27,16 @@ function EditProfile() {
         setProfiles(data || []);
     };
 
+    // Se o utilizador não estiver logado, redirecione-o para a página de login
+    useEffect(() => {
+        const fetchData = async () => {
 
-// Se o utilizador não estiver logado, redirecione-o para a página de login
-  useEffect(() => {
-    const fetchData = async () => {
+            await GetAllProfile();
+            setLoading(false)
+        };
 
-      await GetAllProfile();
-    };
-
-    fetchData();
-  }, [user, navigate]);
-
+        fetchData();
+    }, [user, navigate]);
 
     // Renderize o conteúdo da sua página apenas se o usuário estiver logado
     if (loading || !user) {
@@ -56,11 +52,12 @@ function EditProfile() {
             all_name,
 
         };
-        setLoading(true);
-        const result = await SupaBaseClient.from('profiles').insert(newProfile).select().single();
-        setProfiles([result.data, ...profiles]);
-        setLoading(false);
-        setAll_name('');
+            setLoading(true);
+            const result = await SupaBaseClient.from('profiles').insert(newProfile).select().single();
+            setProfiles([result.data, ...profiles]);
+            setLoading(false);
+            setAll_name('');
+            console.log("Profile inserted successfully");
     };
 
     return (
@@ -70,7 +67,8 @@ function EditProfile() {
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
                     <div>
                         <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" >First Name: </label>
-                        <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="First_Name..." value={all_name}
+                        <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="First_Name..."
+                            value={all_name}
                             onChange={(e) => setAll_name(e.target.value)} />
                     </div>
                     <div className="mb-2">

@@ -69,15 +69,6 @@ function Profile() {
     LastLogin = format(dateObject, 'dd-MM-yyyy');
   }
 
-  // Após a verificação de bannerImage !== null, adicione um console.log para verificar o conteúdo de bannerImage
-  if (avatarImage !== null) {
-    console.log('tem imagem' + avatarImage);
-
-  } else {
-    console.log('nao tem imagem');
-  }
-
-
   return (
     <>
       <div className="container mx-auto flex">
