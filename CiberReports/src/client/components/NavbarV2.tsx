@@ -77,7 +77,7 @@ export default function NavbarV2() {
   return (
 
     <nav className="bg-transparent dark:bg-gray-800 dark:border-gray-700 ">
-      <div className=" flex flex-1 items-center p-4 justify-between flex-1 ">
+      <div className=" flex flex-1 items-center p-4 justify-between ">
         <div className='flex items-center'>
           <Logo to='/' name='Ciber Reports' activeTo={location.pathname} />
           <div className="relative hidden md:block ml-full ml-4">
