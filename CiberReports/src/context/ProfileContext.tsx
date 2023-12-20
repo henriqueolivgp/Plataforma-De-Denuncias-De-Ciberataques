@@ -17,7 +17,7 @@ export type ProfileDataContext = {
   setAll_name: React.Dispatch<React.SetStateAction<string>>;
   getAllProfiles: () =>Promise<void>;
   insertProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-  updateProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>
+  updateProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;
 };
 
 export const ProfileContext = createContext<ProfileDataContext>(
