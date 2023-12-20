@@ -1,8 +1,6 @@
 import { useAuth } from "../../hooks/useAuth";
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import { SupaBaseClient } from "../../Services/supabase/SupaBaseClient";
 // Imagens
 import { useImgs } from "../../hooks/useImgs";
 // loading
@@ -10,6 +8,7 @@ import { Loading } from "../components/Loading";
 import Sidebar from "../components/ProfileComponents/Sidebar";
 
 import userVerified from '../assets/UserVerified.png'
+import { useProfile } from "../../hooks/useProfile";
 
 
 function Profile() {
@@ -17,29 +16,21 @@ function Profile() {
   const URLAvatar = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
   const { bannerImage, getBanner, avatarImage, getAvatar } = useImgs();
   const { user } = useAuth();
-  const [profiles, setProfiles] = useState<profile[]>([]);
+  const { getAllProfiles, profile } = useProfile();
   const [isLoading, setisLoading] = useState(true);
-  const navigate = useNavigate();
-
-  const GetAllProfile = async () => {
-    const { data } = await SupaBaseClient
-      .from('profiles')
-      .select('*')
-      .order('inserted_at', { ascending: false });
-    setProfiles(data || []);
-  };
 
   useEffect(() => {
     const fetchData = async () => {
       setisLoading(true)
-      await GetAllProfile();
       await getBanner();
       await getAvatar();
+      await getAllProfiles();
       setisLoading(false)
     };
 
     fetchData();
-  }, [user, navigate, getBanner, getAvatar]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) {
     return <Loading />
@@ -48,11 +39,6 @@ function Profile() {
   // Renderize o conteúdo da sua página apenas se o usuário estiver logado
   if (!user) {
     return <p>Carregando...</p>;
-  }
-
-  interface profile {
-    id: number;
-    all_name: string;
   }
 
   let DateJoined: string | undefined;
@@ -136,35 +122,41 @@ function Profile() {
               }
               <div className="ml-4">
                 <div className="">
-                  {profiles.map((profile) => (
-                    <h5 className=" text-3xl font-medium text-gray-900 dark:text-white" key={profile.id}>
-                      {profile.all_name}
-                    </h5>
-                  ))
-                  }
+                  {profile.length <= 0 ? (
+                    <>
+                      <h5 className=" text-3xl font-medium text-gray-900 dark:text-white" >
+                        User Name
+                      </h5>
+
+                    </>
+                  ) : (
+                    profile.map((profile) => {
+                      return (
+                        <h5 className="mb-1 text-3xl font-medium text-gray-900 dark:text-white" key={profile.id}>
+                          {profile.all_name}
+                        </h5>
+                      );
+                    })
+                  )}
+                  <p className=" text-sm">Date Joined :{DateJoined}</p>
+                  <p className=" text-sm">Las Login: {LastLogin}</p>
                 </div>
-                <h5 className="mb-1 text-3xl font-medium text-gray-900 dark:text-white">
-                  User Name
-                </h5>
-                <p className=" text-sm">Date Joined :{DateJoined}</p>
-                <p className=" text-sm">Las Login: {LastLogin}</p>
+              </div>
+              <div className="px-4"></div>
+              <div className="flex flex-1 p-4">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <span>Total de Denúncias</span>
+                  <br />
+                  <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+                    237
+                  </h5>
+                </div>
               </div>
             </div>
-            <div className="px-4"></div>
-            <div className="flex flex-1 p-4">
-              <div className="text-sm text-gray-500 dark:text-gray-400">
-                <span>Total de Denúncias</span>
-                <br />
-                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-                  237
-                </h5>
-              </div>
-            </div>
+            <Sidebar />
           </div>
-          <Sidebar />
         </div>
       </div>
-
     </>
   );
 }

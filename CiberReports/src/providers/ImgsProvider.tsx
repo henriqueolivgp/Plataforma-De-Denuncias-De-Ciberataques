@@ -113,8 +113,39 @@ export function ImgsProvider({ children }: ChildrenContext) {
         }
     };
 
+    const updateAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        try {
+            const file = e.target.files?.[0];
+
+            if (!file) {
+                toast.error('No file selected.');
+                return;
+            }
+            await SupaBaseClient
+                .storage
+                .from('Avatar')
+                .remove([`${user?.id}/${avatarImage[0].name}`])
+
+            const { data, error } = await SupaBaseClient
+                .storage
+                .from('Avatar')
+                .upload(`${user?.id}/${uuidv4()}`, file);
+
+            if (data) {
+                getAvatar();
+            } else {
+                console.error(error);
+            }
+            console.log(data)
+        } catch (error) {
+            toast.error('An error occurred during image upload');
+        }
+    };
+
+
+
     return (
-        <ImgsContext.Provider value={{ user, bannerImage, avatarImage, getBanner, getAvatar, uploadBanner, uploadAvatar }}>
+        <ImgsContext.Provider value={{ user, bannerImage, avatarImage, getBanner, getAvatar, uploadBanner, uploadAvatar, updateAvatar }}>
             {children}
         </ImgsContext.Provider>
     );

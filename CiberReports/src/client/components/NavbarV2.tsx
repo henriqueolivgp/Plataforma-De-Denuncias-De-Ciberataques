@@ -52,7 +52,8 @@ export default function NavbarV2() {
     };
 
     fetchData();
-  }, [user, navigate, getAvatar, getAllProfiles]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ ]);
 
 
   if (isLoading) {
@@ -76,7 +77,7 @@ export default function NavbarV2() {
   return (
 
     <nav className="bg-transparent dark:bg-gray-800 dark:border-gray-700 ">
-      <div className=" flex flex-wrap items-center p-4 justify-between flex-1 ">
+      <div className=" flex flex-1 items-center p-4 justify-between ">
         <div className='flex items-center'>
           <Logo to='/' name='Ciber Reports' activeTo={location.pathname} />
           <div className="relative hidden md:block ml-full ml-4">
@@ -99,10 +100,10 @@ export default function NavbarV2() {
             )}
           </div>
         </div>
-        <div className='flex flex-1 items-center spa'>
+        <div className='flex flex-1 items-center'>
           <div className=" md:w-auto ml-auto mr-5" id="navbar-solid-bg">
-            <ul className="flex flex-col font-medium rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
-              <li className="mr-96 block">
+            <ul className="lg:flex flex-col hidden  font-medium rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
+              <li className="block">
                 <div className="flex md:order-2">
                   <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false" className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">
                     <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -186,7 +187,7 @@ export default function NavbarV2() {
                   <span className="block text-sm  text-gray-500 truncate dark:text-gray-400 w-36">{user?.email}</span>
                 </div>
                 <ul className="py-2" aria-labelledby="user-menu-button">
-                  <div className='lg:hidden md:hidden'>
+                  <div className='block lg:hidden'>
                     <NavLiMobile to='/' name='Home' svg='home' onClick={() => setIsOpen(false)} />
                     <NavLiMobile to='/explore' name='Explore' svg='explore' onClick={() => setIsOpen(false)} />
                     <NavLiMobile to='/about-us' name='About-Us' svg='about' onClick={() => setIsOpen(false)} />
