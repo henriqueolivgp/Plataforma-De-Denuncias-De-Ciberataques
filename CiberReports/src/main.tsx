@@ -30,6 +30,7 @@ import { PrivateRoutes } from "./client/routes/PrivateRoutes.tsx";
 import { ProfileProvider } from "./providers/ProfileProvider.tsx";
 import RegisterProfile from "./client/screens/RegisterProfile.tsx";
 import Admin from "./client/screens/Admin.tsx";
+import { PrivateAdmin } from "./client/routes/PrivateAdmin.tsx";
 
 // criação da const function
 const router = createBrowserRouter([
@@ -88,7 +89,11 @@ const router = createBrowserRouter([
           },
           {
             path: "/profile/admin",
-            element: <Admin />,
+            element: (
+              <PrivateAdmin 
+              element={<Admin/>}
+              />
+            )
           },
         ],
       },

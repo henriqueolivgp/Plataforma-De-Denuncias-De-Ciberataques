@@ -3,15 +3,19 @@ import { ProfileLi } from "./ProfileLi";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import { useNavigate } from 'react-router-dom';
+import { useProfile } from "../../../hooks/useProfile";
+import { Loading } from "../Loading";
 
 function Explore() {
 
     const location = useLocation();
     const { signOut } = useAuth();
     const navigate = useNavigate();
+    const { verificaAdmin, isAdmin } = useProfile();
 
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement | null>(null);
+    const [isLoading, setisLoading] = useState(true);
 
     const handleOutsideClick = (event: MouseEvent) => {
         const target = event.target as Node;
@@ -21,7 +25,6 @@ function Explore() {
             setIsOpen(false);
         }
     };
-
     useEffect(() => {
         document.addEventListener('click', handleOutsideClick);
 
@@ -29,6 +32,24 @@ function Explore() {
             document.removeEventListener('click', handleOutsideClick);
         };
     }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setisLoading(true)
+            await verificaAdmin();
+            setisLoading(false)
+        };
+
+        fetchData();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    if (isLoading) {
+        return <Loading />
+    }
+
+
 
     const handleLogOut = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -60,7 +81,9 @@ function Explore() {
                             <ProfileLi to="/profile/edit-profile" name="Edit-Profile" activeTo={location.pathname} activeLocal={location.pathname} svg={'editprofile'} />
                             <ProfileLi to="/profile/reports" name="Reports" activeTo={location.pathname} activeLocal={location.pathname} svg={'reports'} />
                             <ProfileLi to="/profile/chat" name="Chat" activeTo={location.pathname} activeLocal={location.pathname} svg={'chat'} />
-                            <ProfileLi to="/profile/admin" name="Admin Control" activeTo={location.pathname} activeLocal={location.pathname} svg={'admin'} />
+                            {isAdmin && (
+                                <ProfileLi to="/profile/admin" name="Admin Control" activeTo={location.pathname} activeLocal={location.pathname} svg={'admin'} />
+                            )}
                             <ProfileLi to="/profile/settings" name="Settings" activeTo={location.pathname} activeLocal={location.pathname} svg={'settings'} />
                             <ProfileLi to="#" name="logout" activeTo={location.pathname} activeLocal={location.pathname} svg={'logout'} onClick={handleLogOut} />
                         </ul>
