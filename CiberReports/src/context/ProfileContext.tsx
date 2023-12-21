@@ -2,6 +2,7 @@ import { FormEvent, ReactNode, createContext } from "react";
 
 export interface profile {
   id: string;
+  user_id: string;
   all_name: string;
   admin: boolean;
 }
