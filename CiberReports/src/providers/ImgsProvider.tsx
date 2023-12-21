@@ -113,6 +113,51 @@ export function ImgsProvider({ children }: ChildrenContext) {
         }
     };
 
+    const updateBanner = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        try {
+            const file = e.target.files?.[0];
+
+            if (!file) {
+                toast.error('No file selected.');
+                return;
+            }
+            if (bannerImage.length <= 0) {
+
+                const { data, error } = await SupaBaseClient
+                    .storage
+                    .from('Banner')
+                    .upload(`${user?.id}/${uuidv4()}`, file);
+
+                if (data) {
+                    getAvatar();
+                } else {
+                    console.error(error);
+                }
+                console.log(data)
+
+            } else {
+                await SupaBaseClient
+                    .storage
+                    .from('Banner')
+                    .remove([`${user?.id}/${bannerImage[0].name}`])
+
+                const { data, error } = await SupaBaseClient
+                    .storage
+                    .from('Banner')
+                    .upload(`${user?.id}/${uuidv4()}`, file);
+
+                if (data) {
+                    getAvatar();
+                } else {
+                    console.error(error);
+                }
+                console.log(data)
+            }
+        } catch (error) {
+            toast.error('An error occurred during image upload');
+        }
+    };
+
     const updateAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
         try {
             const file = e.target.files?.[0];
@@ -121,31 +166,47 @@ export function ImgsProvider({ children }: ChildrenContext) {
                 toast.error('No file selected.');
                 return;
             }
-            await SupaBaseClient
-                .storage
-                .from('Avatar')
-                .remove([`${user?.id}/${avatarImage[0].name}`])
 
-            const { data, error } = await SupaBaseClient
-                .storage
-                .from('Avatar')
-                .upload(`${user?.id}/${uuidv4()}`, file);
+            if (avatarImage.length <= 0) {
 
-            if (data) {
-                getAvatar();
+                const { data, error } = await SupaBaseClient
+                    .storage
+                    .from('Avatar')
+                    .upload(`${user?.id}/${uuidv4()}`, file);
+
+                if (data) {
+                    getAvatar();
+                } else {
+                    console.error(error);
+                }
+                console.log(data)
+
             } else {
-                console.error(error);
+                await SupaBaseClient
+                    .storage
+                    .from('Avatar')
+                    .remove([`${user?.id}/${avatarImage[0].name}`])
+
+                const { data, error } = await SupaBaseClient
+                    .storage
+                    .from('Avatar')
+                    .upload(`${user?.id}/${uuidv4()}`, file);
+
+                if (data) {
+                    getAvatar();
+                } else {
+                    console.error(error);
+                }
+                console.log(data)
             }
-            console.log(data)
+
         } catch (error) {
             toast.error('An error occurred during image upload');
         }
     };
 
-
-
     return (
-        <ImgsContext.Provider value={{ user, bannerImage, avatarImage, getBanner, getAvatar, uploadBanner, uploadAvatar, updateAvatar }}>
+        <ImgsContext.Provider value={{ user, bannerImage, avatarImage, getBanner, getAvatar, uploadBanner, uploadAvatar, updateAvatar, updateBanner }}>
             {children}
         </ImgsContext.Provider>
     );

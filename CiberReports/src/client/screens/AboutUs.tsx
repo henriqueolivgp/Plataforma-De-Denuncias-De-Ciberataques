@@ -1,5 +1,6 @@
 import HenryDev from "../assets/HenryDev.png";
 import PedroF from "../assets/PedroF.png";
+import logo from "/CyberReports.png";
 
 function AboutUs() {
 
@@ -8,7 +9,7 @@ function AboutUs() {
       <div className="container mx-auto ">
         <div className="content w-full ">
           <div className="mt-12 flex justify-center">
-            <img className="w-96" src="#" alt="logo" />
+            <img className="w-96" src={logo} alt="logo" />
           </div>
           <div className="mt-12">
             <h1 className="text-2xl font-bold">About Us:</h1>

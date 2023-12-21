@@ -6,7 +6,7 @@ import { useImgs } from "../../hooks/useImgs";
 function EditProfile() {
     const [loading, setLoading] = useState(false);
     const { user } = useAuth();
-    const { updateAvatar } = useImgs();
+    const { updateAvatar, updateBanner } = useImgs();
     const { updateProfile, all_name, setAll_name } = useProfile();
 
     useEffect(() => {
@@ -45,7 +45,7 @@ function EditProfile() {
                                 className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                 id="file_input"
                                 onChange={(e) => {
-                                    (e); // 👈 this will trigger when user selects the file.
+                                    updateBanner(e); // 👈 this will trigger when user selects the file.
                                 }} />
                         </div>
                         <div className="flex-1">
