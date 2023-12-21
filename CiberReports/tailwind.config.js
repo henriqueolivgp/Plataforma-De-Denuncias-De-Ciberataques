@@ -2,6 +2,7 @@ import flowbitePlugin from 'flowbite/plugin';
 
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     './src/**/*.{js,jsx,ts,tsx}',
     'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
@@ -21,6 +22,8 @@ export default {
 
       'lg': '1024px',
       // => @media (min-width: 1024px) { ... }
+
+      'lgg': '1057px',
 
       'xl': '1280px',
       // => @media (min-width: 1280px) { ... }
