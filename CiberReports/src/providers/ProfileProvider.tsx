@@ -73,9 +73,44 @@ export function ProfileProvider({ children }: ChildrenContext) {
     }
   };
 
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+
+  const verificaAdmin = async () => {
+
+    const { data: userData } = await SupaBaseClient
+      .from("profiles")
+      .select("admin")
+      .eq("id", profile[0].id);
+
+    if (userData && userData.length > 0) {
+      setIsAdmin(userData[0].admin || false);
+    } else {
+      // Define um valor padrão se userData for nulo ou vazio
+      setIsAdmin(false);
+    }
+
+  }
+  
+  const [isSpecialist, setIsSpecialist] = useState<boolean>(false);
+
+  const verificaSpecialist = async () => {
+
+    const { data: userData } = await SupaBaseClient
+      .from("profiles")
+      .select("specialist")
+      .eq("id", profile[0].id);
+
+    if (userData && userData.length > 0) {
+      setIsSpecialist(userData[0].specialist || false);
+    } else {
+      // Define um valor padrão se userData for nulo ou vazio
+      setIsSpecialist(false);
+    }
+
+  }
 
   return (
-    <ProfileContext.Provider value={{ profile, all_name, setAll_name, getAllProfiles, insertProfile, updateProfile }}>
+    <ProfileContext.Provider value={{ profile, all_name, isAdmin, isSpecialist, setAll_name, getAllProfiles, insertProfile, updateProfile, verificaAdmin, verificaSpecialist }}>
       {children}
     </ProfileContext.Provider>
   );
