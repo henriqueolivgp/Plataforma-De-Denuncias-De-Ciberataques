@@ -7,8 +7,8 @@ function Footer() {
             <div className=" flex justify-center items-center mb-4">
                 <img
                     className="w-72 mt-5"
-                    src="/CyberReports.png"
-                    alt="logo"
+                    src="/CyberReportsWhite.png"
+                    alt="logo" 
                 />
             </div>
 
