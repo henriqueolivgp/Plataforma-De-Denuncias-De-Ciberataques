@@ -1,4 +1,40 @@
+import { useEffect, useState } from "react";
+import { useProfile } from "../../hooks/useProfile";
+import { Loading } from "../components/Loading";
+import { useImgs } from "../../hooks/useImgs";
+import { useAuth } from "../../hooks/useAuth";
+
 function Admin() {
+
+    const { getAllProfiles, profile } = useProfile();
+    const { getAvatar, avatarImage } = useImgs();
+    const { user } = useAuth();
+    const [isLoading, setisLoading] = useState(true);
+
+
+    const URLAvatar = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setisLoading(true)
+            await getAvatar();
+            await getAllProfiles();
+            setisLoading(false)
+        };
+
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    if (isLoading) {
+        return <Loading />
+    }
+
+    // Renderize o conteúdo da sua página apenas se o usuário estiver logado
+    if (!user) {
+        return <p>Carregando...</p>;
+    }
+
     return (
         <>
             <div className="container mx-auto ">
@@ -7,115 +43,77 @@ function Admin() {
                         <p>Admin page</p>
                     </div>
 
-                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" className="px-6 py-3">
-                                        Product name
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Color
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Category
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Price
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Action
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Apple MacBook Pro 17"
-                                    </th>
-                                    <td className="px-6 py-4">
-                                        Silver
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        Laptop
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        $2999
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    </td>
-                                </tr>
-                                <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Microsoft Surface Pro
-                                    </th>
-                                    <td className="px-6 py-4">
-                                        White
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        Laptop PC
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        $1999
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    </td>
-                                </tr>
-                                <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Magic Mouse 2
-                                    </th>
-                                    <td className="px-6 py-4">
-                                        Black
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        Accessories
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        $99
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    </td>
-                                </tr>
-                                <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Google Pixel Phone
-                                    </th>
-                                    <td className="px-6 py-4">
-                                        Gray
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        Phone
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        $799
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Apple Watch 5
-                                    </th>
-                                    <td className="px-6 py-4">
-                                        Red
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        Wearables
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        $999
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div className="flex flex-wrap -mx-3 mb-5">
+                        <div className="w-full max-w-full px-3 mb-6  mx-auto">
+                            <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] border border-dashed border-stone-200 bg-white m-5">
+                                {/* <!-- card body  --> */}
+                                <div className="flex-auto block py-8 px-9">
+                                    <div>
+                                        <div className="mb-9 text-center">
+                                            <h1 className="mb-2 text-[1.75rem] text-center font-semibold text-dark">Users</h1>
+                                            <span className="text-[1.15rem]  font-medium text-muted"> Meet our talented team, a dynamic group of experts driven by passion and innovation. </span>
+                                        </div>
+                                        <div className="flex w-full">
+                                            <div className="flex flex-col mr-5 text-center mb-11 lg:mr-16">
+                                                {avatarImage.map((avatar) => {
+                                                    const imageURL = `${URLAvatar}${user.id}/${avatar.name}`;
+                                                    return (
+                                                        <div className="inline-block mb-4 relative shrink-0 rounded-[.95rem]" key={avatar.id}>
+                                                            <img className="inline-block shrink-0 rounded-[.95rem] w-[150px] h-[150px]" src={imageURL} alt="avatar-image" />
+                                                        </div>
+                                                    );
+                                                })
+                                                }
+                                                {profile.map((profile) => {
+                                                    return (
+                                                        <div className="text-center" key={profile.id}>
+                                                            <a href="javascript:void(0)" className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out">{profile.all_name}</a>
+                                                        </div>
+                                                    );
+                                                })
+                                                }
+                                            </div>
+                                            <div className="flex flex-col mr-5 text-center mb-11 lg:mr-16">
+                                                <div className="inline-block mb-4 relative shrink-0 rounded-[.95rem]">
+                                                    <img className="inline-block shrink-0 rounded-[.95rem] w-[150px] h-[150px]" src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar2.jpg" alt="avarat image" />
+                                                </div>
+                                                <div className="text-center">
+                                                    <a href="javascript:void(0)" className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out">Benjamin Martinez</a>
+                                                    <span className="block font-medium text-muted">Sales Executive</span>
+                                                </div>
+                                            </div>
+                                            <div className="flex flex-col mr-5 text-center mb-11 lg:mr-16">
+                                                <div className="inline-block mb-4 relative shrink-0 rounded-[.95rem]">
+                                                    <img className="inline-block shrink-0 rounded-[.95rem] w-[150px] h-[150px]" src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar5.jpg" alt="avarat image" />
+                                                </div>
+                                                <div className="text-center">
+                                                    <a href="javascript:void(0)" className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out">Emily Turner</a>
+                                                    <span className="block font-medium text-muted">Customer Support</span>
+                                                </div>
+                                            </div>
+                                            <div className="flex flex-col mr-5 text-center mb-11 lg:mr-16">
+                                                <div className="inline-block mb-4 relative shrink-0 rounded-[.95rem]">
+                                                    <img className="inline-block shrink-0 rounded-[.95rem] w-[150px] h-[150px]" src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar24.jpg" alt="avarat image" />
+                                                </div>
+                                                <div className="text-center">
+                                                    <a href="javascript:void(0)" className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out">Jason Anderson</a>
+                                                    <span className="block font-medium text-muted">Development Engineer</span>
+                                                </div>
+                                            </div>
+                                            <div className="flex flex-col mr-5 text-center mb-11 lg:mr-16">
+                                                <div className="inline-block mb-4 relative shrink-0 rounded-[.95rem]">
+                                                    <img className="inline-block shrink-0 rounded-[.95rem] w-[150px] h-[150px]" src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar23.jpg" alt="avarat image" />
+                                                </div>
+                                                <div className="text-center">
+                                                    <a href="javascript:void(0)" className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out">Olivia Carter</a>
+                                                    <span className="block font-medium text-muted">Creative Director</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

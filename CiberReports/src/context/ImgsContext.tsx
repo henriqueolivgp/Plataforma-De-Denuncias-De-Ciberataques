@@ -23,6 +23,7 @@ export type ImgsDataContext = {
   uploadBanner: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
   uploadAvatar: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
   updateAvatar: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+  updateBanner: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
 }
 
 export const ImgsContext = createContext<ImgsDataContext>(

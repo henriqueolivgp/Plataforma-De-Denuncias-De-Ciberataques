@@ -144,7 +144,7 @@ export default function NavbarV2() {
                     <img
                       className="w-8 h-8 rounded-full"
                       src="/user.png"  // Corrigido aqui
-                      alt="User Avatar"  // Adicionado um atributo alt
+                      alt="User-Avatar"  // Adicionado um atributo alt
                     />
                   </>
                 ) : (

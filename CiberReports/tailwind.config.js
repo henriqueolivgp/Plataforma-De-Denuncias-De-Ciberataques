@@ -45,7 +45,7 @@ export default {
 
     },
     fontFamily: {
-
+  
     },
     borderRadius: {
       'none': '0',

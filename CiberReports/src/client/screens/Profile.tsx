@@ -10,7 +10,6 @@ import Sidebar from "../components/ProfileComponents/Sidebar";
 import userVerified from '../assets/UserVerified.png'
 import { useProfile } from "../../hooks/useProfile";
 
-
 function Profile() {
   const URLBanner = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Banner/";
   const URLAvatar = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
@@ -29,6 +28,7 @@ function Profile() {
     };
 
     fetchData();
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -88,20 +88,17 @@ function Profile() {
           <div className="w-full bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="flex justify-end px-4 pt-4"></div>
             <div className="flex items-center">
-              {
-                avatarImage.length <= 0 ? (
-                  <>
-                    <div className="relative">
-                      <img
-                        className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
-                        src="/user.png"
-                        alt="User Avatar"
-                      />
-                      <span className="absolute bottom-0 left-0 w-3.5 h-3.5 border-white dark:border-gray-800 rounded-full">
-                        <img src={userVerified} alt="userVerified" />
-                      </span>
-                    </div>
-                  </>
+              {avatarImage.length == 0 ? (
+                  <div className="relative">
+                    <img
+                      className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
+                      src="/user.png"
+                      alt="User Avatar"
+                    />
+                    <span className="absolute bottom-3 left-5 w-6 h-6 border-white dark:border-gray-800 rounded-full">
+                      <img src={userVerified} alt="userVerified" />
+                    </span>
+                  </div>
                 ) : (
                   avatarImage.map((image) => {
                     const imageURL = `${URLAvatar}${user.id}/${image.name}`;
