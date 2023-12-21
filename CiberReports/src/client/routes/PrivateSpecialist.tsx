@@ -9,12 +9,12 @@ interface PrivateRoutesProps {
 export function PrivateAdmin({
   element,
 }: PrivateRoutesProps) {
-  const { isAdmin } = useProfile();
+  const { isSpecialist } = useProfile();
 
-  if (!isAdmin) {
-    return isAdmin ? element : <Navigate to='/' replace />;
+  if (!isSpecialist) {
+    return isSpecialist ? element : <Navigate to='/' replace />;
   }else{
-    return isAdmin ? element : <Navigate to='/profile/admin' replace />
+    return isSpecialist ? element : <Navigate to='/profile/admin' replace />
   }
   
 }
