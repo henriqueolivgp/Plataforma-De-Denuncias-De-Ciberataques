@@ -1,74 +1,81 @@
 
 import { FormEvent, useState } from "react";
 import { SupaBaseClient } from "../Services/supabase/SupaBaseClient";
-import ChildrenContext, { ProfileContext } from "../context/ProfileContext";
-import type { profile } from "../context/ProfileContext";
-import type { user } from "../context/ProfileContext";
+import ChildrenContext, { ReportsContext } from "../context/ReportsContext";
+import type { reports } from "../context/ReportsContext";
 import { useAuth } from "../hooks/useAuth";
 
-export function ProfileProvider({ children }: ChildrenContext) {
-  const [profile, setProfile] = useState<profile[]>([]);
-  const [myProfile, setMyProfile] = useState<profile[]>([]);
-  const [all_name, setAll_name] = useState<string>('');
+export function ReportsProvider ({ children }: ChildrenContext) {
+  const [reports, setReports] = useState<reports[]>([]);
+  const [myProfile, setMyProfile] = useState<reports[]>([]);
   const { user } = useAuth();
 
-//   const getMyReport = async () => {
+   const getMyReport = async () => {
 
-//     if (user) {
+     if (user) {
 
-//       try {
+       try {
 
-//         // Utiliza o SupabaseClient para consultar a tabela 'profiles' procurando pelo ID do usuário
-//         const { data, error } = await SupaBaseClient
-//           .from("reports")
-//           .select()
-//           .eq('user_id', user.id);
+         const { data, error } = await SupaBaseClient
+           .from("reports")
+           .select()
+           .eq('user_id', user.id);
 
-//         // Verifica se ocorreu algum erro durante a consulta
-//         if (error) {
-//           console.error('Erro ao obter perfil:', error.message);
-//           return;
-//         }
-//         // Exibe os dados resultantes no console
+         if (error) {
+           console.error('Erro ao obter report:', error.message);
+           return;
+         }
 
-//         // Certifica-se de que 'data' não é undefined antes de atribuir a 'setMyProfile'
-//         setMyProfile(data || []);
-//       } catch (error) {
-//         console.error('Erro durante a obtenção do perfil:');
-//       }
+         setMyProfile(data || []);
+       } catch (error) {
+         console.error('Erro durante a obtenção do report:');
+       }
 
-//     } 
-//   };
+     } 
+   };
 
-  // Importe os tipos necessários (suponhamos que você tenha uma interface chamada 'Pr
+    // Get All Reports
 
-  const getAllProfiles = async () => {
+  const getAllReports = async () => {
 
     const { data } = await SupaBaseClient
-      .from("profiles")
+      .from("reports")
       .select("*")
       .order("inserted_at", { ascending: false });
 
     // Certifique-se de que 'data' não é undefined antes de atribuir a 'setProfile'
-    setProfile(data || []);
+    setReports(data || []);
 
   };
 
-  const insertProfile = async (e: FormEvent<HTMLFormElement>) => {
+  // Insert Reports
+
+  const [title, setTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [topic, setTopic] = useState<string>('');
+  const [date, setDate] = useState<Date>(new Date());
+
+  const insertReports = async (e: FormEvent<HTMLFormElement>) => {
     console.log('entrou no insert')
 
     e.preventDefault();
 
-    const newProfile = {
+    const newReport = {
       user_id: user?.id,
-      all_name,
+      title: title,
+      description: description,
+      topic: topic,
+      data: date,
     };
 
-    console.log(newProfile)
+    console.log(newReport)
 
-    const {data, error} = await SupaBaseClient.from('profiles').insert(newProfile).select().single();
-    setProfile([data.data]);
-    setAll_name('');
+    const {data, error} = await SupaBaseClient.from('reports').insert(newReport).select().single();
+    setReports([data.data]);
+    setTopic('');
+    setTitle('');
+    setDescription('');
+    setDate(new Date());
 
     console.log("Erro do insert" + error);
 
@@ -140,9 +147,9 @@ export function ProfileProvider({ children }: ChildrenContext) {
 //   };
 
   return (
-    <ProfileContext.Provider value={{  }}>
+    <ReportsContext.Provider value={{ reports, myProfile, title, description, topic, date, setTitle,setDescription,setTopic, setDate, getAllReports, getMyReport, insertReports }}>
       {children}
-    </ProfileContext.Provider>
+    </ReportsContext.Provider>
   );
 }
 

@@ -30,6 +30,7 @@ import { ProfileProvider } from "./providers/ProfileProvider.tsx";
 import RegisterProfile from "./client/screens/RegisterProfile.tsx";
 import Admin from "./client/screens/Admin.tsx";
 import { PrivateAdmin } from "./client/routes/PrivateAdmin.tsx";
+import { ReportsProvider } from "./providers/ReportsProvider.tsx";
 
 // criação da const function
 const router = createBrowserRouter([
@@ -114,8 +115,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <AuthProvider>
       <ProfileProvider>
         <ImgsProvider>
-          <ToastContainer />
-          <RouterProvider router={router} />
+          <ReportsProvider>
+            <ToastContainer />
+            <RouterProvider router={router} />
+          </ReportsProvider>
         </ImgsProvider>
       </ProfileProvider>
     </AuthProvider>

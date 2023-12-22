@@ -1,10 +1,13 @@
 import { FormEvent, ReactNode, createContext } from "react";
 
-export interface profile {
+export interface reports {
   id: string;
   user_id: string;
-  all_name: string;
-  admin: boolean;
+  title: string;
+  description: string;
+  topic: string;
+  data: Date;
+  estado: boolean
 }
 
 interface ChildrenContext {
@@ -13,16 +16,19 @@ interface ChildrenContext {
 export default ChildrenContext;
 
 export type ReportsDataContext = {
-  profile: profile[];
-  all_name: string;
-  isAdmin: boolean;
-  isSpecialist: boolean;
-  setAll_name: React.Dispatch<React.SetStateAction<string>>;
-  getAllProfiles: () =>Promise<void>;
-  insertProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-  updateProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-  verificaAdmin: () => Promise<void>;
-  verificaSpecialist: () => Promise<void>;
+  reports: reports[];
+  myProfile: reports[];
+  title: string;
+  description: string;
+  topic: string;
+  date: Date;
+  setTopic: React.Dispatch<React.SetStateAction<string>>;
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
+  setDescription: React.Dispatch<React.SetStateAction<string>>;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
+  getAllReports: () =>Promise<void>;
+  getMyReport: () => Promise<void>;
+  insertReports: (e: FormEvent<HTMLFormElement>) => Promise<void>;
 };
 
 export const ReportsContext = createContext<ReportsDataContext>(
