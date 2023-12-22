@@ -23,7 +23,6 @@ import Chat from "./client/screens/Chat.tsx";
 import Explore from "./client/screens/Explore.tsx";
 import Settings from "./client/screens/Settings.tsx";
 import EditProfile from "./client/screens/EditProfile.tsx";
-import Status from "./client/screens/Status.tsx";
 import { ImgsProvider } from "./providers/ImgsProvider.tsx";
 
 import { PrivateRoutes } from "./client/routes/PrivateRoutes.tsx";
@@ -31,6 +30,7 @@ import { ProfileProvider } from "./providers/ProfileProvider.tsx";
 import RegisterProfile from "./client/screens/RegisterProfile.tsx";
 import Admin from "./client/screens/Admin.tsx";
 import { PrivateAdmin } from "./client/routes/PrivateAdmin.tsx";
+import { ReportsProvider } from "./providers/ReportsProvider.tsx";
 
 // criação da const function
 const router = createBrowserRouter([
@@ -84,10 +84,6 @@ const router = createBrowserRouter([
             element: <Reports />,
           },
           {
-            path: "/profile/status",
-            element: <Status />,
-          },
-          {
             path: "/profile/admin",
             element: (
               <PrivateAdmin
@@ -119,8 +115,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <AuthProvider>
       <ProfileProvider>
         <ImgsProvider>
-          <ToastContainer />
-          <RouterProvider router={router} />
+          <ReportsProvider>
+            <ToastContainer />
+            <RouterProvider router={router} />
+          </ReportsProvider>
         </ImgsProvider>
       </ProfileProvider>
     </AuthProvider>

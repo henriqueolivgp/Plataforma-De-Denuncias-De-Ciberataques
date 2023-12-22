@@ -5,7 +5,7 @@ interface ProfileLiProps extends LinkProps {
     name: string
     activeTo: string
     activeLocal: string
-    svg: 'profile' | 'editprofile' | 'reports' | 'chat' | 'admin' | 'settings' | 'logout'
+    svg: 'editprofile' | 'reports' | 'chat' | 'admin' | 'settings' | 'logout'
 }
 
 export function ProfileLi({ to, name, activeTo, activeLocal, svg, ...rest }: ProfileLiProps) {
@@ -14,11 +14,6 @@ export function ProfileLi({ to, name, activeTo, activeLocal, svg, ...rest }: Pro
     return (
         <li>
             <Link to={to} className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${isActiveLink ? ' bg-gray-100' : 'text-gray-500'}`} {...rest}>
-                {svg === 'profile' && (
-                    <svg className={`flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white ${isActiveSvg ? ' text-gray-900' : 'text-gray-500'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 18" >
-                        <path d="M7 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2 1H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
-                    </svg>
-                )}
                 {svg === 'editprofile' && (
                     <svg className={`w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white ${isActiveSvg ? ' text-gray-900' : 'text-gray-500'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.109 17H1v-2a4 4 0 0 1 4-4h.87M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm7.95 2.55a2 2 0 0 1 0 2.829l-6.364 6.364-3.536.707.707-3.536 6.364-6.364a2 2 0 0 1 2.829 0Z" />

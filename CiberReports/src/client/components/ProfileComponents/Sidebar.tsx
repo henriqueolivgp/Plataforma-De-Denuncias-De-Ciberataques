@@ -77,7 +77,6 @@ function Explore() {
                 <aside id="default-sidebar" className={` absolute z-50 lg:relative ${isOpen ? " " : "hidden"} xl:block lg:block llg:hidden w-64 h-auto transition-transform sm:-translate-x-0 lg:translate-x-0  `} aria-label="Sidebar">
                     <div className=" h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                         <ul className="space-y-2 font-medium">
-                            <ProfileLi to="/profile" name="Profile" activeTo={location.pathname} activeLocal={location.pathname} svg={'profile'} />
                             <ProfileLi to="/profile/edit-profile" name="Edit-Profile" activeTo={location.pathname} activeLocal={location.pathname} svg={'editprofile'} />
                             <ProfileLi to="/profile/reports" name="Reports" activeTo={location.pathname} activeLocal={location.pathname} svg={'reports'} />
                             <ProfileLi to="/profile/chat" name="Chat" activeTo={location.pathname} activeLocal={location.pathname} svg={'chat'} />
