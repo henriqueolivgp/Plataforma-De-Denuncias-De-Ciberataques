@@ -15,7 +15,7 @@ function Profile() {
   const URLAvatar = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
   const { bannerImage, getBanner, avatarImage, getAvatar } = useImgs();
   const { user } = useAuth();
-  const { getAllProfiles, profile } = useProfile();
+  const { myProfile, getMyProfile } = useProfile();
   const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function Profile() {
       setisLoading(true)
       await getBanner();
       await getAvatar();
-      await getAllProfiles();
+      await getMyProfile();
       setisLoading(false)
     };
 
@@ -119,7 +119,7 @@ function Profile() {
               }
               <div className="ml-4">
                 <div className="">
-                  {profile.length <= 0 ? (
+                  {myProfile.length <= 0 ? (
                     <>
                       <h5 className=" text-3xl font-medium text-gray-900 dark:text-white" >
                         User Name
@@ -127,10 +127,10 @@ function Profile() {
 
                     </>
                   ) : (
-                    profile.map((profile) => {
+                    myProfile.map((myProfile) => {
                       return (
-                        <h5 className="mb-1 text-3xl font-medium text-gray-900 dark:text-white" key={profile.id}>
-                          {profile.all_name}
+                        <h5 className="mb-1 text-3xl font-medium text-gray-900 dark:text-white" key={myProfile.id}>
+                          {myProfile.all_name}
                         </h5>
                       );
                     })

@@ -3,6 +3,7 @@ import { useRef, useState, FormEvent } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/useAuth";
 import ImgBack from '../components/ImgBack';
+import { useProfile } from '../../hooks/useProfile';
 
 function Register() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -10,8 +11,10 @@ function Register() {
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const { signUp } = useAuth();
+  const { insertProfile, setAll_name, all_name } = useProfile();
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
     if (
       !passwordRef.current?.value ||
@@ -30,6 +33,7 @@ function Register() {
     try {
       setLoading(true);
       await signUp(emailRef.current!.value, passwordRef.current!.value);
+      await insertProfile(e)
       toast.success("Registration Successful. Check your email to confirm your account");
       //toast.success(msg);
     } catch (error) {
@@ -43,7 +47,7 @@ function Register() {
   return (
     <>
       {/* Same as */}
-      <ImgBack/>
+      <ImgBack />
       <div className="container mx-auto">
         <div className="content mx-auto">
 
@@ -51,6 +55,10 @@ function Register() {
             <form onSubmit={handleSubmit} className="space-y-6" action="#">
               <h1 className="text-xl text-center font-bold font-Epilogue text-gray-900 dark:text-white">Create an account</h1>
               <div className="flex flex-col items-center">
+                <div className="flex flex-col">
+                  <label htmlFor="all_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Name</label>
+                  <input onChange={(e) => setAll_name(e.target.value)} type="text" name="all_name" id="all_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Name..." value={all_name} required />
+                </div>
                 <div className="flex flex-col">
                   <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                   <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" ref={emailRef} required />

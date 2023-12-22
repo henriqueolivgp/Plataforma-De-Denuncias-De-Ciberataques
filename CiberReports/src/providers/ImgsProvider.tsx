@@ -5,9 +5,11 @@ import type { ImgType } from '../context/ImgsContext';
 import { toast } from "react-toastify";
 import { useAuth } from "../hooks/useAuth";
 import { v4 as uuidv4 } from 'uuid';
+import { useProfile } from '../hooks/useProfile';
 
 export function ImgsProvider({ children }: ChildrenContext) {
     const { user } = useAuth();
+    const { updateProfileImage } = useProfile();
     const [bannerImage, setBannerImage] = useState<ImgType[]>([]);
     const [avatarImage, setAvatarImage] = useState<ImgType[]>([]);
 
@@ -65,6 +67,8 @@ export function ImgsProvider({ children }: ChildrenContext) {
         }
     }, [user]);
 
+    
+
     const uploadBanner = async (e: React.ChangeEvent<HTMLInputElement>) => {
         try {
             const file = e.target.files?.[0];
@@ -105,6 +109,8 @@ export function ImgsProvider({ children }: ChildrenContext) {
 
             if (data) {
                 getAvatar();
+                updateProfileImage(data.path)
+                console.log(data.path)
             } else {
                 console.error(error);
             }
@@ -176,6 +182,7 @@ export function ImgsProvider({ children }: ChildrenContext) {
 
                 if (data) {
                     getAvatar();
+                    updateProfileImage(data.path)
                 } else {
                     console.error(error);
                 }
@@ -194,6 +201,8 @@ export function ImgsProvider({ children }: ChildrenContext) {
 
                 if (data) {
                     getAvatar();
+                    console.log('antes da funcao')
+                    updateProfileImage(data.path)
                 } else {
                     console.error(error);
                 }
