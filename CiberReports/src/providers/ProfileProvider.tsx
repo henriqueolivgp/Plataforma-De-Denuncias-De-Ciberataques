@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { SupaBaseClient } from "../Services/supabase/SupaBaseClient";
 import ChildrenContext, { ProfileContext } from "../context/ProfileContext";
 import type { profile } from "../context/ProfileContext";
+import type { user } from "../context/ProfileContext";
 import { useAuth } from "../hooks/useAuth";
 
 export function ProfileProvider({ children }: ChildrenContext) {
@@ -23,6 +24,19 @@ export function ProfileProvider({ children }: ChildrenContext) {
 
   };
 
+  const [users, setUsers] = useState<user[]>([]);
+
+  const getAllUsers = async () => {
+
+    console.log('estou no getUsers')
+
+    const { data } = await SupaBaseClient.from("auth.users").select("*")
+
+    // Certifique-se de que 'data' não é undefined antes de atribuir a 'setProfile'
+    setUsers(data || []);
+
+  };
+
   const insertProfile = async (e: FormEvent<HTMLFormElement>) => {
     console.log('entrou no insert')
     e.preventDefault();
@@ -39,6 +53,46 @@ export function ProfileProvider({ children }: ChildrenContext) {
     console.log("Profile inserted successfully");
 
   };
+
+  const insertAutoProfile = async (userId: user): Promise<void> => {
+    try {
+      console.log('Iniciando inserção de perfil para o usuário:', userId);
+
+      const { data: dataSearch } = await SupaBaseClient.from('profiles').select().eq('user_id', userId.id)
+      console.log(dataSearch)
+
+      if (dataSearch !== null && dataSearch.length > 0) {
+        console.log('entrou aqui');
+        console.log(dataSearch.length);
+        return;
+      }
+      
+      // Realiza a inserção na tabela 'profiles'
+      const { data, error } = await SupaBaseClient.from('profiles').upsert([
+        {
+          user_id: userId.id,
+          // Outros campos do perfil
+        },
+      ]);
+
+      console.log(data + 'antes do if')
+
+      if (error) {
+        console.error('Erro ao inserir perfil:', error);
+        //  throw error;Adicione um throw para propagar o erro
+      }
+
+      console.log(data + 'depois do if')
+
+      console.log('Perfil inserido com sucesso:', data);
+
+    } catch (error) {
+      console.error('Erro ao inserir perfil:', error);
+      throw error; // Adicione um throw para propagar o erro
+    }
+  };
+
+
 
   const updateProfile = async (e: FormEvent<HTMLFormElement>) => {
 
@@ -90,7 +144,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
     }
 
   }
-  
+
   const [isSpecialist, setIsSpecialist] = useState<boolean>(false);
 
   const verificaSpecialist = async () => {
@@ -110,7 +164,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
   }
 
   return (
-    <ProfileContext.Provider value={{ profile, all_name, isAdmin, isSpecialist, setAll_name, getAllProfiles, insertProfile, updateProfile, verificaAdmin, verificaSpecialist }}>
+    <ProfileContext.Provider value={{ profile, all_name, isAdmin, isSpecialist, users, setAll_name, getAllProfiles, getAllUsers, insertProfile, insertAutoProfile, updateProfile, verificaAdmin, verificaSpecialist }}>
       {children}
     </ProfileContext.Provider>
   );

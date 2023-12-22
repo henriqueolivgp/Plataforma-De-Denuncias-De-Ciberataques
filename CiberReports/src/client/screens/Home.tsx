@@ -1,10 +1,28 @@
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import home_banner from "../assets/home_banner.png";
+import { useProfile } from "../../hooks/useProfile";
+import { useEffect } from "react";
 
 function Home() {
-  const { signOut, session } = useAuth();
+  const { signOut, session, user } = useAuth();
   const navigate = useNavigate();
+  const { insertAutoProfile } = useProfile();
+
+  const insertProfile = async () => {
+        
+    if (user && user.email_confirmed_at  ) {
+      // Insere o perfil na tabela 'profiles'
+      await insertAutoProfile(user);
+    }
+  }
+
+  useEffect(() => {
+    // Verifica se o usuário está autenticado e possui email confirmado
+    insertProfile();
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const handleLogOut = async (e: { preventDefault: () => void }) => {
     e.preventDefault();

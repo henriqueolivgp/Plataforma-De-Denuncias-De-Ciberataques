@@ -6,19 +6,20 @@ import { useAuth } from "../../hooks/useAuth";
 
 function Admin() {
 
-    const { getAllProfiles, profile } = useProfile();
-    const { getAvatar, avatarImage } = useImgs();
+    const { getAllProfiles, getAllUsers, users } = useProfile();
+    const { getAvatar } = useImgs();
     const { user } = useAuth();
     const [isLoading, setisLoading] = useState(true);
 
 
-    const URLAvatar = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
+    // const URLAvatar = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
 
     useEffect(() => {
         const fetchData = async () => {
             setisLoading(true)
             await getAvatar();
             await getAllProfiles();
+            await getAllUsers();
             setisLoading(false)
         };
 
@@ -34,6 +35,8 @@ function Admin() {
     if (!user) {
         return <p>Carregando...</p>;
     }
+
+    console.log(users)
 
     return (
         <>
@@ -55,22 +58,14 @@ function Admin() {
                                         </div>
                                         <div className="flex w-full">
                                             <div className="flex flex-col mr-5 text-center mb-11 lg:mr-16">
-                                                {profile.map((profile) => (
-                                                    <div key={profile.id}>
-                                                        {/* Display avatars for the current profile */}
-                                                        {profile.user_id && avatarImage.map((avatar) => {
-                                                            const imageURL = `${URLAvatar}${profile.user_id}/${avatar.name}`;
-                                                            return (
-                                                                <div className="inline-block mb-4 relative shrink-0 rounded-[.95rem]" key={avatar.id}>
-                                                                    <img className="inline-block shrink-0 rounded-[.95rem] w-[150px] h-[150px]" src={imageURL} alt="avatar-image" />
-                                                                </div>
-                                                            );
-                                                        })}
+                                                {users.map((user) => (
+                                                    <div key={user.id}>
+                                                    
 
                                                         {/* Display profile information for the current profile */}
                                                         <div className="text-center">
                                                             <a href="javascript:void(0)" className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out">
-                                                                {profile.all_name}
+                                                                {users[0].id}
                                                             </a>
                                                         </div>
                                                     </div>

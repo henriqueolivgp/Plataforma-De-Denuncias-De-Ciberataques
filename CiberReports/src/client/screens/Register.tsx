@@ -12,6 +12,7 @@ function Register() {
   const { signUp } = useAuth();
 
   const handleSubmit = async (e: FormEvent) => {
+
     e.preventDefault();
     if (
       !passwordRef.current?.value ||
@@ -43,7 +44,7 @@ function Register() {
   return (
     <>
       {/* Same as */}
-      <ImgBack/>
+      <ImgBack />
       <div className="container mx-auto">
         <div className="content mx-auto">
 
