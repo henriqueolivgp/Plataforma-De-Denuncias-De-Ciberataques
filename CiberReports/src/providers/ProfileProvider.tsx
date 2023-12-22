@@ -7,8 +7,37 @@ import { useAuth } from "../hooks/useAuth";
 
 export function ProfileProvider({ children }: ChildrenContext) {
   const [profile, setProfile] = useState<profile[]>([]);
+  const [myProfile, setMyProfile] = useState<profile[]>([]);
   const [all_name, setAll_name] = useState<string>('');
   const { user } = useAuth();
+
+  const getMyProfile = async () => {
+
+    if (user) {
+
+      try {
+
+        // Utiliza o SupabaseClient para consultar a tabela 'profiles' procurando pelo ID do usuário
+        const { data, error } = await SupaBaseClient
+          .from("profiles")
+          .select()
+          .eq('user_id', user.id);
+
+        // Verifica se ocorreu algum erro durante a consulta
+        if (error) {
+          console.error('Erro ao obter perfil:', error.message);
+          return;
+        }
+        // Exibe os dados resultantes no console
+
+        // Certifica-se de que 'data' não é undefined antes de atribuir a 'setMyProfile'
+        setMyProfile(data || []);
+      } catch (error) {
+        console.error('Erro durante a obtenção do perfil:');
+      }
+
+    } 
+  };
 
   // Importe os tipos necessários (suponhamos que você tenha uma interface chamada 'Pr
 
@@ -24,21 +53,9 @@ export function ProfileProvider({ children }: ChildrenContext) {
 
   };
 
-  const [users, setUsers] = useState<user[]>([]);
-
-  const getAllUsers = async () => {
-
-    console.log('estou no getUsers')
-
-    const { data } = await SupaBaseClient.from("auth.users").select("*")
-
-    // Certifique-se de que 'data' não é undefined antes de atribuir a 'setProfile'
-    setUsers(data || []);
-
-  };
-
   const insertProfile = async (e: FormEvent<HTMLFormElement>) => {
     console.log('entrou no insert')
+
     e.preventDefault();
 
     const newProfile = {
@@ -46,11 +63,13 @@ export function ProfileProvider({ children }: ChildrenContext) {
       all_name,
     };
 
-    const result = await SupaBaseClient.from('profiles').insert(newProfile).select().single();
-    setProfile([result.data]);
+    console.log(newProfile)
+
+    const {data, error} = await SupaBaseClient.from('profiles').insert(newProfile).select().single();
+    setProfile([data.data]);
     setAll_name('');
 
-    console.log("Profile inserted successfully");
+    console.log("Erro do insert" + error);
 
   };
 
@@ -66,7 +85,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
         console.log(dataSearch.length);
         return;
       }
-      
+
       // Realiza a inserção na tabela 'profiles'
       const { data, error } = await SupaBaseClient.from('profiles').upsert([
         {
@@ -92,8 +111,6 @@ export function ProfileProvider({ children }: ChildrenContext) {
     }
   };
 
-
-
   const updateProfile = async (e: FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
@@ -109,7 +126,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
       try {
         // Assuming 'profiles' is the correct table name
         const { data, error } = await SupaBaseClient.from('profiles')
-          .upsert({ id: profile[0].id, ...newProfile })
+          .upsert({ id: myProfile[0].id, ...newProfile })
           .select();
         if (error) {
           throw error;
@@ -127,6 +144,38 @@ export function ProfileProvider({ children }: ChildrenContext) {
     }
   };
 
+  const updateProfileImage = async (pathImage: string) => {
+
+    // se for diferente de nada ele altera pq se nao for nada ele nao altera
+
+      const newProfile = {
+        user_id: user?.id,
+        image_avatar_path: pathImage
+      };
+
+      try {
+
+        console.log('antes do const:')
+        // Assuming 'profiles' is the correct table name
+        const { data, error } = await SupaBaseClient.from('profiles')
+          .upsert({ id: myProfile[0].id, ...newProfile })
+          .select();
+          console.log('depois do const:')
+        if (error) {
+          throw error;
+        }
+
+        // Set the profile state by accessing the data array
+        setProfile([data[0]]);
+
+        console.log("Profile updated successfully");
+      } catch (error) {
+        console.error("Error updating profile:");
+        console.log(error)
+      }
+    
+  };
+
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   const verificaAdmin = async () => {
@@ -134,10 +183,11 @@ export function ProfileProvider({ children }: ChildrenContext) {
     const { data: userData } = await SupaBaseClient
       .from("profiles")
       .select("admin")
-      .eq("id", profile[0].id);
+      .eq("id", myProfile[0].id);
 
     if (userData && userData.length > 0) {
       setIsAdmin(userData[0].admin || false);
+
     } else {
       // Define um valor padrão se userData for nulo ou vazio
       setIsAdmin(false);
@@ -152,7 +202,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
     const { data: userData } = await SupaBaseClient
       .from("profiles")
       .select("specialist")
-      .eq("id", profile[0].id);
+      .eq("id", myProfile[0].id);
 
     if (userData && userData.length > 0) {
       setIsSpecialist(userData[0].specialist || false);
@@ -164,7 +214,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
   }
 
   return (
-    <ProfileContext.Provider value={{ profile, all_name, isAdmin, isSpecialist, users, setAll_name, getAllProfiles, getAllUsers, insertProfile, insertAutoProfile, updateProfile, verificaAdmin, verificaSpecialist }}>
+    <ProfileContext.Provider value={{ profile, all_name, isAdmin, isSpecialist, myProfile, setAll_name, getAllProfiles, getMyProfile, insertProfile, insertAutoProfile, updateProfile,updateProfileImage, verificaAdmin, verificaSpecialist }}>
       {children}
     </ProfileContext.Provider>
   );

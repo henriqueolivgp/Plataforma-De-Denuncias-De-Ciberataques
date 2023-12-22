@@ -14,7 +14,7 @@ export default function NavbarV2() {
 
   // const { profile } = useProfile();
   const { user } = useAuth();
-  const { getAllProfiles, profile } = useProfile();
+  const { getMyProfile,myProfile } = useProfile();
   const { avatarImage, getAvatar } = useImgs();
   const URLAvatar = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ export default function NavbarV2() {
     const fetchData = async () => {
       setisLoading(false)
       await getAvatar();
-      await getAllProfiles();
+      await getMyProfile();
       setisLoading(false)
     };
 
@@ -172,17 +172,17 @@ export default function NavbarV2() {
                 id="user-dropdown"
               >
                 <div className="px-4 py-3">
-                  {profile.length <= 0 ? (
+                  {myProfile.length <= 0 ? (
                     <>
                       <div>
                         <span className="block text-sm text-gray-900 dark:text-white">User Name</span>
                       </div>
                     </>
                   ) : (
-                    profile.map((profile) => {
+                    myProfile.map((myProfile) => {
                       return (
-                        <div key={profile.id}>
-                          <span className="block text-sm text-gray-900 dark:text-white">{profile.all_name}</span>
+                        <div key={myProfile.id}>
+                          <span className="block text-sm text-gray-900 dark:text-white">{myProfile.all_name}</span>
                         </div>
                       );
                     })

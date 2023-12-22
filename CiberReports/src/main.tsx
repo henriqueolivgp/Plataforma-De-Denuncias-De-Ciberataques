@@ -90,8 +90,8 @@ const router = createBrowserRouter([
           {
             path: "/profile/admin",
             element: (
-              <PrivateAdmin 
-              element={<Admin/>}
+              <PrivateAdmin
+                element={<Admin />}
               />
             )
           },
@@ -117,12 +117,12 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <AuthProvider>
-      <ImgsProvider>
-        <ProfileProvider>
+      <ProfileProvider>
+        <ImgsProvider>
           <ToastContainer />
           <RouterProvider router={router} />
-        </ProfileProvider>
-      </ImgsProvider>
+        </ImgsProvider>
+      </ProfileProvider>
     </AuthProvider>
   </React.StrictMode>
 );

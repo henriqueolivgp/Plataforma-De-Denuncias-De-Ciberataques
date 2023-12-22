@@ -5,6 +5,7 @@ export interface profile {
   user_id: string;
   all_name: string;
   admin: boolean;
+  image_avatar_path: string;
 }
 
 export interface user {
@@ -22,13 +23,14 @@ export type ProfileDataContext = {
   all_name: string;
   isAdmin: boolean;
   isSpecialist: boolean;
-  users: user[];
+  myProfile: profile[];
   setAll_name: React.Dispatch<React.SetStateAction<string>>;
   getAllProfiles: () =>Promise<void>;
-  getAllUsers: () => Promise<void>;
+  getMyProfile: () => Promise<void>;
   insertProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;
   insertAutoProfile: (userId: user) => Promise<void>;
   updateProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;
+  updateProfileImage: (pathImage: string) =>Promise<void>;
   verificaAdmin: () => Promise<void>;
   verificaSpecialist: () => Promise<void>;
 };
