@@ -29,7 +29,7 @@ function Profile() {
 
     fetchData();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading) {
@@ -89,33 +89,33 @@ function Profile() {
             <div className="flex justify-end px-4 pt-4"></div>
             <div className="flex items-center">
               {avatarImage.length == 0 ? (
-                  <div className="relative">
-                    <img
-                      className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
-                      src="/user.png"
-                      alt="User Avatar"
-                    />
-                    <span className="absolute bottom-3 left-5 w-6 h-6 border-white dark:border-gray-800 rounded-full">
-                      <img src={userVerified} alt="userVerified" />
-                    </span>
-                  </div>
-                ) : (
-                  avatarImage.map((image) => {
-                    const imageURL = `${URLAvatar}${user.id}/${image.name}`;
-                    return (
-                      <div key={imageURL} className="relative">
-                        <img
-                          className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
-                          src={imageURL}
-                          alt="User Avatar"
-                        />
-                        <span className="absolute bottom-3 left-5 w-6 h-6 border-white dark:border-gray-800 rounded-full">
-                          <img src={userVerified} alt="userVerified" />
-                        </span>
-                      </div>
-                    );
-                  })
-                )
+                <div className="relative">
+                  <img
+                    className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
+                    src="/user.png"
+                    alt="User Avatar"
+                  />
+                  <span className="absolute bottom-3 left-5 w-6 h-6 border-white dark:border-gray-800 rounded-full">
+                    <img src={userVerified} alt="userVerified" />
+                  </span>
+                </div>
+              ) : (
+                avatarImage.map((image) => {
+                  const imageURL = `${URLAvatar}${user.id}/${image.name}`;
+                  return (
+                    <div key={imageURL} className="relative">
+                      <img
+                        className="w-24 h-24 mb-3 ml-4 rounded-full shadow-2xl"
+                        src={imageURL}
+                        alt="User Avatar"
+                      />
+                      <span className="absolute bottom-3 left-5 w-6 h-6 border-white dark:border-gray-800 rounded-full">
+                        <img src={userVerified} alt="userVerified" />
+                      </span>
+                    </div>
+                  );
+                })
+              )
               }
               <div className="ml-4">
                 <div className="">

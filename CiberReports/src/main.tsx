@@ -23,7 +23,6 @@ import Chat from "./client/screens/Chat.tsx";
 import Explore from "./client/screens/Explore.tsx";
 import Settings from "./client/screens/Settings.tsx";
 import EditProfile from "./client/screens/EditProfile.tsx";
-import Status from "./client/screens/Status.tsx";
 import { ImgsProvider } from "./providers/ImgsProvider.tsx";
 
 import { PrivateRoutes } from "./client/routes/PrivateRoutes.tsx";
@@ -82,10 +81,6 @@ const router = createBrowserRouter([
           {
             path: "/profile/reports",
             element: <Reports />,
-          },
-          {
-            path: "/profile/status",
-            element: <Status />,
           },
           {
             path: "/profile/admin",

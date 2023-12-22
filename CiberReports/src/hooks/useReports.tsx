@@ -2,7 +2,7 @@ import { useContext } from 'react'
 
 import { ReportsContext } from '../context/ReportsContext'
 
-export function useProfile() {
+export function useReports() {
 
   const context = useContext(ReportsContext)
 
