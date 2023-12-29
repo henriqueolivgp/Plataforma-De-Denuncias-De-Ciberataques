@@ -29,7 +29,7 @@ export type ReportsDataContext = {
   getAllReports: () =>Promise<void>;
   getMyReport: () => Promise<void>;
   insertReports: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-  updateReportImagePath: (pathImage: string) =>Promise<void>;
+  // updateReportImagePath: (pathImage: string) =>Promise<void>;
 };
 
 export const ReportsContext = createContext<ReportsDataContext>(

@@ -6,12 +6,12 @@ import { toast } from "react-toastify";
 import { useAuth } from "../hooks/useAuth";
 import { v4 as uuidv4 } from 'uuid';
 import { useProfile } from '../hooks/useProfile';
-import { useReports } from '../hooks/useReports';
+// import { useReports } from '../hooks/useReports';
 
 export function ImgsProvider({ children }: ChildrenContext) {
     const { user } = useAuth();
     const { updateProfileAvatarPath, updateProfileBannerPath } = useProfile();
-    const { updateReportImagePath } = useReports();
+    // const { updateReportImagePath } = useReports();
     const [bannerImage, setBannerImage] = useState<ImgType[]>([]);
     const [avatarImage, setAvatarImage] = useState<ImgType[]>([]);
 
@@ -69,7 +69,7 @@ export function ImgsProvider({ children }: ChildrenContext) {
         }
     }, [user]);
 
-    
+
 
     const uploadBanner = async (e: React.ChangeEvent<HTMLInputElement>) => {
         try {
@@ -206,18 +206,18 @@ export function ImgsProvider({ children }: ChildrenContext) {
                 return;
             }
 
-                const { data, error } = await SupaBaseClient
-                    .storage
-                    .from('ReportsImage')
-                    .upload(`${user?.id}/${uuidv4()}`, file);
+            const { data, error } = await SupaBaseClient
+                .storage
+                .from('ReportsImage')
+                .upload(`${user?.id}/${uuidv4()}`, file);
 
-                if (data) {
-                    getRportImage();
-                    await updateReportImagePath(data.path)
-                } else {
-                    console.error(error);
-                }
-                console.log(data)
+            if (data) {
+                getRportImage();
+                // await updateReportImagePath(data.path)
+            } else {
+                console.error(error);
+            }
+            console.log(data)
 
         } catch (error) {
             toast.error('An error occurred during image upload');

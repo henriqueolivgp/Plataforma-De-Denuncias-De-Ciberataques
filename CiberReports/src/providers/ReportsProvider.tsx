@@ -4,6 +4,7 @@ import { SupaBaseClient } from "../Services/supabase/SupaBaseClient";
 import ChildrenContext, { ReportsContext } from "../context/ReportsContext";
 import type { reports } from "../context/ReportsContext";
 import { useAuth } from "../hooks/useAuth";
+import { toast } from "react-toastify";
 
 export function ReportsProvider({ children }: ChildrenContext) {
   const [reports, setReports] = useState<reports[]>([]);
@@ -41,7 +42,6 @@ export function ReportsProvider({ children }: ChildrenContext) {
     const { data } = await SupaBaseClient
       .from("reports")
       .select("*")
-      .order("inserted_at", { ascending: false });
 
     // Certifique-se de que 'data' não é undefined antes de atribuir a 'setProfile'
     setReports(data || []);
@@ -54,69 +54,86 @@ export function ReportsProvider({ children }: ChildrenContext) {
   const [description, setDescription] = useState<string>('');
   const [topic, setTopic] = useState<string>('');
   const [date, setDate] = useState<Date>(new Date());
-  const [pathImage, setPathImage] = useState<string>('');
 
-  const insertReports = async (e: FormEvent<HTMLFormElement> ) => {
+  const insertReports = async (e: FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
 
-    const newReport = {
-      user_id: user?.id,
-      title: title,
-      description: description,
-      topic: topic,
-      data: date,
-      image_report_path: pathImage,
-    };
-
-    const { data, error } = await SupaBaseClient.from('reports').insert(newReport).select().single();
-    setReports([data.data]);
-    setTopic('');
-    setTitle('');
-    setDescription('');
-    setDate(new Date());
-    setPathImage(pathImage)
-
-    console.log("Erro do insert" + error);
-
-  };
-
-  
-
-  const updateReportImagePath = async (pathImage: string) => {
-
-    // se for diferente de nada ele altera pq se nao for nada ele nao altera
-
-    const newReport = {
-      user_id: user?.id,
-      image_report_path: pathImage
-    };
-
     try {
 
-      console.log(pathImage)
-      console.log('antes do const:')
-      // Assuming 'profiles' is the correct table name
-      const { data, error } = await SupaBaseClient.from('reports')
-        .insert( newReport )
-        .select()
-        .single()
+      const newReport = {
+        user_id: user?.id,
+        title: title,
+        description: description,
+        topic: topic,
+        data: date,
+      };
 
-      if (error) {
-        throw error;
+      if (newReport === null) {
+
+        toast.error("You cant submit a null report");
+
+      } else {
+
+        const { data, error } = await SupaBaseClient.from('reports').insert(newReport).select().single();
+
+        setReports([data.data]);
+        setTopic('');
+        setTitle('');
+        setDescription('');
+        setDate(new Date());
+
+        console.log("Erro do insert" + error);
+
       }
 
-      // Set the profile state by accessing the data array
-      setReports([data[0]]);
-      setPathImage(pathImage)
 
-      console.log("Report updated successfully");
+
     } catch (error) {
-      console.error("Error updating reports:");
-      console.log(error)
+      toast.error("Erro do insert" + error);
     }
 
+
+
+
+
+
   };
+
+  // const updateReportImagePath = async (pathImage: string) => {
+
+  //   // se for diferente de nada ele altera pq se nao for nada ele nao altera
+
+  //   const newReport = {
+  //     user_id: user?.id,
+  //     image_report_path: pathImage
+  //   };
+
+  //   try {
+
+  //     console.log(pathImage)
+  //     console.log('antes do const:')
+  //     // Assuming 'profiles' is the correct table name
+  //     const { data, error } = await SupaBaseClient.from('reports')
+  //       .insert( newReport )
+  //       .select()
+  //       .single()
+
+  //     if (error) {
+  //       throw error;
+  //     }
+
+  //     // Set the profile state by accessing the data array
+  //     setReports([data[0]]);
+  //     setPathImage(pathImage)
+
+  //     console.log("Report updated successfully");
+  //   } catch (error) {
+  //     console.error("Error updating reports:");
+  //     console.log(error)
+  //   }
+
+  // };
 
   //   const updateProfile = async (e: FormEvent<HTMLFormElement>) => {
 
@@ -184,7 +201,7 @@ export function ReportsProvider({ children }: ChildrenContext) {
   //   };
 
   return (
-    <ReportsContext.Provider value={{ reports, myReport, title, description, topic, date, setTitle, setDescription, setTopic, setDate, getAllReports, getMyReport, insertReports, updateReportImagePath }}>
+    <ReportsContext.Provider value={{ reports, myReport, title, description, topic, date, setTitle, setDescription, setTopic, setDate, getAllReports, getMyReport, insertReports }}>
       {children}
     </ReportsContext.Provider>
   );
