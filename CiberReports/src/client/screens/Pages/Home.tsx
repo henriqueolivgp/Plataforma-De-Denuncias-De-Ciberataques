@@ -39,10 +39,10 @@ function Home() {
       <img
         src="/World.jpg"
         alt="imagem de fundo"
-        className=" absolute top-0 z-[-1] object-cover"
+        className="absolute top-0 z-[-2] h-screen w-full bg-cover filter brightness-70 blur-5"
       />
-      <div className=" bg-black opacity-70">
-        <div className="container mx-auto opacity-none ">
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-60 z-[-1]"></div>
+        <div className="container mx-auto ">
           <div className="content flex flex-1 items-center ml-10">
             {!session && (
               <div className="max-w-lg p-6 bg-transparent">
@@ -173,7 +173,7 @@ function Home() {
             )}
           </div>
         </div>
-      </div>
+      
       <div className="flex flex-wrap -mx-3 mb-5 mt-44">
         <div className="w-full max-w-full px-3 mb-6  mx-auto">
           <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] border border-dashed border-stone-200 bg-white m-5">
