@@ -18,12 +18,17 @@ export type ImgsDataContext = {
   user: User | null | undefined;
   bannerImage: ImgType[];
   avatarImage: ImgType[];
+  reportImage: ImgType[];
   getBanner: () => Promise<{ bannerImage: ImgType[] } | undefined>
   getAvatar: () => Promise<{ avatarImage: ImgType[] } | undefined>
+  getRportImage: () => Promise<{  reportImage: ImgType[] } | undefined>
   uploadBanner: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
   uploadAvatar: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+  inertReportImage: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
   updateAvatar: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
   updateBanner: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+  // Reports Image
+
 }
 
 export const ImgsContext = createContext<ImgsDataContext>(

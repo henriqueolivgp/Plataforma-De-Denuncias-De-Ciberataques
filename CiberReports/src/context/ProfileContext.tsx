@@ -30,7 +30,8 @@ export type ProfileDataContext = {
   insertProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;
   insertAutoProfile: (userId: user) => Promise<void>;
   updateProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-  updateProfileImage: (pathImage: string) =>Promise<void>;
+  updateProfileAvatarPath: (pathImage: string) =>Promise<void>;
+  updateProfileBannerPath: (pathImage: string) =>Promise<void>;
   verificaAdmin: () => Promise<void>;
   verificaSpecialist: () => Promise<void>;
 };

@@ -144,7 +144,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
     }
   };
 
-  const updateProfileImage = async (pathImage: string) => {
+  const updateProfileAvatarPath = async (pathImage: string) => {
 
     // se for diferente de nada ele altera pq se nao for nada ele nao altera
 
@@ -160,7 +160,37 @@ export function ProfileProvider({ children }: ChildrenContext) {
         const { data, error } = await SupaBaseClient.from('profiles')
           .upsert({ id: myProfile[0].id, ...newProfile })
           .select();
-          console.log('depois do const:')
+        if (error) {
+          throw error;
+        }
+
+        // Set the profile state by accessing the data array
+        setProfile([data[0]]);
+
+        console.log("Profile updated successfully");
+      } catch (error) {
+        console.error("Error updating profile:");
+        console.log(error)
+      }
+    
+  };
+
+  const updateProfileBannerPath = async (pathImage: string) => {
+
+    // se for diferente de nada ele altera pq se nao for nada ele nao altera
+
+      const newProfile = {
+        user_id: user?.id,
+        image_banner_path: pathImage
+      };
+
+      try {
+
+        console.log('antes do const:')
+        // Assuming 'profiles' is the correct table name
+        const { data, error } = await SupaBaseClient.from('profiles')
+          .upsert({ id: myProfile[0].id, ...newProfile })
+          .select();
         if (error) {
           throw error;
         }
@@ -214,7 +244,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
   }
 
   return (
-    <ProfileContext.Provider value={{ profile, all_name, isAdmin, isSpecialist, myProfile, setAll_name, getAllProfiles, getMyProfile, insertProfile, insertAutoProfile, updateProfile,updateProfileImage, verificaAdmin, verificaSpecialist }}>
+    <ProfileContext.Provider value={{ profile, all_name, isAdmin, isSpecialist, myProfile, setAll_name, getAllProfiles, getMyProfile, insertProfile, insertAutoProfile, updateProfile, updateProfileAvatarPath, updateProfileBannerPath, verificaAdmin, verificaSpecialist }}>
       {children}
     </ProfileContext.Provider>
   );
