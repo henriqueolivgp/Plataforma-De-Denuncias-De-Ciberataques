@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 import { useAuth } from "../hooks/useAuth";
 import { v4 as uuidv4 } from 'uuid';
 import { useProfile } from '../hooks/useProfile';
+import { useReports } from '../hooks/useReports';
 
 export function ImgsProvider({ children }: ChildrenContext) {
     const { user } = useAuth();
-    const { updateProfileImage } = useProfile();
+    const { updateProfileAvatarPath, updateProfileBannerPath } = useProfile();
+    const { updateReportImagePath } = useReports();
     const [bannerImage, setBannerImage] = useState<ImgType[]>([]);
     const [avatarImage, setAvatarImage] = useState<ImgType[]>([]);
 
@@ -85,6 +87,7 @@ export function ImgsProvider({ children }: ChildrenContext) {
 
             if (data) {
                 getBanner();
+                updateProfileBannerPath(data.path)
             } else {
                 console.error(error);
             }
@@ -109,7 +112,7 @@ export function ImgsProvider({ children }: ChildrenContext) {
 
             if (data) {
                 getAvatar();
-                updateProfileImage(data.path)
+                updateProfileAvatarPath(data.path)
                 console.log(data.path)
             } else {
                 console.error(error);
@@ -136,6 +139,7 @@ export function ImgsProvider({ children }: ChildrenContext) {
 
                 if (data) {
                     getAvatar();
+                    updateProfileBannerPath(data.path)
                 } else {
                     console.error(error);
                 }
@@ -154,11 +158,67 @@ export function ImgsProvider({ children }: ChildrenContext) {
 
                 if (data) {
                     getAvatar();
+                    updateProfileBannerPath(data.path)
                 } else {
                     console.error(error);
                 }
                 console.log(data)
             }
+        } catch (error) {
+            toast.error('An error occurred during image upload');
+        }
+    };
+
+    const [reportImage, setReportImage] = useState<ImgType[]>([]);
+
+    const getRportImage = useCallback(async (): Promise<{ reportImage: ImgType[]; } | undefined> => {
+        try {
+            const { data, error } = await SupaBaseClient
+                .storage
+                .from('ReportsImage')
+                .list(`${user?.id}/`, {
+                    limit: 100,
+                    offset: 0,
+                    sortBy: { column: "name", order: "asc" }
+                });
+
+            if (data) {
+                setReportImage(data);
+                return { reportImage: data }; // Return the data as expected
+            } else {
+                console.log("Error loading ReportImage");
+                console.log(error);
+                return undefined; // Return undefined in case of an error
+            }
+
+        } catch (error) {
+            console.error("Error fetching reportImage:", error);
+            return undefined; // Return undefined in case of an error
+        }
+    }, [user]);
+
+    const inertReportImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        try {
+            const file = e.target.files?.[0];
+
+            if (!file) {
+                toast.error('No file selected.');
+                return;
+            }
+
+                const { data, error } = await SupaBaseClient
+                    .storage
+                    .from('ReportsImage')
+                    .upload(`${user?.id}/${uuidv4()}`, file);
+
+                if (data) {
+                    getRportImage();
+                    await updateReportImagePath(data.path)
+                } else {
+                    console.error(error);
+                }
+                console.log(data)
+
         } catch (error) {
             toast.error('An error occurred during image upload');
         }
@@ -182,7 +242,7 @@ export function ImgsProvider({ children }: ChildrenContext) {
 
                 if (data) {
                     getAvatar();
-                    updateProfileImage(data.path)
+                    updateProfileAvatarPath(data.path)
                 } else {
                     console.error(error);
                 }
@@ -202,7 +262,7 @@ export function ImgsProvider({ children }: ChildrenContext) {
                 if (data) {
                     getAvatar();
                     console.log('antes da funcao')
-                    updateProfileImage(data.path)
+                    updateProfileAvatarPath(data.path)
                 } else {
                     console.error(error);
                 }
@@ -215,7 +275,7 @@ export function ImgsProvider({ children }: ChildrenContext) {
     };
 
     return (
-        <ImgsContext.Provider value={{ user, bannerImage, avatarImage, getBanner, getAvatar, uploadBanner, uploadAvatar, updateAvatar, updateBanner }}>
+        <ImgsContext.Provider value={{ user, bannerImage, avatarImage, reportImage, getBanner, getAvatar, getRportImage, uploadBanner, uploadAvatar, inertReportImage, updateAvatar, updateBanner }}>
             {children}
         </ImgsContext.Provider>
     );

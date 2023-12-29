@@ -1,14 +1,14 @@
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 // Imagens
-import { useImgs } from "../../hooks/useImgs";
+import { useImgs } from "../../../hooks/useImgs";
 // loading
-import { Loading } from "../components/Loading";
-import Sidebar from "../components/ProfileComponents/Sidebar";
+import { Loading } from "../../components/Loading";
+import Sidebar from "../../components/ProfileComponents/Sidebar";
 
-import userVerified from '../assets/UserVerified.png'
-import { useProfile } from "../../hooks/useProfile";
+import userVerified from '../../assets/UserVerified.png'
+import { useProfile } from "../../../hooks/useProfile";
 
 function Profile() {
   const URLBanner = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Banner/";

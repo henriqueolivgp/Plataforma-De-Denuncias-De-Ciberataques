@@ -6,29 +6,28 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./client/theme/index.css";
 // All pages imports
 import App from "./client/routes/App.tsx";
-import Home from "./client/screens/Home.tsx";
-import Login from "./client/screens/Login.tsx";
-import AboutUs from "./client/screens/AboutUs.tsx";
-import Profile from "./client/screens/Profile.tsx";
-import Register from "./client/screens/Register.tsx";
-import ErrorPage from "./client/screens/ErrorPage.tsx";
+import Home from "./client/screens/Pages/Home.tsx";
+import Login from "./client/screens/Pages/Login.tsx";
+import AboutUs from "./client/screens/Pages/AboutUs.tsx";
+import Profile from "./client/screens/Profile/Profile.tsx";
+import Register from "./client/screens/Pages/Register.tsx";
+import ErrorPage from "./client/screens/ErrorPage/ErrorPage.tsx";
 // Authentication File
 import { AuthProvider } from "./providers/AuthProvider.tsx";
 // React-Toastify imports
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import Support from "./client/screens/Support.tsx";
-import Reports from "./client/screens/Reports.tsx";
-import Chat from "./client/screens/Chat.tsx";
-import Explore from "./client/screens/Explore.tsx";
-import Settings from "./client/screens/Settings.tsx";
-import EditProfile from "./client/screens/EditProfile.tsx";
+import Reports from "./client/screens/Profile/ProfileSubpages/Reports.tsx";
+import Chat from "./client/screens/Profile/ProfileSubpages/Chat.tsx";
+import Explore from "./client/screens/Pages/Explore.tsx";
+import Settings from "./client/screens/Profile/ProfileSubpages/Settings.tsx";
+import EditProfile from "./client/screens/Profile/ProfileSubpages/EditProfile.tsx";
 import { ImgsProvider } from "./providers/ImgsProvider.tsx";
 
 import { PrivateRoutes } from "./client/routes/PrivateRoutes.tsx";
 import { ProfileProvider } from "./providers/ProfileProvider.tsx";
 import RegisterProfile from "./client/screens/RegisterProfile.tsx";
-import Admin from "./client/screens/Admin.tsx";
+import Admin from "./client/screens/Profile/ProfileSubpages/Admin.tsx";
 import { PrivateAdmin } from "./client/routes/PrivateAdmin.tsx";
 import { ReportsProvider } from "./providers/ReportsProvider.tsx";
 
@@ -99,10 +98,6 @@ const router = createBrowserRouter([
         element: <AboutUs />,
       },
       {
-        path: "/support",
-        element: <Support />,
-      },
-      {
         path: "/explore",
         element: <Explore />,
       },
@@ -114,12 +109,12 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <AuthProvider>
       <ProfileProvider>
-        <ImgsProvider>
-          <ReportsProvider>
+        <ReportsProvider>
+          <ImgsProvider>
             <ToastContainer />
             <RouterProvider router={router} />
-          </ReportsProvider>
-        </ImgsProvider>
+          </ImgsProvider>
+        </ReportsProvider>
       </ProfileProvider>
     </AuthProvider>
   </React.StrictMode>

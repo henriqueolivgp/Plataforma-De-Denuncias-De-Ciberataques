@@ -1,5 +1,5 @@
-import HenryDev from "../assets/HenryDev.png";
-import PedroF from "../assets/PedroF.png";
+import HenryDev from "../../assets/HenryDev.png";
+import PedroF from "../../assets/PedroF.png";
 import logo from "/CyberReports.png";
 
 function AboutUs() {

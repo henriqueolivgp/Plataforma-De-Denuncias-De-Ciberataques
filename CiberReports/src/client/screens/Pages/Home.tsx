@@ -1,7 +1,7 @@
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import home_banner from "../assets/home_banner.png";
-import { useProfile } from "../../hooks/useProfile";
+import home_banner from "../../assets/home_banner.png";
+import { useProfile } from "../../../hooks/useProfile";
 import { useEffect } from "react";
 
 function Home() {

@@ -5,36 +5,36 @@ import ChildrenContext, { ReportsContext } from "../context/ReportsContext";
 import type { reports } from "../context/ReportsContext";
 import { useAuth } from "../hooks/useAuth";
 
-export function ReportsProvider ({ children }: ChildrenContext) {
+export function ReportsProvider({ children }: ChildrenContext) {
   const [reports, setReports] = useState<reports[]>([]);
-  const [myProfile, setMyProfile] = useState<reports[]>([]);
+  const [myReport, setMyReport] = useState<reports[]>([]);
   const { user } = useAuth();
 
-   const getMyReport = async () => {
+  const getMyReport = async () => {
 
-     if (user) {
+    if (user) {
 
-       try {
+      try {
 
-         const { data, error } = await SupaBaseClient
-           .from("reports")
-           .select()
-           .eq('user_id', user.id);
+        const { data, error } = await SupaBaseClient
+          .from("reports")
+          .select()
+          .eq('user_id', user.id);
 
-         if (error) {
-           console.error('Erro ao obter report:', error.message);
-           return;
-         }
+        if (error) {
+          console.error('Erro ao obter report:', error.message);
+          return;
+        }
 
-         setMyProfile(data || []);
-       } catch (error) {
-         console.error('Erro durante a obtenção do report:');
-       }
+        setMyReport(data || []);
+      } catch (error) {
+        console.error('Erro durante a obtenção do report:');
+      }
 
-     } 
-   };
+    }
+  };
 
-    // Get All Reports
+  // Get All Reports
 
   const getAllReports = async () => {
 
@@ -54,9 +54,9 @@ export function ReportsProvider ({ children }: ChildrenContext) {
   const [description, setDescription] = useState<string>('');
   const [topic, setTopic] = useState<string>('');
   const [date, setDate] = useState<Date>(new Date());
+  const [pathImage, setPathImage] = useState<string>('');
 
-  const insertReports = async (e: FormEvent<HTMLFormElement>) => {
-    console.log('entrou no insert')
+  const insertReports = async (e: FormEvent<HTMLFormElement> ) => {
 
     e.preventDefault();
 
@@ -66,88 +66,125 @@ export function ReportsProvider ({ children }: ChildrenContext) {
       description: description,
       topic: topic,
       data: date,
+      image_report_path: pathImage,
     };
 
-    console.log(newReport)
-
-    const {data, error} = await SupaBaseClient.from('reports').insert(newReport).select().single();
+    const { data, error } = await SupaBaseClient.from('reports').insert(newReport).select().single();
     setReports([data.data]);
     setTopic('');
     setTitle('');
     setDescription('');
     setDate(new Date());
+    setPathImage(pathImage)
 
     console.log("Erro do insert" + error);
 
   };
 
-//   const updateProfile = async (e: FormEvent<HTMLFormElement>) => {
+  
 
-//     e.preventDefault();
+  const updateReportImagePath = async (pathImage: string) => {
 
-//     // se for diferente de nada ele altera pq se nao for nada ele nao altera
-//     if (all_name.trim() !== '') {
+    // se for diferente de nada ele altera pq se nao for nada ele nao altera
 
-//       const newProfile = {
-//         user_id: user?.id,
-//         all_name,
-//       };
+    const newReport = {
+      user_id: user?.id,
+      image_report_path: pathImage
+    };
 
-//       try {
-//         // Assuming 'profiles' is the correct table name
-//         const { data, error } = await SupaBaseClient.from('profiles')
-//           .upsert({ id: myProfile[0].id, ...newProfile })
-//           .select();
-//         if (error) {
-//           throw error;
-//         }
+    try {
 
-//         // Set the profile state by accessing the data array
-//         setProfile([data[0]]);
-//         setAll_name('');
+      console.log(pathImage)
+      console.log('antes do const:')
+      // Assuming 'profiles' is the correct table name
+      const { data, error } = await SupaBaseClient.from('reports')
+        .insert( newReport )
+        .select()
+        .single()
 
-//         console.log("Profile updated successfully");
-//       } catch (error) {
-//         console.error("Error updating profile:");
-//         console.log(error)
-//       }
-//     }
-//   };
+      if (error) {
+        throw error;
+      }
 
-//   const updateProfileImage = async (pathImage: string) => {
+      // Set the profile state by accessing the data array
+      setReports([data[0]]);
+      setPathImage(pathImage)
 
-//     // se for diferente de nada ele altera pq se nao for nada ele nao altera
+      console.log("Report updated successfully");
+    } catch (error) {
+      console.error("Error updating reports:");
+      console.log(error)
+    }
 
-//       const newProfile = {
-//         user_id: user?.id,
-//         image_avatar_path: pathImage
-//       };
+  };
 
-//       try {
+  //   const updateProfile = async (e: FormEvent<HTMLFormElement>) => {
 
-//         console.log('antes do const:')
-//         // Assuming 'profiles' is the correct table name
-//         const { data, error } = await SupaBaseClient.from('profiles')
-//           .upsert({ id: myProfile[0].id, ...newProfile })
-//           .select();
-//           console.log('depois do const:')
-//         if (error) {
-//           throw error;
-//         }
+  //     e.preventDefault();
 
-//         // Set the profile state by accessing the data array
-//         setProfile([data[0]]);
+  //     // se for diferente de nada ele altera pq se nao for nada ele nao altera
+  //     if (all_name.trim() !== '') {
 
-//         console.log("Profile updated successfully");
-//       } catch (error) {
-//         console.error("Error updating profile:");
-//         console.log(error)
-//       }
-    
-//   };
+  //       const newProfile = {
+  //         user_id: user?.id,
+  //         all_name,
+  //       };
+
+  //       try {
+  //         // Assuming 'profiles' is the correct table name
+  //         const { data, error } = await SupaBaseClient.from('profiles')
+  //           .upsert({ id: myProfile[0].id, ...newProfile })
+  //           .select();
+  //         if (error) {
+  //           throw error;
+  //         }
+
+  //         // Set the profile state by accessing the data array
+  //         setProfile([data[0]]);
+  //         setAll_name('');
+
+  //         console.log("Profile updated successfully");
+  //       } catch (error) {
+  //         console.error("Error updating profile:");
+  //         console.log(error)
+  //       }
+  //     }
+  //   };
+
+  //   const updateProfileImage = async (pathImage: string) => {
+
+  //     // se for diferente de nada ele altera pq se nao for nada ele nao altera
+
+  //       const newProfile = {
+  //         user_id: user?.id,
+  //         image_avatar_path: pathImage
+  //       };
+
+  //       try {
+
+  //         console.log('antes do const:')
+  //         // Assuming 'profiles' is the correct table name
+  //         const { data, error } = await SupaBaseClient.from('profiles')
+  //           .upsert({ id: myProfile[0].id, ...newProfile })
+  //           .select();
+  //           console.log('depois do const:')
+  //         if (error) {
+  //           throw error;
+  //         }
+
+  //         // Set the profile state by accessing the data array
+  //         setProfile([data[0]]);
+
+  //         console.log("Profile updated successfully");
+  //       } catch (error) {
+  //         console.error("Error updating profile:");
+  //         console.log(error)
+  //       }
+
+  //   };
 
   return (
-    <ReportsContext.Provider value={{ reports, myProfile, title, description, topic, date, setTitle,setDescription,setTopic, setDate, getAllReports, getMyReport, insertReports }}>
+    <ReportsContext.Provider value={{ reports, myReport, title, description, topic, date, setTitle, setDescription, setTopic, setDate, getAllReports, getMyReport, insertReports, updateReportImagePath }}>
       {children}
     </ReportsContext.Provider>
   );

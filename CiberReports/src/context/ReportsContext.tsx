@@ -17,7 +17,7 @@ export default ChildrenContext;
 
 export type ReportsDataContext = {
   reports: reports[];
-  myProfile: reports[];
+  myReport: reports[];
   title: string;
   description: string;
   topic: string;
@@ -29,6 +29,7 @@ export type ReportsDataContext = {
   getAllReports: () =>Promise<void>;
   getMyReport: () => Promise<void>;
   insertReports: (e: FormEvent<HTMLFormElement>) => Promise<void>;
+  updateReportImagePath: (pathImage: string) =>Promise<void>;
 };
 
 export const ReportsContext = createContext<ReportsDataContext>(

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useRef, useState, FormEvent } from "react";
 import { toast } from "react-toastify";
-import { useAuth } from "../../hooks/useAuth";
-import ImgBack from '../components/ImgBack';
+import { useAuth } from "../../../hooks/useAuth";
+import ImgBack from '../../components/ImgBack';
 
 function Register() {
   const emailRef = useRef<HTMLInputElement>(null);

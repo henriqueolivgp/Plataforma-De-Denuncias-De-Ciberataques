@@ -1,9 +1,9 @@
 /* eslint-disable no-extra-boolean-cast */
 import { useEffect, useState } from "react";
-import { useProfile } from "../../hooks/useProfile";
-import { Loading } from "../components/Loading";
-import { useImgs } from "../../hooks/useImgs";
-import { useAuth } from "../../hooks/useAuth";
+import { useProfile } from "../../../../hooks/useProfile";
+import { Loading } from "../../../components/Loading";
+import { useImgs } from "../../../../hooks/useImgs";
+import { useAuth } from "../../../../hooks/useAuth";
 
 function Admin() {
     

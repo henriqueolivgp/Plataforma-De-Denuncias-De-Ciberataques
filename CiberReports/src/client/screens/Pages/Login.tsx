@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
 import { useRef, useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
-import ImgBack from "../components/ImgBack";
+import { useAuth } from "../../../hooks/useAuth";
+import ImgBack from "../../components/ImgBack";
 
 
 function Login() {
