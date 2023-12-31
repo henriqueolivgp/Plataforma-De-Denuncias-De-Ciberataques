@@ -1,10 +1,11 @@
 import { FormEvent, ReactNode, createContext } from "react";
 
 export interface profile {
-  id: string;
+  id: number;
   user_id: string;
   all_name: string;
   admin: boolean;
+  specialist: boolean;
   image_avatar_path: string;
 }
 
