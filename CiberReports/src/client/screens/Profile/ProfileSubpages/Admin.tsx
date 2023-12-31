@@ -48,8 +48,6 @@ function Admin() {
     setIsModalOpen(false);
   };
 
-  console.log(selectedUserId)
-
   return (
     <>
       <div className="container mx-auto ">
@@ -158,6 +156,7 @@ function Admin() {
                 </button>
               </div>
               <form className="p-4 md:p-5">
+
                 {profile
                   .filter((profile) => profile.id === selectedUserId) // Assuming you want to filter profiles with an 'id'
                   .map((profile) => (
@@ -178,7 +177,6 @@ function Admin() {
                           required
                         />
                       </div>
-
 
                       <div className="col-span-2 sm:col-span-1">
                         <label
@@ -214,6 +212,7 @@ function Admin() {
                       </div>
                     </div>
                   ))}
+
                 <div className="flex justify-between">
                   <button
                     type="submit"
