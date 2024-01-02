@@ -149,6 +149,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
         console.log(error)
       }
     }else{
+      
       const newProfile = {
         user_id: user?.id,
         admin: admin,
