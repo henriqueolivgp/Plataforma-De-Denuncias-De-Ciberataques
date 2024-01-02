@@ -9,6 +9,8 @@ export function ProfileProvider({ children }: ChildrenContext) {
   const [profile, setProfile] = useState<profile[]>([]);
   const [myProfile, setMyProfile] = useState<profile[]>([]);
   const [all_name, setAll_name] = useState<string>('');
+  const [admin, setAdmin] = useState<boolean>();
+  const [specialist, setSpecialist] = useState<boolean>();
   const { user } = useAuth();
 
   const getMyProfile = async () => {
@@ -36,7 +38,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
         console.error('Erro durante a obtenção do perfil:');
       }
 
-    } 
+    }
   };
 
   // Importe os tipos necessários (suponhamos que você tenha uma interface chamada 'Pr
@@ -65,9 +67,10 @@ export function ProfileProvider({ children }: ChildrenContext) {
 
     console.log(newProfile)
 
-    const {data, error} = await SupaBaseClient.from('profiles').insert(newProfile).select().single();
+    const { data, error } = await SupaBaseClient.from('profiles').insert(newProfile).select().single();
     setProfile([data.data]);
     setAll_name('');
+
 
     console.log("Erro do insert" + error);
 
@@ -116,11 +119,13 @@ export function ProfileProvider({ children }: ChildrenContext) {
     e.preventDefault();
 
     // se for diferente de nada ele altera pq se nao for nada ele nao altera
+  
     if (all_name.trim() !== '') {
-
       const newProfile = {
         user_id: user?.id,
         all_name,
+        admin: admin,
+        specialist: specialist,
       };
 
       try {
@@ -135,6 +140,34 @@ export function ProfileProvider({ children }: ChildrenContext) {
         // Set the profile state by accessing the data array
         setProfile([data[0]]);
         setAll_name('');
+        setAdmin(admin);
+        setSpecialist(specialist);
+
+        console.log("Profile updated successfully");
+      } catch (error) {
+        console.error("Error updating profile:");
+        console.log(error)
+      }
+    }else{
+      const newProfile = {
+        user_id: user?.id,
+        admin: admin,
+        specialist: specialist,
+      };
+
+      try {
+        // Assuming 'profiles' is the correct table name
+        const { data, error } = await SupaBaseClient.from('profiles')
+          .upsert({ id: myProfile[0].id, ...newProfile })
+          .select();
+        if (error) {
+          throw error;
+        }
+
+        // Set the profile state by accessing the data array
+        setProfile([data[0]]);
+        setAdmin(admin);
+        setSpecialist(specialist);
 
         console.log("Profile updated successfully");
       } catch (error) {
@@ -148,62 +181,62 @@ export function ProfileProvider({ children }: ChildrenContext) {
 
     // se for diferente de nada ele altera pq se nao for nada ele nao altera
 
-      const newProfile = {
-        user_id: user?.id,
-        image_avatar_path: pathImage
-      };
+    const newProfile = {
+      user_id: user?.id,
+      image_avatar_path: pathImage
+    };
 
-      try {
+    try {
 
-        console.log('antes do const:')
-        // Assuming 'profiles' is the correct table name
-        const { data, error } = await SupaBaseClient.from('profiles')
-          .upsert({ id: myProfile[0].id, ...newProfile })
-          .select();
-        if (error) {
-          throw error;
-        }
-
-        // Set the profile state by accessing the data array
-        setProfile([data[0]]);
-
-        console.log("Profile updated successfully");
-      } catch (error) {
-        console.error("Error updating profile:");
-        console.log(error)
+      console.log('antes do const:')
+      // Assuming 'profiles' is the correct table name
+      const { data, error } = await SupaBaseClient.from('profiles')
+        .upsert({ id: myProfile[0].id, ...newProfile })
+        .select();
+      if (error) {
+        throw error;
       }
-    
+
+      // Set the profile state by accessing the data array
+      setProfile([data[0]]);
+
+      console.log("Profile updated successfully");
+    } catch (error) {
+      console.error("Error updating profile:");
+      console.log(error)
+    }
+
   };
 
   const updateProfileBannerPath = async (pathImage: string) => {
 
     // se for diferente de nada ele altera pq se nao for nada ele nao altera
 
-      const newProfile = {
-        user_id: user?.id,
-        image_banner_path: pathImage
-      };
+    const newProfile = {
+      user_id: user?.id,
+      image_banner_path: pathImage
+    };
 
-      try {
+    try {
 
-        console.log('antes do const:')
-        // Assuming 'profiles' is the correct table name
-        const { data, error } = await SupaBaseClient.from('profiles')
-          .upsert({ id: myProfile[0].id, ...newProfile })
-          .select();
-        if (error) {
-          throw error;
-        }
-
-        // Set the profile state by accessing the data array
-        setProfile([data[0]]);
-
-        console.log("Profile updated successfully");
-      } catch (error) {
-        console.error("Error updating profile:");
-        console.log(error)
+      console.log('antes do const:')
+      // Assuming 'profiles' is the correct table name
+      const { data, error } = await SupaBaseClient.from('profiles')
+        .upsert({ id: myProfile[0].id, ...newProfile })
+        .select();
+      if (error) {
+        throw error;
       }
-    
+
+      // Set the profile state by accessing the data array
+      setProfile([data[0]]);
+
+      console.log("Profile updated successfully");
+    } catch (error) {
+      console.error("Error updating profile:");
+      console.log(error)
+    }
+
   };
 
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
@@ -244,7 +277,27 @@ export function ProfileProvider({ children }: ChildrenContext) {
   }
 
   return (
-    <ProfileContext.Provider value={{ profile, all_name, isAdmin, isSpecialist, myProfile, setAll_name, getAllProfiles, getMyProfile, insertProfile, insertAutoProfile, updateProfile, updateProfileAvatarPath, updateProfileBannerPath, verificaAdmin, verificaSpecialist }}>
+    <ProfileContext.Provider value={{
+      profile,
+      all_name,
+      isAdmin,
+      isSpecialist,
+      admin,
+      specialist,
+      myProfile,
+      setAll_name,
+      setSpecialist,
+      setAdmin,
+      getAllProfiles,
+      getMyProfile,
+      insertProfile,
+      insertAutoProfile,
+      updateProfile,
+      updateProfileAvatarPath,
+      updateProfileBannerPath,
+      verificaAdmin,
+      verificaSpecialist
+    }}>
       {children}
     </ProfileContext.Provider>
   );

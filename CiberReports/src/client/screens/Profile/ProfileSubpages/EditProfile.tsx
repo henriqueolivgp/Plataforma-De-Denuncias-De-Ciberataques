@@ -2,23 +2,26 @@ import { useAuth } from "../../../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { useProfile } from "../../../../hooks/useProfile";
 import { useImgs } from "../../../../hooks/useImgs";
+import { Loading } from "../../../components/Loading";
 
 function EditProfile() {
-    const [loading, setLoading] = useState(false);
     const { user } = useAuth();
+    const [isLoading, setisLoading] = useState(true);
     const { updateAvatar, updateBanner } = useImgs();
     const { updateProfile, all_name, setAll_name } = useProfile();
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(false)
+            setisLoading(true)
+            setisLoading(false)
+
         };
 
         fetchData();
     }, []);
 
-    if (loading || !user) {
-        return <p>Carregando...</p>;
+    if (isLoading || !user) {
+        return <Loading/>;
     }
 
     return (

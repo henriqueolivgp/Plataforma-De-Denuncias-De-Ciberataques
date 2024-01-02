@@ -24,10 +24,14 @@ export type ProfileDataContext = {
   all_name: string;
   isAdmin: boolean;
   isSpecialist: boolean;
+  admin: boolean | undefined;
+  specialist: boolean | undefined;
   myProfile: profile[];
   setAll_name: React.Dispatch<React.SetStateAction<string>>;
   getAllProfiles: () =>Promise<void>;
   getMyProfile: () => Promise<void>;
+  setSpecialist: React.Dispatch<React.SetStateAction<boolean | undefined>>
+  setAdmin: React.Dispatch<React.SetStateAction<boolean | undefined>>
   insertProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;
   insertAutoProfile: (userId: user) => Promise<void>;
   updateProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;

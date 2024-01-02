@@ -7,13 +7,12 @@ import { useAuth } from "../../../../hooks/useAuth";
 
 function Admin() {
 
-  const { getAllProfiles, profile } = useProfile();
+  const { getAllProfiles, profile, updateProfile, all_name, setAll_name, admin,setAdmin,setSpecialist,specialist } = useProfile();
   const { getAvatar } = useImgs();
   const { user } = useAuth();
   const [isLoading, setisLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
-
 
   const URLAvatar =
     "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
@@ -30,19 +29,23 @@ function Admin() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isLoading) {
+  if (isLoading || !user) {
     return <Loading />;
-  }
-
-  // Renderize o conteúdo da sua página apenas se o usuário estiver logado
-  if (!user) {
-    return <p>Carregando...</p>;
   }
 
   const openModal = (userId: number) => {
     setSelectedUserId(userId);
+  
+    const selectedProfile = profile.find((profile) => profile.id === userId);
+  
+    if (selectedProfile) {
+      setAdmin(selectedProfile.admin);
+      setSpecialist(selectedProfile.specialist);
+    }
+  
     setIsModalOpen(true);
   };
+  
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -92,7 +95,7 @@ function Admin() {
                           <div className="text-center">
                             <a
                               onClick={() => openModal(profile.id)}
-                              href="javascript:void(0)"
+                              href="#"
                               className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out"
                             >
                               {!!profile.all_name
@@ -111,14 +114,6 @@ function Admin() {
         </div>
       </div>
       <div>
-        <button
-          data-modal-target="crud-modal"
-          onClick={() => openModal(profile[0].id)}
-          className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          type="button"
-        >
-          Toggle modal
-        </button>
 
         <div
           id="crud-modal"
@@ -155,61 +150,57 @@ function Admin() {
                   <span className="sr-only">Close modal</span>
                 </button>
               </div>
-              <form className="p-4 md:p-5">
+              <form onSubmit={updateProfile} className="p-4 md:p-5">
 
                 {profile
                   .filter((profile) => profile.id === selectedUserId) // Assuming you want to filter profiles with an 'id'
-                  .map((profile) => (
-                    <div className="grid gap-4 mb-4 grid-cols-2" >
+                  .map((selectedProfile) => (
+                    <div className="grid gap-4 mb-4 grid-cols-2" key={selectedProfile.id}>
                       <div className="col-span-2">
+                        <label
+                          htmlFor="name"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          Id: {selectedProfile.id}
+                        </label>
                         <label
                           htmlFor="name"
                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
                           All Name
                         </label>
+                        
                         <input
                           type="text"
                           name="name"
                           id="name"
+                          value={all_name}
+                          onChange={(e) => setAll_name(e.target.value)}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          placeholder={!!profile.all_name ? profile.all_name : "User Name"}
-                          required
+                          placeholder={!!selectedProfile.all_name ? selectedProfile.all_name : "User Name"}
                         />
                       </div>
 
-                      <div className="col-span-2 sm:col-span-1">
-                        <label
-                          htmlFor="category"
-                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                        >
-                          Admins
-                        </label>
-                        <select
-                          id="category"
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        >
-                          <option defaultValue="">Deafaul</option>
-                          <option value="TV">True</option>
-                          <option value="TV">False</option>
-                        </select>
+                      <div className="flex items-center mb-4">
+                        <input 
+                        id={`admin-${selectedProfile.id}`}
+                        type="checkbox" 
+                        checked={admin}
+                        onChange={(e) => setAdmin(e.target.checked)}
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label htmlFor={`admin-${selectedProfile.id}`} className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Is Admin: {selectedProfile.admin.toString()}</label>
                       </div>
-                      <div className="col-span-2 sm:col-span-1">
-                        <label
-                          htmlFor="category"
-                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                        >
-                          Specialist
-                        </label>
-                        <select
-                          id="category"
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        >
-                          <option defaultValue="">Deafaul</option>
-                          <option value="TV">True</option>
-                          <option value="TV">False</option>
-                        </select>
+                      
+                      <div className="flex items-center mb-4">
+                        <input 
+                        id={`specialist-${selectedProfile.id}`} 
+                        type="checkbox" 
+                        checked={specialist} 
+                        onChange={(e) => setSpecialist(e.target.checked)}
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label htmlFor={`specialist-${selectedProfile.id}`} className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Is Specialist: {selectedProfile.specialist.toString()}</label>
                       </div>
+
                     </div>
                   ))}
 

@@ -3,11 +3,12 @@ import { useReports } from '../../../../hooks/useReports';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useAuth } from '../../../../hooks/useAuth';
 import { useImgs } from '../../../../hooks/useImgs';
+import { Loading } from '../../../components/Loading';
 
 function Reports() {
 
   const { insertReports, setTitle, title, description, setDescription } = useReports();
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
   const { user } = useAuth();
   const { inertReportImage } = useImgs();
  
@@ -20,15 +21,15 @@ function Reports() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true)
-      setLoading(false)
+      setisLoading(true)
+      setisLoading(false)
     };
 
     fetchData();
   }, [user]);
 
-  if (loading || !user) {
-    return <p>Carregando...</p>;
+  if (isLoading || !user) {
+    return <Loading/>;
   }
 
   return (
