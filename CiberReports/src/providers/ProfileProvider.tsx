@@ -65,12 +65,9 @@ export function ProfileProvider({ children }: ChildrenContext) {
       all_name,
     };
 
-    console.log(newProfile)
-
     const { data, error } = await SupaBaseClient.from('profiles').insert(newProfile).select().single();
     setProfile([data.data]);
     setAll_name('');
-
 
     console.log("Erro do insert" + error);
 
@@ -78,10 +75,8 @@ export function ProfileProvider({ children }: ChildrenContext) {
 
   const insertAutoProfile = async (userId: user): Promise<void> => {
     try {
-      console.log('Iniciando inserção de perfil para o usuário:', userId);
 
       const { data: dataSearch } = await SupaBaseClient.from('profiles').select().eq('user_id', userId.id)
-      console.log(dataSearch)
 
       if (dataSearch !== null && dataSearch.length > 0) {
         console.log('entrou aqui');
@@ -97,15 +92,13 @@ export function ProfileProvider({ children }: ChildrenContext) {
         },
       ]);
 
-      console.log(data + 'antes do if')
 
       if (error) {
         console.error('Erro ao inserir perfil:', error);
         //  throw error;Adicione um throw para propagar o erro
       }
 
-      console.log(data + 'depois do if')
-
+    
       console.log('Perfil inserido com sucesso:', data);
 
     } catch (error) {

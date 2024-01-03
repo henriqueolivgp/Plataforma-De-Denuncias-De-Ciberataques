@@ -1,8 +1,6 @@
 import { User } from "@supabase/supabase-js";
 import { ReactNode, createContext } from "react";
 
-console.log("passei pelo imgsContext");
-
 export interface ImgType {
   id: string;
   name: string;

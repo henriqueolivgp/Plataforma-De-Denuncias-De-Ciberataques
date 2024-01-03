@@ -11,11 +11,9 @@ export function Logo({ to, name, activeTo, ...rest }: LogoProps) {
     const isHome = activeTo === "/";
     const LogoisHome = activeTo === "/";
     return (
-        <Link to={to}>
-            <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse " {...rest}>
+        <Link className="flex items-center space-x-3 rtl:space-x-reverse " {...rest} to={to}>  
                 <img src={`${isActive? '/CRWhite.png': LogoisHome? '/CRWhite.png' : '/CR.png' }`} className="h-6 font-Ethnocentric " alt="#" />
                 <span className={`self-center text-2xl font-semibold whitespace-nowrap ${isActive? 'text-white': isHome?'text-white' : 'text-black'}`}>{name}</span>
-            </a>
         </Link>
     )
 }
