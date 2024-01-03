@@ -201,7 +201,7 @@ function Home() {
                     </div>
                     <div className="text-center">
                       <a
-                        href="javascript:void(0)"
+                        href="#"
                         className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out"
                       >
                         Benjamin Martinez
@@ -221,7 +221,7 @@ function Home() {
                     </div>
                     <div className="text-center">
                       <a
-                        href="javascript:void(0)"
+                        href="#"
                         className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out"
                       >
                         Emily Turner
@@ -241,7 +241,7 @@ function Home() {
                     </div>
                     <div className="text-center">
                       <a
-                        href="javascript:void(0)"
+                        href="#"
                         className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out"
                       >
                         Jason Anderson
@@ -261,7 +261,7 @@ function Home() {
                     </div>
                     <div className="text-center">
                       <a
-                        href="javascript:void(0)"
+                        href="#"
                         className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out"
                       >
                         Olivia Carter
