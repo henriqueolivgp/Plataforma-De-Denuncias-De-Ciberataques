@@ -7,7 +7,7 @@ import { useAuth } from "../../../../hooks/useAuth";
 
 function Admin() {
 
-  const { getAllProfiles, profile, updateProfile, all_name, setAll_name, admin,setAdmin,setSpecialist,specialist } = useProfile();
+  const { getAllProfiles, profile, updateUsersProfile, all_name, setAll_name, admin,setAdmin,setSpecialist,specialist } = useProfile();
   const { getAvatar } = useImgs();
   const { user } = useAuth();
   const [isLoading, setisLoading] = useState(true);
@@ -42,14 +42,12 @@ function Admin() {
   
     if (selectedProfile) {
       console.log(selectedProfile.id, selectedProfile.all_name, selectedProfile.admin)
-      setAdmin(selectedProfile.admin);
-      setSpecialist(selectedProfile.specialist);
+
     }
   
     setIsModalOpen(true);
   };
 
-  console.log(selectedUserId)
   
   const closeModal = () => {
     setIsModalOpen(false);
@@ -154,7 +152,7 @@ function Admin() {
                   <span className="sr-only">Close modal</span>
                 </button>
               </div>
-              <form onSubmit={updateProfile} className="p-4 md:p-5">
+              <form onSubmit={updateUsersProfile} className="p-4 md:p-5">
 
                 {profile
                   .filter((profile) => profile.id === selectedUserId) // Assuming you want to filter profiles with an 'id'

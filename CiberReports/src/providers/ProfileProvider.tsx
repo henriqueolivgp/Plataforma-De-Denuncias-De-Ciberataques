@@ -134,10 +134,18 @@ export function ProfileProvider({ children }: ChildrenContext) {
         throw error;
       }
 
+      console.log(setSpecialist)
+      setSpecialist((prevSpecialist) => {
+        console.log("New Specialist Value:", !prevSpecialist);
+        console.log(profile[0].id, profile[0].specialist)
+        return !prevSpecialist;
+      });
+      
       // Set the profile state by accessing the data array
       setProfile([data[0]]);
-      setAdmin();
-      setSpecialist();
+      setAdmin((prevAdmin) => !prevAdmin);
+      setSpecialist(specialist || undefined);
+
 
       console.log("Profile updated successfully");
     } catch (error) {
@@ -162,8 +170,6 @@ export function ProfileProvider({ children }: ChildrenContext) {
       const newProfile = {
         user_id: user?.id,
         all_name,
-        admin,
-        specialist,
       };
 
       try {
@@ -185,8 +191,6 @@ export function ProfileProvider({ children }: ChildrenContext) {
         // Set the profile state by accessing the data array
         setProfile([data[0]]);
         setAll_name('');
-        setAdmin(profile[0].admin);
-        setSpecialist(data[0].specialist || false);
 
         console.log("Profile updated successfully");
       } catch (error) {
