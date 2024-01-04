@@ -37,16 +37,20 @@ function Admin() {
     setSelectedUserId(userId);
   
     const selectedProfile = profile.find((profile) => profile.id === userId);
+
+    console.log(selectedProfile?.admin )  
   
     if (selectedProfile) {
+      console.log(selectedProfile.id, selectedProfile.all_name, selectedProfile.admin)
       setAdmin(selectedProfile.admin);
       setSpecialist(selectedProfile.specialist);
     }
   
     setIsModalOpen(true);
   };
-  
 
+  console.log(selectedUserId)
+  
   const closeModal = () => {
     setIsModalOpen(false);
   };

@@ -4,6 +4,7 @@ import ChildrenContext, { ProfileContext } from "../context/ProfileContext";
 import type { profile } from "../context/ProfileContext";
 import type { user } from "../context/ProfileContext";
 import { useAuth } from "../hooks/useAuth";
+import { toast } from "react-toastify";
 
 export function ProfileProvider({ children }: ChildrenContext) {
   const [profile, setProfile] = useState<profile[]>([]);
@@ -98,7 +99,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
         //  throw error;Adicione um throw para propagar o erro
       }
 
-    
+
       console.log('Perfil inserido com sucesso:', data);
 
     } catch (error) {
@@ -107,18 +108,62 @@ export function ProfileProvider({ children }: ChildrenContext) {
     }
   };
 
+  const updateUsersProfile = async (e: FormEvent<HTMLFormElement>) => {
+
+    e.preventDefault();
+
+    if (!user || !myProfile[0]) {
+      toast.error("User or profile not found");
+      return;
+    }
+
+    // se for diferente de nada ele altera pq se nao for nada ele nao altera
+
+    const newUserProfile = {
+      user_id: user?.id,
+      admin,
+      specialist,
+    };
+
+    try {
+      // Assuming 'profiles' is the correct table name
+      const { data, error } = await SupaBaseClient.from('profiles')
+        .upsert({ id: myProfile[0].id, ...newUserProfile })
+        .select();
+      if (error) {
+        throw error;
+      }
+
+      // Set the profile state by accessing the data array
+      setProfile([data[0]]);
+      setAdmin();
+      setSpecialist();
+
+      console.log("Profile updated successfully");
+    } catch (error) {
+      console.error("Error updating profile:");
+      console.log(error)
+    }
+
+  };
+
   const updateProfile = async (e: FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
 
+    if (!user || !myProfile[0]) {
+      toast.error("User or profile not found");
+      return;
+    }
+
     // se for diferente de nada ele altera pq se nao for nada ele nao altera
-  
+
     if (all_name.trim() !== '') {
       const newProfile = {
         user_id: user?.id,
         all_name,
-        admin: admin,
-        specialist: specialist,
+        admin,
+        specialist,
       };
 
       try {
@@ -129,39 +174,19 @@ export function ProfileProvider({ children }: ChildrenContext) {
         if (error) {
           throw error;
         }
+
+        // Atualiza o estado local do perfil com os dados atualizados
+        setProfile((prevProfiles) =>
+          prevProfiles.map((prevProfile) =>
+            prevProfile.id === myProfile[0].id ? data[0] : prevProfile
+          )
+        );
 
         // Set the profile state by accessing the data array
         setProfile([data[0]]);
         setAll_name('');
-        setAdmin(admin);
-        setSpecialist(specialist);
-
-        console.log("Profile updated successfully");
-      } catch (error) {
-        console.error("Error updating profile:");
-        console.log(error)
-      }
-    }else{
-      
-      const newProfile = {
-        user_id: user?.id,
-        admin: admin,
-        specialist: specialist,
-      };
-
-      try {
-        // Assuming 'profiles' is the correct table name
-        const { data, error } = await SupaBaseClient.from('profiles')
-          .upsert({ id: myProfile[0].id, ...newProfile })
-          .select();
-        if (error) {
-          throw error;
-        }
-
-        // Set the profile state by accessing the data array
-        setProfile([data[0]]);
-        setAdmin(admin);
-        setSpecialist(specialist);
+        setAdmin(profile[0].admin);
+        setSpecialist(data[0].specialist || false);
 
         console.log("Profile updated successfully");
       } catch (error) {
@@ -286,6 +311,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
       getMyProfile,
       insertProfile,
       insertAutoProfile,
+      updateUsersProfile,
       updateProfile,
       updateProfileAvatarPath,
       updateProfileBannerPath,

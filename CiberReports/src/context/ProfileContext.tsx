@@ -34,6 +34,7 @@ export type ProfileDataContext = {
   setAdmin: React.Dispatch<React.SetStateAction<boolean | undefined>>
   insertProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;
   insertAutoProfile: (userId: user) => Promise<void>;
+  updateUsersProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;
   updateProfile: (e: FormEvent<HTMLFormElement>) => Promise<void>;
   updateProfileAvatarPath: (pathImage: string) =>Promise<void>;
   updateProfileBannerPath: (pathImage: string) =>Promise<void>;
