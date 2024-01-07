@@ -48,7 +48,7 @@ I learned a lot about TypeScript, I really loved using it but I still need to le
 - [x] [TypeScript](https://www.typescriptlang.org/)  ```version: "5.0.2"```
 - [x] [SupaBase](https://supabase.com/)  ```version: "2.39.0"```
 - [x] [TailwindCSS](https://tailwindcss.com/docs/installation)  ```version: "3.3.3"```
-- [x] [Flowbite Components](https://flowbite.com/docs/getting-started/introduction/)  ```version: "3.3.3"```1.8.1
+- [x] [Flowbite Components](https://flowbite.com/docs/getting-started/introduction/)  ```version: "1.8.1"```
 
 ## 📂 Folder Structure
 
