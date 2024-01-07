@@ -5,7 +5,7 @@ import { NavLi } from './NavbarComponents/NavLi';
 import { NavLiMobile } from './NavbarComponents/NavLiMobile'
 // import { useProfile } from '../../hooks/useProfile';
 import { useImgs } from "../../hooks/useImgs";
-import { Loading } from "../components/Loading";
+import { Loading } from "./Loading";
 import { Logo } from './NavbarComponents/Logo';
 import userVerified from '../assets/UserVerified.png'
 import { useProfile } from '../../hooks/useProfile';

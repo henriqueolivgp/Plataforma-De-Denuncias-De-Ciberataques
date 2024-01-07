@@ -55,7 +55,7 @@ export function ReportsProvider({ children }: ChildrenContext) {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [topic, setTopic] = useState<string>('');
-  const [img, setImg] = useState<string>('');
+  const [img, setImg] = useState<File | null>(null);
   const [date, setDate] = useState<Date>(new Date());
 
   const insertReports = async (e: FormEvent<HTMLFormElement>) => {
@@ -79,19 +79,21 @@ export function ReportsProvider({ children }: ChildrenContext) {
       } else {
 
         const { data } = await SupaBaseClient.from('reports').insert(newReport).select().single();
-        
+
         const reportSaveDB: reports = data;
 
-        const pathImgDB = await inertReportImage(img);
+        if (img) {
+          const pathImgDB = await inertReportImage(img);
 
-        if(pathImgDB){
-          await updateReportImagePath(reportSaveDB.id,pathImgDB);
+          if (pathImgDB) {
+            await updateReportImagePath(reportSaveDB.id, pathImgDB);
+          }
         }
 
         setReports([data.data]);
         setTopic('');
         setTitle('');
-        setImg('');
+        setImg(null);
         setDescription('');
         setDate(new Date());
 
@@ -103,7 +105,7 @@ export function ReportsProvider({ children }: ChildrenContext) {
 
   };
 
-  const updateReportImagePath = async (idReport: string,pathImage: string) => {
+  const updateReportImagePath = async (idReport: string, pathImage: string) => {
 
     // se for diferente de nada ele altera pq se nao for nada ele nao altera
 

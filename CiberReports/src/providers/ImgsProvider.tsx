@@ -195,9 +195,9 @@ export function ImgsProvider({ children }: ChildrenContext) {
         }
     }, [user]);
 
-    const inertReportImage = async (pathImage: string) => {
+    const inertReportImage = async (fileImage: File) => {
         try {
-            const file = pathImage;
+            const file = fileImage;
 
             if (!file) {
                 toast.error('No file selected.');

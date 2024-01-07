@@ -10,6 +10,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
   const [profile, setProfile] = useState<profile[]>([]);
   const [myProfile, setMyProfile] = useState<profile[]>([]);
   const [all_name, setAll_name] = useState<string>('');
+  const [profileAll_name, setProfileAll_name] = useState<string>('');
   const [admin, setAdmin] = useState<boolean>();
   const [specialist, setSpecialist] = useState<boolean>();
   const { user } = useAuth();
@@ -43,7 +44,6 @@ export function ProfileProvider({ children }: ChildrenContext) {
   };
 
   // Importe os tipos necessários (suponhamos que você tenha uma interface chamada 'Pr
-
   const getAllProfiles = async () => {
 
     const { data } = await SupaBaseClient
@@ -108,44 +108,26 @@ export function ProfileProvider({ children }: ChildrenContext) {
     }
   };
 
-  const updateUsersProfile = async (e: FormEvent<HTMLFormElement>) => {
+  const updateUsersProfile = async (idProfile: number, e: FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
 
-    if (!user || !myProfile[0]) {
-      toast.error("User or profile not found");
-      return;
-    }
-
     // se for diferente de nada ele altera pq se nao for nada ele nao altera
-
     const newUserProfile = {
-      user_id: user?.id,
+      all_name: profileAll_name,
       admin,
       specialist,
     };
 
     try {
       // Assuming 'profiles' is the correct table name
-      const { data, error } = await SupaBaseClient.from('profiles')
-        .upsert({ id: myProfile[0].id, ...newUserProfile })
-        .select();
+      const { error } = await SupaBaseClient.from('profiles')
+        .update({ ...newUserProfile })
+        .eq('id', idProfile)
+        .select()
       if (error) {
         throw error;
       }
-
-      console.log(setSpecialist)
-      setSpecialist((prevSpecialist) => {
-        console.log("New Specialist Value:", !prevSpecialist);
-        console.log(profile[0].id, profile[0].specialist)
-        return !prevSpecialist;
-      });
-      
-      // Set the profile state by accessing the data array
-      setProfile([data[0]]);
-      setAdmin((prevAdmin) => !prevAdmin);
-      setSpecialist(specialist || undefined);
-
 
       console.log("Profile updated successfully");
     } catch (error) {
@@ -262,6 +244,18 @@ export function ProfileProvider({ children }: ChildrenContext) {
 
   };
 
+  const deleteProfile = async (idProfile: number) => {
+
+    try {
+
+      await SupaBaseClient.from('profiles').delete().eq('id', idProfile);
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  };
+
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   const verificaAdmin = async () => {
@@ -308,7 +302,9 @@ export function ProfileProvider({ children }: ChildrenContext) {
       admin,
       specialist,
       myProfile,
+      profileAll_name,
       setAll_name,
+      setProfileAll_name,
       setSpecialist,
       setAdmin,
       getAllProfiles,
@@ -319,6 +315,7 @@ export function ProfileProvider({ children }: ChildrenContext) {
       updateProfile,
       updateProfileAvatarPath,
       updateProfileBannerPath,
+      deleteProfile,
       verificaAdmin,
       verificaSpecialist
     }}>

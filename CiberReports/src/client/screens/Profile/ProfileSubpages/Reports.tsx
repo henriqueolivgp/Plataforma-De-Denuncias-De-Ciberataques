@@ -68,7 +68,7 @@ function Reports() {
               // onChange={(e) => {
               //   insertReportImg(e); // 👈 this will trigger when user selects the file.
               // }}
-              onChange={(e) => setImg(e.target.value)}
+              onChange={(e) => setImg(e.target.files?.[0] || null)}
 
               id="dropzone-file"
               type="file"

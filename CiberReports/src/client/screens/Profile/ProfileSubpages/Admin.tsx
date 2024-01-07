@@ -1,5 +1,5 @@
 /* eslint-disable no-extra-boolean-cast */
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useProfile } from "../../../../hooks/useProfile";
 import { Loading } from "../../../components/Loading";
 import { useImgs } from "../../../../hooks/useImgs";
@@ -7,7 +7,7 @@ import { useAuth } from "../../../../hooks/useAuth";
 
 function Admin() {
 
-  const { getAllProfiles, profile, updateUsersProfile, all_name, setAll_name, admin,setAdmin,setSpecialist,specialist } = useProfile();
+  const { getAllProfiles, profile, updateUsersProfile, profileAll_name, setProfileAll_name, admin, setAdmin, setSpecialist, specialist, deleteProfile } = useProfile();
   const { getAvatar } = useImgs();
   const { user } = useAuth();
   const [isLoading, setisLoading] = useState(true);
@@ -17,16 +17,16 @@ function Admin() {
   const URLAvatar =
     "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/Avatar/";
 
+  const fetchData = async () => {
+    setisLoading(true);
+    await getAvatar();
+    await getAllProfiles();
+    setisLoading(false);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      setisLoading(true);
-      await getAvatar();
-      await getAllProfiles();
-      setisLoading(false);
-    };
 
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading || !user) {
@@ -35,20 +35,40 @@ function Admin() {
 
   const openModal = (userId: number) => {
     setSelectedUserId(userId);
-  
+
+
     const selectedProfile = profile.find((profile) => profile.id === userId);
 
-    console.log(selectedProfile?.admin )  
-  
     if (selectedProfile) {
-      console.log(selectedProfile.id, selectedProfile.all_name, selectedProfile.admin)
-
+      setProfileAll_name(selectedProfile.all_name)
+      setAdmin(selectedProfile.admin)
+      setSpecialist(selectedProfile.specialist)
     }
-  
+
     setIsModalOpen(true);
   };
 
-  
+  const updateProfile = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    await updateUsersProfile(selectedUserId!, e);
+
+    closeModal();
+
+    fetchData();
+
+  }
+
+  const delete_Profile = async () => {
+
+    await deleteProfile(selectedUserId!);
+
+    closeModal();
+
+    fetchData();
+
+  }
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -152,54 +172,57 @@ function Admin() {
                   <span className="sr-only">Close modal</span>
                 </button>
               </div>
-              <form onSubmit={updateUsersProfile} className="p-4 md:p-5">
+              <form onSubmit={(e) => updateProfile(e)} className="p-4 md:p-5">
 
                 {profile
                   .filter((profile) => profile.id === selectedUserId) // Assuming you want to filter profiles with an 'id'
                   .map((selectedProfile) => (
                     <div className="grid gap-4 mb-4 grid-cols-2" key={selectedProfile.id}>
                       <div className="col-span-2">
+
                         <label
                           htmlFor="name"
                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
                           Id: {selectedProfile.id}
+
                         </label>
+
                         <label
                           htmlFor="name"
                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
                           All Name
                         </label>
-                        
+
                         <input
                           type="text"
                           name="name"
                           id="name"
-                          value={all_name}
-                          onChange={(e) => setAll_name(e.target.value)}
+                          value={profileAll_name}
+                          onChange={(e) => setProfileAll_name(e.target.value)}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           placeholder={!!selectedProfile.all_name ? selectedProfile.all_name : "User Name"}
                         />
                       </div>
 
                       <div className="flex items-center mb-4">
-                        <input 
-                        id={`admin-${selectedProfile.id}`}
-                        type="checkbox" 
-                        checked={admin}
-                        onChange={(e) => setAdmin(e.target.checked)}
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <input
+                          id={`admin-${selectedProfile.id}`}
+                          type="checkbox"
+                          checked={admin}
+                          onChange={(e) => setAdmin(e.target.checked)}
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                         <label htmlFor={`admin-${selectedProfile.id}`} className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Is Admin: {selectedProfile.admin.toString()}</label>
                       </div>
-                      
+
                       <div className="flex items-center mb-4">
-                        <input 
-                        id={`specialist-${selectedProfile.id}`} 
-                        type="checkbox" 
-                        checked={specialist} 
-                        onChange={(e) => setSpecialist(e.target.checked)}
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <input
+                          id={`specialist-${selectedProfile.id}`}
+                          type="checkbox"
+                          checked={specialist}
+                          onChange={(e) => setSpecialist(e.target.checked)}
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                         <label htmlFor={`specialist-${selectedProfile.id}`} className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Is Specialist: {selectedProfile.specialist.toString()}</label>
                       </div>
 
@@ -214,6 +237,7 @@ function Admin() {
                     Update
                   </button>
                   <button
+                    onClick={() => delete_Profile()}
                     type="submit"
                     className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
