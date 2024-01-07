@@ -123,7 +123,7 @@ Start the server
 
 This project is under the MIT license. See the [LICENSE](https://github.com/henriqueolivgp/Plataforma-De-Denuncias-De-Ciberataques/blob/main/LICENSE) file for more details.
 
-## ✒ Author
+## ✒ Author's
 
 <p align="center">
   <img width="200px" alt="Henrique Oliveira" title="Author Henrique Oliveira" src="https://github.com/henriqueolivgp/Plataforma-De-Denuncias-De-Ciberataques/blob/main/CiberReports/src/client/assets/HenryDev.png" />
