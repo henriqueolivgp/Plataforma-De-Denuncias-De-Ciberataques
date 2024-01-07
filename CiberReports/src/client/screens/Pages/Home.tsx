@@ -46,7 +46,6 @@ function Home() {
           <div className="content flex flex-1 items-center ml-10">
             {!session && (
               <div className="max-w-lg p-6 bg-transparent">
-                <a href="#">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-bluelite dark:text-white text-justify">
                     Denuncie<span className="text-white text-justify">,</span>{" "}
                     Proteja<span className="text-white text-justify">,</span>{" "}
@@ -57,7 +56,7 @@ function Home() {
                     Ciberataques
                     <span className="text-white text-justify">!</span>
                   </h5>
-                </a>
+
                 <p className="mb-3 font-normal text-white dark:text-gray-400 text-justify">
                   A nossa equipa está empenhada em ajudar o utilizador a
                   resolver todos os problemas decorrentes de mensagens, emails,
@@ -78,9 +77,9 @@ function Home() {
                   >
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M1 5h12m0 0L9 1m4 4L9 9"
                     />
                   </svg>
@@ -99,9 +98,9 @@ function Home() {
                   >
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M1 5h12m0 0L9 1m4 4L9 9"
                     />
                   </svg>
@@ -140,9 +139,9 @@ function Home() {
                   >
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M1 5h12m0 0L9 1m4 4L9 9"
                     />
                   </svg>
@@ -162,9 +161,9 @@ function Home() {
                   >
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M1 5h12m0 0L9 1m4 4L9 9"
                     />
                   </svg>
@@ -202,7 +201,7 @@ function Home() {
                     </div>
                     <div className="text-center">
                       <a
-                        href="javascript:void(0)"
+                        href="#"
                         className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out"
                       >
                         Benjamin Martinez
@@ -222,7 +221,7 @@ function Home() {
                     </div>
                     <div className="text-center">
                       <a
-                        href="javascript:void(0)"
+                        href="#"
                         className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out"
                       >
                         Emily Turner
@@ -242,7 +241,7 @@ function Home() {
                     </div>
                     <div className="text-center">
                       <a
-                        href="javascript:void(0)"
+                        href="#"
                         className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out"
                       >
                         Jason Anderson
@@ -262,7 +261,7 @@ function Home() {
                     </div>
                     <div className="text-center">
                       <a
-                        href="javascript:void(0)"
+                        href="#"
                         className="text-dark font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out"
                       >
                         Olivia Carter

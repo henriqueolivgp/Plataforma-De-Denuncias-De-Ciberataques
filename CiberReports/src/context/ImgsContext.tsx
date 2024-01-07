@@ -1,8 +1,6 @@
 import { User } from "@supabase/supabase-js";
 import { ReactNode, createContext } from "react";
 
-console.log("passei pelo imgsContext");
-
 export interface ImgType {
   id: string;
   name: string;
@@ -24,7 +22,7 @@ export type ImgsDataContext = {
   getRportImage: () => Promise<{  reportImage: ImgType[] } | undefined>
   uploadBanner: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
   uploadAvatar: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
-  inertReportImage: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+  inertReportImage: (fileImage: File) => Promise<string | undefined>;
   updateAvatar: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
   updateBanner: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
   // Reports Image

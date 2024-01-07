@@ -119,22 +119,14 @@ function Profile() {
               }
               <div className="ml-4">
                 <div className="">
-                  {myProfile.length <= 0 ? (
-                    <>
-                      <h5 className=" text-3xl font-medium text-gray-900 dark:text-white" >
-                        User Name
-                      </h5>
-
-                    </>
-                  ) : (
-                    myProfile.map((myProfile) => {
+                    {myProfile.map((myProfile) => {
                       return (
                         <h5 className="mb-1 text-3xl font-medium text-gray-900 dark:text-white" key={myProfile.id}>
-                          {myProfile.all_name}
+                          {!!myProfile.all_name ? myProfile.all_name : "User Name"}
                         </h5>
                       );
                     })
-                  )}
+                  }
                   <p className=" text-sm">Date Joined :{DateJoined}</p>
                   <p className=" text-sm">Las Login: {LastLogin}</p>
                 </div>

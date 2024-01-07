@@ -1,22 +1,25 @@
 import { useAuth } from "../../../../hooks/useAuth";
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Loading } from "../../../components/Loading";
 
 function Chat() {
 
-    const { user, loading } = useAuth();
-    const navigate = useNavigate();
+    const { user } = useAuth();
 
-    // Se o usuário não estiver logado, redirecione-o para a página de login
+    const [isLoading, setisLoading] = useState(true);
+
     useEffect(() => {
-        if (!loading && !user) {
-            navigate('/signin'); // Substitua pela rota da sua página de login
-        }
-    }, [loading, user, navigate]);
+        const fetchData = async () => {
+            setisLoading(true)
+            setisLoading(false)
+        };
+
+        fetchData();
+    }, []);
 
     // Renderize o conteúdo da sua página apenas se o usuário estiver logado
-    if (loading || !user) {
-        return <p>Carregando...</p>;
+    if (isLoading || !user) {
+        return <Loading/>;
     }
 
     return (

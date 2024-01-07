@@ -7,7 +7,8 @@ export interface reports {
   description: string;
   topic: string;
   data: Date;
-  estado: boolean
+  estado: boolean;
+  image_report_path: string;
 }
 
 interface ChildrenContext {
@@ -22,14 +23,16 @@ export type ReportsDataContext = {
   description: string;
   topic: string;
   date: Date;
+  img: File | null;
   setTopic: React.Dispatch<React.SetStateAction<string>>;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
+  setImg: React.Dispatch<React.SetStateAction<File | null>>;
   setDescription: React.Dispatch<React.SetStateAction<string>>;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
-  getAllReports: () =>Promise<void>;
+  getAllReports: () => Promise<void>;
   getMyReport: () => Promise<void>;
   insertReports: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-  // updateReportImagePath: (pathImage: string) =>Promise<void>;
+  updateReportImagePath: (idReport: string, pathImage: string) => Promise<void>;
 };
 
 export const ReportsContext = createContext<ReportsDataContext>(

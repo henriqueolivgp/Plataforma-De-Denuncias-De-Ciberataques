@@ -6,12 +6,10 @@ import { toast } from "react-toastify";
 import { useAuth } from "../hooks/useAuth";
 import { v4 as uuidv4 } from 'uuid';
 import { useProfile } from '../hooks/useProfile';
-// import { useReports } from '../hooks/useReports';
 
 export function ImgsProvider({ children }: ChildrenContext) {
     const { user } = useAuth();
     const { updateProfileAvatarPath, updateProfileBannerPath } = useProfile();
-    // const { updateReportImagePath } = useReports();
     const [bannerImage, setBannerImage] = useState<ImgType[]>([]);
     const [avatarImage, setAvatarImage] = useState<ImgType[]>([]);
 
@@ -197,9 +195,9 @@ export function ImgsProvider({ children }: ChildrenContext) {
         }
     }, [user]);
 
-    const inertReportImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inertReportImage = async (fileImage: File) => {
         try {
-            const file = e.target.files?.[0];
+            const file = fileImage;
 
             if (!file) {
                 toast.error('No file selected.');
@@ -213,7 +211,7 @@ export function ImgsProvider({ children }: ChildrenContext) {
 
             if (data) {
                 getRportImage();
-                // await updateReportImagePath(data.path)
+                return data.path;
             } else {
                 console.error(error);
             }
