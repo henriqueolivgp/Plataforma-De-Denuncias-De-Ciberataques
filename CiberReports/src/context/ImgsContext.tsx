@@ -22,7 +22,7 @@ export type ImgsDataContext = {
   getRportImage: () => Promise<{  reportImage: ImgType[] } | undefined>
   uploadBanner: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
   uploadAvatar: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
-  inertReportImage: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+  inertReportImage: (pathImage: string) => Promise<string | undefined>;
   updateAvatar: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
   updateBanner: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
   // Reports Image

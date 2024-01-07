@@ -1,22 +1,17 @@
 import { Datepicker } from 'flowbite-react';
 import { useReports } from '../../../../hooks/useReports';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useAuth } from '../../../../hooks/useAuth';
-import { useImgs } from '../../../../hooks/useImgs';
 import { Loading } from '../../../components/Loading';
 
 function Reports() {
 
-  const { insertReports, setTitle, title, description, setDescription } = useReports();
+  const { insertReports, setTitle, title, description, setDescription, setImg, img } = useReports();
   const [isLoading, setisLoading] = useState(true);
   const { user } = useAuth();
-  const { inertReportImage } = useImgs();
  
   const insertForm = async (e: FormEvent<HTMLFormElement>) => {
     await insertReports(e)
-  }
-  const insertReportImg = async (e: ChangeEvent<HTMLInputElement>) => {
-    await inertReportImage(e)
   }
 
   useEffect(() => {
@@ -31,6 +26,8 @@ function Reports() {
   if (isLoading || !user) {
     return <Loading/>;
   }
+
+  console.log(img)
 
   return (
     <>
@@ -68,9 +65,11 @@ function Reports() {
               <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
             </div>
             <input
-              onChange={(e) => {
-                insertReportImg(e); // 👈 this will trigger when user selects the file.
-              }}
+              // onChange={(e) => {
+              //   insertReportImg(e); // 👈 this will trigger when user selects the file.
+              // }}
+              onChange={(e) => setImg(e.target.value)}
+
               id="dropzone-file"
               type="file"
               className="hidden" />

@@ -5,11 +5,13 @@ import ChildrenContext, { ReportsContext } from "../context/ReportsContext";
 import type { reports } from "../context/ReportsContext";
 import { useAuth } from "../hooks/useAuth";
 import { toast } from "react-toastify";
+import { useImgs } from "../hooks/useImgs";
 
 export function ReportsProvider({ children }: ChildrenContext) {
   const [reports, setReports] = useState<reports[]>([]);
   const [myReport, setMyReport] = useState<reports[]>([]);
   const { user } = useAuth();
+  const { inertReportImage } = useImgs();
 
   const getMyReport = async () => {
 
@@ -53,6 +55,7 @@ export function ReportsProvider({ children }: ChildrenContext) {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [topic, setTopic] = useState<string>('');
+  const [img, setImg] = useState<string>('');
   const [date, setDate] = useState<Date>(new Date());
 
   const insertReports = async (e: FormEvent<HTMLFormElement>) => {
@@ -75,65 +78,60 @@ export function ReportsProvider({ children }: ChildrenContext) {
 
       } else {
 
-        const { data, error } = await SupaBaseClient.from('reports').insert(newReport).select().single();
+        const { data } = await SupaBaseClient.from('reports').insert(newReport).select().single();
+        
+        const reportSaveDB: reports = data;
+
+        const pathImgDB = await inertReportImage(img);
+
+        if(pathImgDB){
+          await updateReportImagePath(reportSaveDB.id,pathImgDB);
+        }
 
         setReports([data.data]);
         setTopic('');
         setTitle('');
+        setImg('');
         setDescription('');
         setDate(new Date());
 
-        console.log("Erro do insert" + error);
-
       }
-
-
 
     } catch (error) {
       toast.error("Erro do insert" + error);
     }
 
-
-
-
-
-
   };
 
-  // const updateReportImagePath = async (pathImage: string) => {
+  const updateReportImagePath = async (idReport: string,pathImage: string) => {
 
-  //   // se for diferente de nada ele altera pq se nao for nada ele nao altera
+    // se for diferente de nada ele altera pq se nao for nada ele nao altera
 
-  //   const newReport = {
-  //     user_id: user?.id,
-  //     image_report_path: pathImage
-  //   };
+    const newReport = {
+      id: idReport,
+      image_report_path: pathImage
+    };
 
-  //   try {
+    try {
+      // Assuming 'profiles' is the correct table name
+      const { data, error } = await SupaBaseClient.from('reports')
+        .upsert(newReport)
+        .select()
+        .single()
 
-  //     console.log(pathImage)
-  //     console.log('antes do const:')
-  //     // Assuming 'profiles' is the correct table name
-  //     const { data, error } = await SupaBaseClient.from('reports')
-  //       .insert( newReport )
-  //       .select()
-  //       .single()
+      if (error) {
+        throw error;
+      }
+      // Set the profile state by accessing the data array
+      setReports([data[0]]);
 
-  //     if (error) {
-  //       throw error;
-  //     }
+      console.log("Report updated successfully");
+    } catch (error) {
+      console.error("Error updating reports:");
+      console.log(error)
+    }
 
-  //     // Set the profile state by accessing the data array
-  //     setReports([data[0]]);
-  //     setPathImage(pathImage)
-
-  //     console.log("Report updated successfully");
-  //   } catch (error) {
-  //     console.error("Error updating reports:");
-  //     console.log(error)
-  //   }
-
-  // };
+  };
 
   //   const updateProfile = async (e: FormEvent<HTMLFormElement>) => {
 
@@ -201,7 +199,7 @@ export function ReportsProvider({ children }: ChildrenContext) {
   //   };
 
   return (
-    <ReportsContext.Provider value={{ reports, myReport, title, description, topic, date, setTitle, setDescription, setTopic, setDate, getAllReports, getMyReport, insertReports }}>
+    <ReportsContext.Provider value={{ reports, myReport, title, description, topic, date, img, setTitle, setImg, setDescription, setTopic, setDate, getAllReports, getMyReport, insertReports, updateReportImagePath }}>
       {children}
     </ReportsContext.Provider>
   );
