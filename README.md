@@ -33,7 +33,7 @@ In the GitHub edit, drag the video that it already puts on github itself.
 ## 🎨 Layout
 
 Layout developed by **Henrique Oliveira** and **Pedro Ferreira**<br>
-└──> [Layout]()
+└──> [Layout](https://app.visily.ai/projects/9dc5e6b0-76df-436c-8658-478c3c9da366/boards/550049)
 
 ## 👏 Learning and more Implementations
 
