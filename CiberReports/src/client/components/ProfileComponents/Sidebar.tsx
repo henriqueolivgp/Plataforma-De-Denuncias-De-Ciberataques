@@ -11,7 +11,7 @@ function Explore() {
     const location = useLocation();
     const { signOut } = useAuth();
     const navigate = useNavigate();
-    const { verificaAdmin, isAdmin } = useProfile();
+    const { verificaAdmin, isAdmin, isSpecialist } = useProfile();
 
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement | null>(null);
@@ -80,6 +80,9 @@ function Explore() {
                             <ProfileLi to="/profile/edit-profile" name="Edit-Profile" activeTo={location.pathname} activeLocal={location.pathname} svg={'editprofile'} />
                             <ProfileLi to="/profile/reports" name="Reports" activeTo={location.pathname} activeLocal={location.pathname} svg={'reports'} />
                             <ProfileLi to="/profile/chat" name="Chat" activeTo={location.pathname} activeLocal={location.pathname} svg={'chat'} />
+                            {isSpecialist && (
+                            <ProfileLi to="/profile/chat" name="Chat" activeTo={location.pathname} activeLocal={location.pathname} svg={'chat'} />
+                            )}
                             {isAdmin && (
                                 <ProfileLi to="/profile/admin" name="Admin Control" activeTo={location.pathname} activeLocal={location.pathname} svg={'admin'} />
                             )}
