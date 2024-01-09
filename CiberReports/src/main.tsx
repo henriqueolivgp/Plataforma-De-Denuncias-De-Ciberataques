@@ -30,6 +30,7 @@ import RegisterProfile from "./client/screens/RegisterProfile.tsx";
 import Admin from "./client/screens/Profile/ProfileSubpages/Admin.tsx";
 import { PrivateAdmin } from "./client/routes/PrivateAdmin.tsx";
 import { ReportsProvider } from "./providers/ReportsProvider.tsx";
+import UsersHistoric from "./client/screens/Profile/ProfileSubpages/UsersHistoric.tsx";
 
 // criação da const function
 const router = createBrowserRouter([
@@ -87,6 +88,14 @@ const router = createBrowserRouter([
             element: (
               <PrivateAdmin
                 element={<Admin />}
+              />
+            )
+          },
+          {
+            path: "/profile/user-historic",
+            element: (
+              <PrivateAdmin
+                element={<UsersHistoric/>}
               />
             )
           },

@@ -5,7 +5,7 @@ interface ProfileLiProps extends LinkProps {
     name: string
     activeTo: string
     activeLocal: string
-    svg: 'editprofile' | 'reports' | 'chat' | 'admin' | 'settings' | 'logout'
+    svg: 'editprofile' | 'reports' | 'chat' | 'admin' | 'settings' | 'logout' | 'userhistoric'
 }
 
 export function ProfileLi({ to, name, activeTo, activeLocal, svg, ...rest }: ProfileLiProps) {
@@ -45,6 +45,11 @@ export function ProfileLi({ to, name, activeTo, activeLocal, svg, ...rest }: Pro
                     <svg className={`flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white ${isActiveSvg ? ' text-gray-900' : 'text-gray-500'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m13 7-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
+                )}
+                {svg === 'userhistoric' && (
+                    <svg className={`flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white ${isActiveSvg ? ' text-gray-900' : 'text-gray-500'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
+                  </svg>
                 )}
 
                 <span className="ms-3">{name}</span>

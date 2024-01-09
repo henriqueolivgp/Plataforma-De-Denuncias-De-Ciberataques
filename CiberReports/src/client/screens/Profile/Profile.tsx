@@ -142,6 +142,7 @@ function Profile() {
                 </div>
               </div>
             </div>
+            
             <Sidebar />
           </div>
         </div>
