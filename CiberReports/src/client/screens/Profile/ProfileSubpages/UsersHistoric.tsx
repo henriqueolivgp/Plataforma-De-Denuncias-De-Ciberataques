@@ -43,7 +43,7 @@ function UsersHistoric() {
               </ul>
             </div>
             <div className="flex flex-col md:flex-row md:flex-wrap -mx-4">
-              {reports.map((reports) => {
+              {/* {reports.map((reports) => {
                 console.log(reports.image_report_path)
                 return (
   
@@ -95,7 +95,7 @@ function UsersHistoric() {
                     </div>
                   </div>
                 )
-              })}
+              })} */}
             </div>
             <div className="flex items-center justify-center">
               <button
