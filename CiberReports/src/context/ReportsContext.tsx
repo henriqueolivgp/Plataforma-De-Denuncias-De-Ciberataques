@@ -1,7 +1,7 @@
 import { FormEvent, ReactNode, createContext } from "react";
 
 export interface reports {
-  id: string;
+  id: number;
   user_id: string;
   title: string;
   description: string;

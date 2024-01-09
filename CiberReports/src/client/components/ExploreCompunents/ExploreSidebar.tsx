@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { useReports } from "../../../hooks/useReports";
 import { useImgs } from "../../../hooks/useImgs";
+const [selectedReportId, setSelectedReportId] = useState<number | null>(null);
 
 
 function ExploreSidebar() {
@@ -16,6 +17,20 @@ function ExploreSidebar() {
 
     const URLAvatar =
         "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/ReportsImage/";
+
+    const openModal = (reportId: number) => {
+        setSelectedReportId(reportId);
+        const selectedReport = reports.find((reports) => reports.id === reportId);
+        if (selectedReport) {
+           
+
+          }
+        setModalIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
 
     const handleOutsideClick = (event: MouseEvent) => {
         const target = event.target as Node;
@@ -45,16 +60,6 @@ function ExploreSidebar() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-
-    const openModal = () => {
-        setModalIsOpen(true);
-    };
-
-    const closeModal = () => {
-        setModalIsOpen(false);
-    };
-
 
     return (
         <>
@@ -152,7 +157,7 @@ function ExploreSidebar() {
                                                         </p>
                                                         <a
                                                             href="#"
-                                                            onClick={openModal}
+                                                            onClick={() => openModal(reports.id)}
                                                             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-bluelite rounded-lg hover:bg-bluelite focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                                         >
                                                             Read more
@@ -194,7 +199,7 @@ function ExploreSidebar() {
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 max-w-md max-h-full">
                         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                                Create New Product
+                                View Report
                             </h3>
                             <button
                                 type="button"
@@ -219,52 +224,31 @@ function ExploreSidebar() {
                             </button>
                         </div>
                         <form className="p-4 md:p-5">
-                            <div className="grid gap-4 mb-4 grid-cols-2">
-                                <div className="col-span-2">
-                                    <label
-                                        htmlFor="name"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    >
-                                        Id:
-                                    </label>
+                            {reports
+                                .filter((reports) => reports.id === selectedReportId) // Assuming you want to filter profiles with an 'id'
+                                .map((selectedReport) => (
+                                    <div className="grid gap-4 mb-4 grid-cols-2" key={selectedReport.id}>
+                                        <div className="col-span-2">
 
-                                    <label
-                                        htmlFor="name"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    >
-                                        All Name
-                                    </label>
+                                            <label
+                                                htmlFor="name"
+                                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                            >
+                                                Id: {selectedReport.id}
 
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        id="name"
-                                        value="hbbyhb"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    />
-                                </div>
+                                            </label>
 
-                                <div className="flex items-center mb-4">
-                                    <input
-                                        type="checkbox"
-                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                    />
-                                    <label className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Is Admin:{" "}
-                                    </label>
-                                </div>
+                                            <label
+                                                htmlFor="name"
+                                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                            >
+                                                All Name
+                                            </label>
 
-                                <div className="flex items-center mb-4">
-                                    <input
-                                        type="checkbox"
-                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                    />
-                                    <label className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Is Specialist:{" "}
-                                    </label>
-                                </div>
+                                        </div>
 
-                            </div>
+                                    </div>
+                                ))}
 
                             <div className="flex justify-between">
                                 <button
