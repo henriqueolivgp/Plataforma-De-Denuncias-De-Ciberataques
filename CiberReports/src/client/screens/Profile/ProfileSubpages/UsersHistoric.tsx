@@ -29,6 +29,9 @@ function UsersHistoric() {
     setSelectedReportId(userId);
 
     const selectedProfile = myReport.find((report) => report.id === userId);
+    if(selectedProfile){
+      
+    }
 
     setModalIsOpen(true);
   };
