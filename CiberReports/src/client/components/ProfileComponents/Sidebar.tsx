@@ -39,17 +39,13 @@ function Explore() {
             await verificaAdmin();
             setisLoading(false)
         };
-
         fetchData();
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (isLoading) {
         return <Loading />
     }
-
-
 
     const handleLogOut = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -80,6 +76,7 @@ function Explore() {
                             <ProfileLi to="/profile/edit-profile" name="Edit-Profile" activeTo={location.pathname} activeLocal={location.pathname} svg={'editprofile'} />
                             <ProfileLi to="/profile/reports" name="Reports" activeTo={location.pathname} activeLocal={location.pathname} svg={'reports'} />
                             <ProfileLi to="/profile/chat" name="Chat" activeTo={location.pathname} activeLocal={location.pathname} svg={'chat'} />
+                            <ProfileLi to="/profile/user-historic" name="Historic Reports" activeTo={location.pathname} activeLocal={location.pathname} svg={'userhistoric'} />
                             {isSpecialist && (
                             <ProfileLi to="/profile/chat" name="Chat" activeTo={location.pathname} activeLocal={location.pathname} svg={'chat'} />
                             )}
