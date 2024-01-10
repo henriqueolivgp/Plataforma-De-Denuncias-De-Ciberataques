@@ -105,7 +105,7 @@ export function ReportsProvider({ children }: ChildrenContext) {
 
   };
 
-  const updateReportImagePath = async (idReport: string, pathImage: string) => {
+  const updateReportImagePath = async (idReport: number, pathImage: string) => {
 
     // se for diferente de nada ele altera pq se nao for nada ele nao altera
 

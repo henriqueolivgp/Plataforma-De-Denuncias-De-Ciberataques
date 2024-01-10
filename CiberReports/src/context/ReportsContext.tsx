@@ -1,7 +1,6 @@
 import { FormEvent, ReactNode, createContext } from "react";
 
 export interface reports {
-  date: any;
   id: number;
   user_id: string;
   title: string;
@@ -33,7 +32,7 @@ export type ReportsDataContext = {
   getAllReports: () => Promise<void>;
   getMyReport: () => Promise<void>;
   insertReports: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-  updateReportImagePath: (idReport: string, pathImage: string) => Promise<void>;
+  updateReportImagePath: (idReport: number, pathImage: string) => Promise<void>;
 };
 
 export const ReportsContext = createContext<ReportsDataContext>(
