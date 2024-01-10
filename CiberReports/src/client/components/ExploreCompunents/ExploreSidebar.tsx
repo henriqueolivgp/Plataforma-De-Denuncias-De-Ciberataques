@@ -39,6 +39,10 @@ function ExploreSidebar() {
 
         const selectedReport = myReport.find((report) => report.id === reportId);
 
+        if(selectedReport){
+      
+        }
+
         setModalIsOpen(true);
     };
 
