@@ -5,7 +5,7 @@ import { Loading } from "../Loading";
 
 function ExploreSidebar() {
 
-    const { getAllReports, myReport } = useReports();
+    const { getAllReports, reports } = useReports();
     const { getRportImage, } = useImgs();
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +37,7 @@ function ExploreSidebar() {
 
         setSelectedReportId(reportId);
 
-        const selectedReport = myReport.find((report) => report.id === reportId);
+        const selectedReport = reports.find((report) => report.id === reportId);
 
         if(selectedReport){
       
@@ -135,13 +135,13 @@ function ExploreSidebar() {
                                     </ul>
                                 </div>
                                 <div className="flex flex-col md:flex-row md:flex-wrap -mx-4">
-                                    {myReport.map((report) => {
+                                    {reports.map((report) => {
                                         return (
 
                                             <div className="w-full md:w-1/4 px-4 mb-4" key={report.id} >
                                                 <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" >
 
-                                                    <a href="#">
+                                               
                                                         <img
                                                             className="rounded-t-lg"
                                                             src={
@@ -151,13 +151,13 @@ function ExploreSidebar() {
                                                             }
                                                             alt="ReportImage"
                                                         />
-                                                    </a>
+                                               
                                                     <div className="p-5">
-                                                        <a href="#">
+                                                       
                                                             <h5 className="truncate mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                                                 {report.title}
                                                             </h5>
-                                                        </a>
+                                                      
                                                         <p className="mb-3 font-normal truncate text-gray-700 dark:text-gray-400">
                                                             {report.description}
                                                         </p>
@@ -230,13 +230,13 @@ function ExploreSidebar() {
                             </button>
                         </div>
                         <form className="p-4 md:p-5">
-                            {myReport.filter((reports) => reports.id === selectedReportId) // Assuming you want to filter profiles with an 'id'
+                            {reports.filter((reports) => reports.id === selectedReportId) // Assuming you want to filter profiles with an 'id'
                                 .map((selectedReport) => {
                                     return (
                                         <div className="p-4 md:p-5 space-y-4">
                                             {/* Display Report Details */}
 
-                                            <a href="#">
+                                            
                                                 <img
                                                     className="rounded-t-lg"
                                                     src={
@@ -246,7 +246,7 @@ function ExploreSidebar() {
                                                     }
                                                     alt="ReportImage"
                                                 />
-                                            </a>
+                                            
 
                                             <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
                                                 <span className="font-semibold text-gray-900 dark:text-white">Titulo:</span> {selectedReport.title}

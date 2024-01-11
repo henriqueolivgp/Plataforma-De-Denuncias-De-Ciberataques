@@ -41,8 +41,7 @@ export function ReportsProvider({ children }: ChildrenContext) {
 
   const getAllReports = async () => {
 
-    const { data } = await SupaBaseClient
-      .from("reports")
+    const { data } = await SupaBaseClient.from("reports")
       .select("*")
 
     // Certifique-se de que 'data' não é undefined antes de atribuir a 'setProfile'

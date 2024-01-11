@@ -12,7 +12,7 @@ function AboutUs() {
             <img className="w-96" src={logo} alt="logo" />
           </div>
           <div className="mt-12">
-            <h1 className="text-2xl font-bold">About Us:</h1>
+            <h1 className="text-2xl font-bold">About <span className="text-bluelite">Us:</span></h1>
           </div>
           <div className=" bg-gray-200 p-8 rounded-lg text-justify">
             <p className="text-lg">
