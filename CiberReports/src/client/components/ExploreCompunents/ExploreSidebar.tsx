@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useReports } from "../../../hooks/useReports";
 import { useImgs } from "../../../hooks/useImgs";
 import { Loading } from "../Loading";
@@ -9,8 +9,7 @@ function ExploreSidebar() {
     const { getAllReports, reports } = useReports();
     const { getRportImage, } = useImgs();
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
-    const menuRef = useRef<HTMLDivElement | null>(null);
+ 
     const [selectedReportId, setSelectedReportId] = useState<number | null>(null);
     const [isLoading, setisLoading] = useState(true);
     const [filterType, setFilterType] = useState("All");
@@ -57,21 +56,6 @@ function ExploreSidebar() {
         setModalIsOpen(false);
     };
 
-    const handleOutsideClick = (event: MouseEvent) => {
-        const target = event.target as Node;
-
-        // Verifica se o clique foi fora do menu
-        if (menuRef.current && !menuRef.current.contains(target)) {
-            setIsOpen(false);
-        }
-    };
-    useEffect(() => {
-        document.addEventListener('click', handleOutsideClick);
-
-        return () => {
-            document.removeEventListener('click', handleOutsideClick);
-        };
-    }, []);
 
 
     return (
