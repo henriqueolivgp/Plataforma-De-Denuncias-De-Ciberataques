@@ -31,6 +31,8 @@ import Admin from "./client/screens/Profile/ProfileSubpages/Admin.tsx";
 import { PrivateAdmin } from "./client/routes/PrivateAdmin.tsx";
 import { ReportsProvider } from "./providers/ReportsProvider.tsx";
 import UsersHistoric from "./client/screens/Profile/ProfileSubpages/UsersHistoric.tsx";
+import AllReports from "./client/screens/Profile/ProfileSubpages/AllReports.tsx";
+import { PrivateSpecialist } from "./client/routes/PrivateSpecialist.tsx";
 
 // criação da const function
 const router = createBrowserRouter([
@@ -93,9 +95,13 @@ const router = createBrowserRouter([
           },
           {
             path: "/profile/user-historic",
+            element: <UsersHistoric/>
+          },
+          {
+            path: "/profile/all-reports",
             element: (
-              <PrivateAdmin
-                element={<UsersHistoric/>}
+              <PrivateSpecialist
+                element={<AllReports/>}
               />
             )
           },

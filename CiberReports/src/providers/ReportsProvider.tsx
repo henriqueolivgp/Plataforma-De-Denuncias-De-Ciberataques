@@ -25,11 +25,11 @@ export function ReportsProvider({ children }: ChildrenContext) {
           .eq('user_id', user.id);
 
         if (error) {
-          console.error('Erro ao obter report:', error.message);
+          
           return;
         }
 
-        setMyReport(data || []);
+        setMyReport(data);
       } catch (error) {
         console.error('Erro durante a obtenção do report:');
       }
@@ -41,8 +41,7 @@ export function ReportsProvider({ children }: ChildrenContext) {
 
   const getAllReports = async () => {
 
-    const { data } = await SupaBaseClient
-      .from("reports")
+    const { data } = await SupaBaseClient.from("reports")
       .select("*")
 
     // Certifique-se de que 'data' não é undefined antes de atribuir a 'setProfile'
@@ -134,6 +133,22 @@ export function ReportsProvider({ children }: ChildrenContext) {
     }
 
   };
+
+  // Função para contar os reports de uma pessoa
+  const countReports = async (userId: string) => {
+
+    const { data, error } = await SupaBaseClient.from('reports').select('num-reports', { count: 'exact' })
+      .eq('user_id', userId);
+
+    if (error) {
+      console.error('Erro ao buscar os reports:', error.message);
+      return 0;
+    }
+
+    // return data ? data.count : 0;
+  };
+
+
 
   //   const updateProfile = async (e: FormEvent<HTMLFormElement>) => {
 

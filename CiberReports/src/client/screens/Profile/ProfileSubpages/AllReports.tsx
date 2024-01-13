@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
 import { useReports } from "../../../../hooks/useReports";
 import { Loading } from "../../../components/Loading";
-import UserHistoricComponent from "../../../components/ProfileComponents/UserHistoricComponent";
 
-function UsersHistoric() {
+function AllReports() {
 
-  const { getMyReport, myReport } = useReports();
+  const { getAllReports, reports } = useReports();
   const [isLoading, setisLoading] = useState(true);
   const ReportImage = "https://tswdlagzqgorbbabshyx.supabase.co/storage/v1/object/public/ReportsImage/";
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedReportId, setSelectedReportId] = useState<number | null>(null);
-  const [filterType, setFilterType] = useState("All");
 
   const fetchData = async () => {
     setisLoading(true)
-    await getMyReport();
+    await getAllReports();
     setisLoading(false)
   }
 
@@ -30,9 +28,9 @@ function UsersHistoric() {
   const openModal = (userId: number) => {
     setSelectedReportId(userId);
 
-    const selectedReport = myReport.find((report) => report.id === userId);
-    if (selectedReport) {
-
+    const selectedProfile = reports.find((report) => report.id === userId);
+    if(selectedProfile){
+      
     }
 
     setModalIsOpen(true);
@@ -43,32 +41,60 @@ function UsersHistoric() {
     setModalIsOpen(false);
   };
 
-  // Filtrar relatórios com base no estado do filtro
-  const filteredReports = myReport.filter(
-    (report) => filterType === "All" || report.topic === filterType
-  );
+
 
 
 
   return (
     <>
       <div className="container mx-auto ">
-        <div className="content ">
+        <div className="content mx-auto">
           <div className="text-justify">
             <h1 className="text-3xl font-bold mb-4 text-center">
               Historic <span className="text-bluelite">reports</span>
             </h1>
 
-           <UserHistoricComponent setFilterType={setFilterType}  filterType="All"  />
+            <div className="text-md font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+              <ul className="flex flex-wrap -mb-px justify-center">
+                <li className="me-2">
+                  <a
+                    href="#"
+                    className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                  >
+                    All
+                  </a>
+                </li>
+                <li className="me-2">
+                  <a
+                    href="#"
+                    className="inline-block p-4 text-bluelite border-b-2 border-bluelite rounded-t-lg active dark:text-blue-500 dark:border-blue-500"
+                    aria-current="page"
+                  >
+                    Trending
+                  </a>
+                </li>
+                <li className="me-2">
+                  <a
+                    href="#"
+                    className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                  >
+                    Recent
+                  </a>
+                </li>
+                <li>
+                  <a className="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">
+                    Disabled
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="flex flex-col md:flex-row md:flex-wrap -mx-4">
+              {reports.map((reports) => {
+                return (
+                  <div className="w-full md:w-1/4 px-4 mb-4"  >
 
-            {/* map */}
-            <div className="flex  justify-center items-center">
 
-              <div className="flex flex-wrap">
-                {filteredReports.map((reports) => (
-                  <div className="w-1/4 px-4 mb-4 flex-grow" key={reports.id} >
-
-                    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" >
+                    <div className=" key={reports.id} max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" >
 
                       <a href="#">
                         <img
@@ -116,11 +142,9 @@ function UsersHistoric() {
                     </div>
 
                   </div>
-
-                ))}
-              </div>
+                )
+              })}
             </div>
-
             <div className="flex items-center justify-center">
             </div>
           </div>
@@ -165,7 +189,7 @@ function UsersHistoric() {
                 <span className="sr-only">Close modal</span>
               </button>
             </div>
-            {myReport.filter((report) => report.id === selectedReportId)
+            {reports.filter((report) => report.id === selectedReportId)
               .map((selectedReport) => {
                 return (
                   <div className="p-4 md:p-5 space-y-4">
@@ -199,7 +223,6 @@ function UsersHistoric() {
                 )
 
               })}
-
           </div>
         </div>
       </div>
@@ -210,4 +233,4 @@ function UsersHistoric() {
 
 }
 
-export default UsersHistoric;
+export default AllReports;

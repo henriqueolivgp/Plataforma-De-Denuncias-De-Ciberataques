@@ -6,7 +6,7 @@ interface PrivateRoutesProps {
   element: ReactNode;
 }
 
-export function PrivateAdmin({
+export function PrivateSpecialist({
   element,
 }: PrivateRoutesProps) {
   const { isSpecialist } = useProfile();
@@ -14,7 +14,7 @@ export function PrivateAdmin({
   if (!isSpecialist) {
     return isSpecialist ? element : <Navigate to='/' replace />;
   }else{
-    return isSpecialist ? element : <Navigate to='/profile/admin' replace />
+    return isSpecialist ? element : <Navigate to='/profile/all-reports' replace />
   }
   
 }
