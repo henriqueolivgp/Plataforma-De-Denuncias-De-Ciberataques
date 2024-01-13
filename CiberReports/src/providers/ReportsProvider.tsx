@@ -25,11 +25,11 @@ export function ReportsProvider({ children }: ChildrenContext) {
           .eq('user_id', user.id);
 
         if (error) {
-          console.error('Erro ao obter report:', error.message);
+          
           return;
         }
 
-        setMyReport(data || []);
+        setMyReport(data);
       } catch (error) {
         console.error('Erro durante a obtenção do report:');
       }
@@ -145,7 +145,7 @@ export function ReportsProvider({ children }: ChildrenContext) {
       return 0;
     }
 
-    return data ? data.count : 0;
+    // return data ? data.count : 0;
   };
 
 

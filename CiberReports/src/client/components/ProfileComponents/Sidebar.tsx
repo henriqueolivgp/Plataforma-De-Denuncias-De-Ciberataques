@@ -11,7 +11,7 @@ function Explore() {
     const location = useLocation();
     const { signOut } = useAuth();
     const navigate = useNavigate();
-    const { verificaAdmin, isAdmin, isSpecialist } = useProfile();
+    const { verificaAdmin, isAdmin, verificaSpecialist, isSpecialist } = useProfile();
 
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement | null>(null);
@@ -37,6 +37,7 @@ function Explore() {
         const fetchData = async () => {
             setisLoading(true)
             await verificaAdmin();
+            await verificaSpecialist();
             setisLoading(false)
         };
         fetchData();
@@ -78,7 +79,7 @@ function Explore() {
                             <ProfileLi to="/profile/chat" name="Chat" activeTo={location.pathname} activeLocal={location.pathname} svg={'chat'} />
                             <ProfileLi to="/profile/user-historic" name="Historic Reports" activeTo={location.pathname} activeLocal={location.pathname} svg={'userhistoric'} />
                             {isSpecialist && (
-                            <ProfileLi to="/profile/chat" name="Chat" activeTo={location.pathname} activeLocal={location.pathname} svg={'chat'} />
+                            <ProfileLi to="/profile/all-reports" name="All Reports" activeTo={location.pathname} activeLocal={location.pathname} svg={'chat'} />
                             )}
                             {isAdmin && (
                                 <ProfileLi to="/profile/admin" name="Admin Control" activeTo={location.pathname} activeLocal={location.pathname} svg={'admin'} />

@@ -49,6 +49,7 @@ function Admin() {
   };
 
   const updateProfile = async (e: FormEvent<HTMLFormElement>) => {
+    
     e.preventDefault();
 
     await updateUsersProfile(selectedUserId!, e);

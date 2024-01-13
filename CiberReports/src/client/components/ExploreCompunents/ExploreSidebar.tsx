@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useReports } from "../../../hooks/useReports";
 import { useImgs } from "../../../hooks/useImgs";
 import { Loading } from "../Loading";
+import FiltersComponent from "./FiltersComponent";
 
 function ExploreSidebar() {
 
@@ -12,6 +13,7 @@ function ExploreSidebar() {
     const menuRef = useRef<HTMLDivElement | null>(null);
     const [selectedReportId, setSelectedReportId] = useState<number | null>(null);
     const [isLoading, setisLoading] = useState(true);
+    const [filterType, setFilterType] = useState("All");
 
     const fetchData = async () => {
         setisLoading(true)
@@ -33,14 +35,19 @@ function ExploreSidebar() {
         <Loading />
     }
 
+    // Filtrar relatórios com base no estado do filtro
+    const filteredReports = reports.filter(
+        (report) => filterType === "All" || report.topic === filterType
+    );
+
     const openModal = (reportId: number) => {
 
         setSelectedReportId(reportId);
 
         const selectedReport = reports.find((report) => report.id === reportId);
 
-        if(selectedReport){
-      
+        if (selectedReport) {
+
         }
 
         setModalIsOpen(true);
@@ -71,28 +78,6 @@ function ExploreSidebar() {
         <>
             <div >
                 <div className="flex flex-1 ">
-                    <aside id="default-sidebar" className={` mt-20 absolute z-50 lg:relative ${isOpen ? " " : "hidden"} xl:block lg:block llg:hidden w-64 h-auto transition-transform sm:-translate-x-0 lg:translate-x-0  `} aria-label="Sidebar">
-                        <div className=" h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-                            <ul className="space-y-2 font-medium">
-                                <li>
-                                    <li className="block  md:p-0 mb-4">
-                                        <div className="flex items-center">
-                                            <svg className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                                                <path d="M18.85 1.1A1.99 1.99 0 0 0 17.063 0H2.937a2 2 0 0 0-1.566 3.242L6.99 9.868 7 14a1 1 0 0 0 .4.8l4 3A1 1 0 0 0 13 17l.01-7.134 5.66-6.676a1.99 1.99 0 0 0 .18-2.09Z" />
-                                            </svg>
-                                            <h1 className="ml-2">Filters</h1>
-                                        </div>
-                                    </li>
-                                    <div className="flex items-center">
-                                        <h1></h1>
-                                        <input checked id="checked-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                        <label htmlFor="checked-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Checked state</label>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </aside>
-
                     <div className="flex-1">
                         <div className="content-box p-4 w-auto">
                             <div className="text-justify">
@@ -100,64 +85,32 @@ function ExploreSidebar() {
                                     Explore <span className="text-bluelite">reports</span>
                                 </h1>
 
-                                <div className="text-md font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
-                                    <ul className="flex flex-wrap -mb-px justify-center lg:hidden">
-                                        <li className="me-2">
-                                            <a
-                                                href="#"
-                                                className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-                                            >
-                                                All
-                                            </a>
-                                        </li>
-                                        <li className="me-2">
-                                            <a
-                                                href="#"
-                                                className="inline-block p-4 text-bluelite border-b-2 border-bluelite rounded-t-lg active dark:text-blue-500 dark:border-blue-500"
-                                                aria-current="page"
-                                            >
-                                                Trending
-                                            </a>
-                                        </li>
-                                        <li className="me-2">
-                                            <a
-                                                href="#"
-                                                className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-                                            >
-                                                Recent
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a className="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">
-                                                Disabled
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="flex flex-col md:flex-row md:flex-wrap -mx-4">
-                                    {reports.map((report) => {
+                                <FiltersComponent setFilterType={setFilterType} filterType="All" />
+
+                                <div className="flex flex-wrap">
+                                    {filteredReports.map((report) => {
                                         return (
 
-                                            <div className="w-full md:w-1/4 px-4 mb-4" key={report.id} >
+                                            <div className="w-1/4 px-4 mb-4 flex-grow" key={report.id} >
                                                 <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" >
 
-                                               
-                                                        <img
-                                                            className="rounded-t-lg"
-                                                            src={
-                                                                report.image_report_path
-                                                                    ? ReportImage + report.image_report_path
-                                                                    : "/defaultImage.jpg"
-                                                            }
-                                                            alt="ReportImage"
-                                                        />
-                                               
+
+                                                    <img
+                                                        className="rounded-t-lg"
+                                                        src={
+                                                            report.image_report_path
+                                                                ? ReportImage + report.image_report_path
+                                                                : "/defaultImage.jpg"
+                                                        }
+                                                        alt="ReportImage"
+                                                    />
+
                                                     <div className="p-5">
-                                                       
-                                                            <h5 className="truncate mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                                                {report.title}
-                                                            </h5>
-                                                      
+
+                                                        <h5 className="truncate mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                                            {report.title}
+                                                        </h5>
+
                                                         <p className="mb-3 font-normal truncate text-gray-700 dark:text-gray-400">
                                                             {report.description}
                                                         </p>
@@ -236,17 +189,17 @@ function ExploreSidebar() {
                                         <div className="p-4 md:p-5 space-y-4">
                                             {/* Display Report Details */}
 
-                                            
-                                                <img
-                                                    className="rounded-t-lg"
-                                                    src={
-                                                        selectedReport.image_report_path
-                                                            ? ReportImage + selectedReport.image_report_path
-                                                            : "/defaultImage.jpg"
-                                                    }
-                                                    alt="ReportImage"
-                                                />
-                                            
+
+                                            <img
+                                                className="rounded-t-lg"
+                                                src={
+                                                    selectedReport.image_report_path
+                                                        ? ReportImage + selectedReport.image_report_path
+                                                        : "/defaultImage.jpg"
+                                                }
+                                                alt="ReportImage"
+                                            />
+
 
                                             <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
                                                 <span className="font-semibold text-gray-900 dark:text-white">Titulo:</span> {selectedReport.title}

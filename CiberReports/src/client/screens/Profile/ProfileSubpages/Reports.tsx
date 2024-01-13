@@ -6,10 +6,10 @@ import { Loading } from '../../../components/Loading';
 
 function Reports() {
 
-  const { insertReports, setTitle, title, description, setDescription, setImg, img } = useReports();
+  const { insertReports, setTitle, title, description, setDescription, setImg, img, topic, setTopic } = useReports();
   const [isLoading, setisLoading] = useState(true);
   const { user } = useAuth();
- 
+
   const insertForm = async (e: FormEvent<HTMLFormElement>) => {
     await insertReports(e)
   }
@@ -24,7 +24,7 @@ function Reports() {
   }, [user]);
 
   if (isLoading || !user) {
-    return <Loading/>;
+    return <Loading />;
   }
 
   console.log(img)
@@ -92,13 +92,27 @@ function Reports() {
         <div className="mt-4">
           <div className="">
             <label htmlFor="selectbox" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Topic</label>
-            <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option selected>Default</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
+            <select
+              id="countries"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+            >
+              <option value="default">Default</option>
+              <option value="Phishing">Phishing</option>
+              <option value="Malware">Malware</option>
+              <option value="Ataques de Negação de Serviço DoS/DDoS">Ataques de Negação de Serviço DoS/DDoS</option>
+              <option value="Intrusões em Sistemas">Intrusões em Sistemas</option>
+              <option value="Vazamento de Dados">Vazamento de Dados</option>
+              <option value="Fraudes Online">Fraudes Online</option>
+              <option value="Abuso Online">Abuso Online</option>
+              <option value="Violência ou Conteúdo Ilícito">Violência ou Conteúdo Ilícito</option>
+              <option value="Exploração de Vulnerabilidades">Exploração de Vulnerabilidades</option>
+              <option value="Incidentes em Redes Sociais">Incidentes em Redes Sociais</option>
+              <option value="Incidentes em Dispositivos Conectados IoT">Incidentes em Dispositivos Conectados IoT</option>
+              <option value="Spam e Phishing por SMS">Spam e Phishing por SMS</option>
             </select>
+
 
           </div>
         </div>
