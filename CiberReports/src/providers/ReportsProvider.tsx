@@ -135,18 +135,18 @@ export function ReportsProvider({ children }: ChildrenContext) {
   };
 
   // Função para contar os reports de uma pessoa
-  const countReports = async (userId: string) => {
+  // const countReports = async (userId: string) => {
 
-    const { data, error } = await SupaBaseClient.from('reports').select('num-reports', { count: 'exact' })
-      .eq('user_id', userId);
+  //   const { data, error } = await SupaBaseClient.from('reports').select('num-reports', { count: 'exact' })
+  //     .eq('user_id', userId);
 
-    if (error) {
-      console.error('Erro ao buscar os reports:', error.message);
-      return 0;
-    }
+  //   if (error) {
+  //     console.error('Erro ao buscar os reports:', error.message);
+  //     return 0;
+  //   }
 
-    // return data ? data.count : 0;
-  };
+  //   // return data ? data.count : 0;
+  // };
 
 
 
