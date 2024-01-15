@@ -7,8 +7,7 @@
     🔗 <a href="https://app.visily.ai/projects/9dc5e6b0-76df-436c-8658-478c3c9da366/boards/550049" target="_blank">Project Link</a> 🔗
   </p>  
   
-  Write here what the project is about.
-  🚧 Project under construction 🚧
+  We are Pedro Ferreira and Henrique Oliveira, a dynamic web development team from ESTG, IPVC in Portugal. We both share enthusiasm for web development. This is our third collaborative project, each one enhancing our skills and deepening our love for web development. We, as students at ESTG, believe in the power of teamwork. Together, in Portugal, we are committed to pushing the boundaries of digital experiences, going beyond websites to create impactful online solutions.
 </p>
 
 ## 🧭 Table of contents
